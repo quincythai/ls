@@ -1,3 +1,8 @@
+# Please read below:
+Kabir's template has good practices that you will want to follow, even though we aren't using Next.js.
+https://github.com/web-at-berkeley/next-template?tab=readme-ov-file#wdb-full-stack-nextjs-template
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
