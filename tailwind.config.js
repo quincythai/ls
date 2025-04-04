@@ -28,11 +28,9 @@ module.exports = {
             1100: '#172632', // Medium tint (dark)
             1200: '#0F1A22', // Darkest tint (dark)
           },
+          "section-stroke": "#E2E2E2",
           // Text color
           text: '#000000', // Black text
-        },
-        fontFamily: {
-          inter: ['Inter', 'sans-serif'], // Define 'Inter' font family
         },
         fontSize: {
           'heading-1': '40px',
