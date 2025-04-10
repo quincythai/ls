@@ -16,11 +16,11 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  CarouselSlide,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Icon } from "@iconify/react";
+import PDFPreview from "./components/pdf/PDFPreview";
 const logoUrl = new URL("./assets/logo.svg", import.meta.url).href;
 
 const states = {
@@ -108,7 +108,9 @@ function App() {
                     <CarouselContent>
                       <CarouselItem className="flex flex-col gap-4">
                         <p>Template 1</p>
-                        <div className="aspect-[8.5/11] bg-white border-2 border-section-stroke w-xl" />
+                        <div className="aspect-[8.5/11] bg-white border-2 border-section-stroke w-xl">
+                          <PDFPreview />
+                        </div>
                       </CarouselItem>
                       <CarouselItem className="flex flex-col gap-4">
                         <p>Template 2</p>
@@ -148,25 +150,23 @@ function App() {
                 </div>
               </TabsContent>
               <TabsContent value="edit" className="space-y-6">
-                  <h2 className="text-2xl font-bold">
-                    Edit
-                  </h2>
-                  <div className="flex gap-4">
-                    <div className="w-full grow bg-white rounded-lg border-2 border-section-stroke px-20 py-9 flex flex-col gap-5 items-center">
-                      <h2 className="text-lg font-bold">
-                        Preview
-                      </h2>
-                      <div className="aspect-[8.5/11] bg-white border-2 border-section-stroke w-xl px-8 py-10 text-sm">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident dolorum esse autem, numquam saepe quod nihil dignissimos perferendis omnis labore modi, dolore molestias. Officia harum, iusto sapiente sequi similique totam?
-                      </div>
-                    </div>
-                    <div className="max-w-xs shrink-0 flex flex-col items-stretch w-full gap-2">
-                      <Button variant="outline">
-                        <Icon icon="mdi:pencil-outline" className="size-5" />
-                        Edit Text
-                      </Button>
-                    </div>
+                <h2 className="text-2xl font-bold">
+                  Edit
+                </h2>
+                <div className="flex gap-4">
+                  <div className="w-full grow bg-white rounded-lg border-2 border-section-stroke px-20 py-9 flex flex-col gap-5 items-center">
+                    <h2 className="text-lg font-bold">
+                      Preview
+                    </h2>
+                    <PDFPreview />
                   </div>
+                  <div className="max-w-xs shrink-0 flex flex-col items-stretch w-full gap-2">
+                    <Button variant="outline">
+                      <Icon icon="mdi:pencil-outline" className="size-5" />
+                      Edit Text
+                    </Button>
+                  </div>
+                </div>
               </TabsContent>
               <TabsContent value="confirmation" className="space-y-6">
                 <h2 className="text-2xl font-bold">
