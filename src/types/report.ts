@@ -5,7 +5,7 @@ export type Metric = {
     VALUE: number;
   };
   
-  export type LsiReport = {
+  export type ReportData = {
     CD: string;
     CD_FIPS: string;
     STATE: string;
