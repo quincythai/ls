@@ -21,6 +21,8 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Icon } from "@iconify/react";
 import PDFPreview from "./components/pdf/PDFPreview";
+import { fetchMockLsiReport } from "./api/ex_endpoint";
+import { Metric, ReportData } from "./types/report";
 const logoUrl = new URL("./assets/logo.svg", import.meta.url).href;
 
 const states = {
@@ -39,6 +41,38 @@ const tabs = {
 function App() {
   const [selectedState, setSelectedState] = useState<string | undefined>(undefined);
   const [selectedDistrict, setSelectedDistrict] = useState<string | undefined>(undefined);
+
+  const [data, setData] = useState<ReportData | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleFetch = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const result = await fetchMockLsiReport("0101");
+      setData(result);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error("Error fetching report:", err.message);
+        setError("Failed to fetch report: " + err.message);
+      } else {
+        console.error("Unexpected error", err);
+        setError("Unexpected error occurred.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const renderMetric = (label: string, metric: Metric) => (
+    <div className="border p-2 rounded bg-gray-100 mb-2">
+      <h3 className="font-semibold">{label}</h3>
+      <p>Location Type: {metric.LOCATION_TYPE}</p>
+      <p>Value: {metric.VALUE}</p>
+      <p>Rank: {metric.RANK} / {metric.TOTAL_COUNT}</p>
+    </div>
+  );
 
   return (
     <>
@@ -78,6 +112,34 @@ function App() {
                 ))}
               </SelectContent>
             </Select>
+            <button
+              onClick={handleFetch}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition mb-4"
+            >
+              Fetch LSI Report
+            </button>
+
+            {loading && <p>Loading...</p>}
+            {error && <p className="text-red-500">{error}</p>}
+
+            {data && (
+              <div className="space-y-4">
+                <h2 className="text-2xl font-bold">LSI Report</h2>
+                <p><strong>Congressional District:</strong> {data.CD}</p>
+                <p><strong>State Name:</strong> {data.CD_FIPS}</p>
+                <p><strong>State FIPS:</strong> {data.STATE_FIPS}</p>
+
+                {renderMetric("Eviction Risk", data.eviction_risk)}
+                {renderMetric("Financial Problems", data.financial_problems)}
+                {renderMetric("Home Ownership Rate", data.home_ownership_rate)}
+                {renderMetric("Housing Underproduction", data.housing_underproduction)}
+                {renderMetric("Median Home Value", data.median_home_value)}
+                {renderMetric("Median Rent", data.median_rent)}
+                {renderMetric("Poverty Concentration", data.poverty_concentration)}
+                {renderMetric("Renting Burdened", data.renting_burdened)}
+                {renderMetric("Social Mobility", data.social_mobility)}
+              </div>
+            )}
           </div>
         </aside>
         <div className="w-full max-w-7xl mx-auto flex items-stretch">
