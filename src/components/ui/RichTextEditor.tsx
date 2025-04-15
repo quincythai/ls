@@ -11,16 +11,16 @@ import { createEditor, Editor, Descendant, Range } from "slate";
 import { withHistory } from "slate-history";
 import ReactDOM from "react-dom";
 
-// Define the prop types for our controlled editor
+// Props
 export interface RichTextEditorProps {
   value: Descendant[];
   onChange: (value: Descendant[]) => void;
 }
 
-// Define formatting types
+// Formatting types
 type Format = "bold" | "italic" | "underline";
 
-// Toggle formatting marks
+// Mark toggle logic
 const toggleMark = (editor: Editor, format: Format) => {
   const isActive = isMarkActive(editor, format);
   if (isActive) {
@@ -30,13 +30,12 @@ const toggleMark = (editor: Editor, format: Format) => {
   }
 };
 
-// Check if formatting is active
 const isMarkActive = (editor: Editor, format: Format) => {
   const marks = Editor.marks(editor);
   return marks ? marks[format] === true : false;
 };
 
-// Toolbar button component
+// Format button
 const FormatButton = ({ format, label }: { format: Format; label: string }) => {
   const editor = useSlate();
   const active = isMarkActive(editor, format);
@@ -46,22 +45,16 @@ const FormatButton = ({ format, label }: { format: Format; label: string }) => {
         e.preventDefault();
         toggleMark(editor, format);
       }}
-      style={{
-        fontWeight: active ? "bold" : "normal",
-        background: active ? "#eee" : "#fff",
-        border: "1px solid #ccc",
-        borderRadius: 4,
-        padding: "4px 8px",
-        cursor: "pointer",
-        marginRight: "4px",
-      }}
+      className={`px-2 py-1 mr-1 text-sm bg-gray-800 ${
+        active ? "font-bold text-white" : "text-gray-400"
+      }`}
     >
       {label}
     </button>
   );
 };
 
-// The floating toolbar itself
+// Toolbar
 const HoveringToolbar = () => {
   const ref = useRef<HTMLDivElement>(null);
   const editor = useSlate();
@@ -98,17 +91,7 @@ const HoveringToolbar = () => {
   return ReactDOM.createPortal(
     <div
       ref={ref}
-      style={{
-        position: "absolute",
-        zIndex: 1000,
-        padding: "8px",
-        backgroundColor: "#222",
-        borderRadius: "4px",
-        opacity: 0,
-        color: "white",
-        display: "flex",
-        transition: "opacity 0.2s",
-      }}
+      className="absolute z-[1000] flex items-center space-x-1 bg-gray-800 text-white px-2 py-1 rounded transition-opacity duration-200 opacity-0"
       onMouseDown={(e) => e.preventDefault()}
     >
       <FormatButton format="bold" label="B" />
@@ -119,7 +102,7 @@ const HoveringToolbar = () => {
   );
 };
 
-// How to render each text leaf with formatting
+// Text formatting
 const renderLeaf = (props: RenderLeafProps) => {
   let { children } = props;
   if (props.leaf.bold) children = <strong>{children}</strong>;
@@ -128,7 +111,7 @@ const renderLeaf = (props: RenderLeafProps) => {
   return <span {...props.attributes}>{children}</span>;
 };
 
-// Main controlled component
+// Main editor
 const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange }) => {
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
@@ -138,12 +121,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange }) => {
       <Editable
         renderLeaf={renderLeaf}
         placeholder="Type something..."
-        style={{
-          border: "1px solid #ccc",
-          padding: "12px",
-          borderRadius: "4px",
-          minHeight: "100px",
-        }}
+        className="border border-gray-300 rounded p-3 min-h-[100px] focus:outline-none"
       />
     </Slate>
   );
