@@ -23,6 +23,13 @@ import { Icon } from "@iconify/react";
 import PDFPreview from "./components/pdf/PDFPreview";
 import { fetchMockLsiReport } from "./api/ex_endpoint";
 import { Metric, ReportData } from "./types/report";
+
+import { defaultTemplate1CoverPageContent } from "./types/pageConfigs";
+import { Template1CoverPageContent } from "@/types/pageConfigs";
+
+import RichTextEditor from "./components/ui/RichTextEditor";
+import CoverEditor from "./components/ui/CoverEditor";
+
 const logoUrl = new URL("./assets/logo.svg", import.meta.url).href;
 
 const states = {
@@ -45,6 +52,10 @@ function App() {
   const [data, setData] = useState<ReportData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [coverPageContent, setCoverPageContent] = useState<Template1CoverPageContent>(
+    defaultTemplate1CoverPageContent
+  );
 
   const handleFetch = async () => {
     setLoading(true);
@@ -171,7 +182,7 @@ function App() {
                       <CarouselItem className="flex flex-col gap-4">
                         <p>Template 1</p>
                         <div className="aspect-[8.5/11] bg-white border-2 border-section-stroke w-xl">
-                          <PDFPreview />
+                          <PDFPreview config={coverPageContent} />
                         </div>
                       </CarouselItem>
                       <CarouselItem className="flex flex-col gap-4">
@@ -212,21 +223,20 @@ function App() {
                 </div>
               </TabsContent>
               <TabsContent value="edit" className="space-y-6">
-                <h2 className="text-2xl font-bold">
-                  Edit
-                </h2>
+                <h2 className="text-2xl font-bold">Edit</h2>
                 <div className="flex gap-4">
+                  {/* Left: PDF Preview */}
                   <div className="w-full grow bg-white rounded-lg border-2 border-section-stroke px-20 py-9 flex flex-col gap-5 items-center">
-                    <h2 className="text-lg font-bold">
-                      Preview
-                    </h2>
-                    <PDFPreview />
+                    <h2 className="text-lg font-bold">Preview</h2>
+                    <PDFPreview config={coverPageContent} />
                   </div>
-                  <div className="max-w-xs shrink-0 flex flex-col items-stretch w-full gap-2">
-                    <Button variant="outline">
-                      <Icon icon="mdi:pencil-outline" className="size-5" />
-                      Edit Text
-                    </Button>
+
+                  {/* Right: Text Editor Panel */}
+                  <div className="max-w-xs shrink-0 flex flex-col items-stretch w-full gap-4 overflow-y-auto max-h-[80vh] pr-2">
+                  <CoverEditor
+                    coverData={coverPageContent}
+                    setCoverData={setCoverPageContent}
+                  />
                   </div>
                 </div>
               </TabsContent>
