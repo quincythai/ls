@@ -28,16 +28,25 @@ export interface Template1CoverPageContent {
   successionRiskStat: StatBoxContent;
 }
 
-const paragraph = (text: string): RichTextValue => [
-  { type: "paragraph", children: [{ text }] },
-];
-
 export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
-  reportTitle: paragraph("California 2nd District"),
+  reportTitle: [
+    {
+      type: "paragraph",
+      children: [{ text: "California 2nd District"}],
+    },
+  ],
 
-  missionStatement: paragraph(
-    "Our mission is to bridge the gap between policymakers and investors to create economic security for workers and families."
-  ),
+  missionStatement: [
+    {
+      type: "paragraph",
+      children: [
+        {
+          text: "Our mission is to bridge the gap between policymakers and investors to create economic security for workers and families.",
+          bold: true,
+        },
+      ],
+    },
+  ],
 
   missionSubtext: [
     {
@@ -49,7 +58,7 @@ export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
         },
         { text: "private capital", bold: true },
         { text: " to generate prosperity across the country.", bold: true },
-        { text: " Our " },
+        { text: " Our ", bold: true },
         { text: "535 Insights", bold: true },
         {
           text: " series provides analytics specific to the constituencies of all 535 Members of Congress.",
@@ -58,11 +67,38 @@ export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
     },
   ],
 
-  ctaText: paragraph(
-    "To revive the American Dream, the 2nd District needs a strategy to promote economic opportunity."
-  ),
+  ctaText: [
+    {
+      type: "paragraph",
+      children: [
+        {
+          text: "To revive the American Dream, the 2nd District needs a strategy to promote economic opportunity.",
+          bold: true
+        },
+      ],
+    },
+  ],
 
-  sectionIntroHeader: paragraph("HERE'S WHERE WE'RE STARTING:"),
+  sectionIntroHeader: [
+    {
+      type: "paragraph",
+      children: [{ text: "HERE'S WHERE WE'RE STARTING:"}],
+    },
+  ],
+
+  affordableHousingTitle: [
+    {
+      type: "paragraph",
+      children: [{ text: "Affordable Housing", bold: true }],
+    },
+  ],
+
+  employeeOwnershipTitle: [
+    {
+      type: "paragraph",
+      children: [{ text: "Employee Ownership", bold: true }],
+    },
+  ],
 
   affordableHousingText: [
     {
@@ -94,15 +130,16 @@ export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
     },
   ],
 
-  bottomNote: paragraph(
-    "Turn the page to see how the 1st District is doing on affordable housing and employee ownership."
-  ),
-
-  affordableHousingTitle: [
-    { type: "paragraph", children: [{ text: "Affordable Housing" }] },
-  ],
-  employeeOwnershipTitle: [
-    { type: "paragraph", children: [{ text: "Employee Ownership" }] },
+  bottomNote: [
+    {
+      type: "paragraph",
+      children: [
+        {
+          text: "Turn the page to see how the 1st District is doing on affordable housing and employee ownership.",
+          bold: true
+        }
+      ],
+    },
   ],
 
   mobilityStat: {

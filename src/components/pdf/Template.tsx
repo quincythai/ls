@@ -9,13 +9,18 @@ interface Template1Props {
   config: Template1CoverPageContent;
 }
 
-const Template1 = ({ config }: Template1Props) => (
-  <Document>
-    <Template1CoverPage config={config} />
-    {/* <HousingSection />
-    <EmployeeOwnershipSection />
-    <ReferencePage /> */}
-  </Document>
-);
+const Template1 = ({ config }: Template1Props) => {
+  console.log(config);
+
+  return (
+    <Document>
+      <Template1CoverPage config={config} />
+      {/* <HousingSection />
+      <EmployeeOwnershipSection />
+      <ReferencePage /> */}
+    </Document>
+  );
+};
 
 export default Template1;
+

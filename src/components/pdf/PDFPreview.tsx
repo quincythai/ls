@@ -7,6 +7,8 @@ interface PDFPreviewProps {
 }
 
 const PDFPreview = ({ config }: PDFPreviewProps) => {
+  console.log("PDFPreview rendering...");
+
   return (
     <div className="w-full h-full">
       <PDFViewer className="w-full h-full">

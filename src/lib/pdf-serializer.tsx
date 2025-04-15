@@ -2,13 +2,14 @@ import { Descendant, Text as SlateText } from "slate";
 import { Text } from "@react-pdf/renderer";
 import type { ReactNode } from "react";
 
-// Convert Slate Descendant[] into React-PDF elements
 export function serializeToPDFText(
   nodes: Descendant[],
   baseStyle: Record<string, any> = {}
-): ReactNode[] {
-  return nodes
-    .map((node, i): ReactNode | null => {
+): ReactNode {
+  const inlineChildren: ReactNode[] = [];
+
+  const walk = (children: Descendant[]) => {
+    for (const node of children) {
       if (SlateText.isText(node)) {
         const style = { ...baseStyle };
 
@@ -24,22 +25,19 @@ export function serializeToPDFText(
           style.verticalAlign = "sub";
         }
 
-        return (
-          <Text key={i} style={style}>
+        inlineChildren.push(
+          <Text style={style}>
             {node.text}
           </Text>
         );
+      } else if ("children" in node && Array.isArray(node.children)) {
+        walk(node.children);
       }
+    }
+  };
 
-      if ("children" in node) {
-        return (
-          <Text key={i} style={baseStyle}>
-            {serializeToPDFText(node.children as Descendant[], baseStyle)}
-          </Text>
-        );
-      }
+  walk(nodes);
 
-      return null;
-    })
-    .filter((el): el is ReactNode => el !== null);
+  // Return ONE parent <Text> with all inline children
+  return inlineChildren;
 }
