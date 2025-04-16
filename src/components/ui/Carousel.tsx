@@ -4,10 +4,8 @@ import {
   Typography,
   IconButton,
   Card,
-  CardContent,
 } from "@mui/material";
 import { Icon } from "@iconify/react";
-import PDFPreview from "@/components/pdf/PDFPreview";
 
 type Template = {
   title: string;

@@ -1,14 +1,12 @@
-import { Carousel } from "@/components/Carousel";
-import PDFPreview from "@/components/pdf/PDFPreview";
+import { Carousel } from "@/components/ui/Carousel";
 import { Typography } from "@mui/material";
 
-const templates = [
-  { title: "Template 1", component: <PDFPreview /> },
-  { title: "Template 2", component: <PDFPreview /> },
-  { title: "Template 3", component: <PDFPreview /> },
-];
+type Template = {
+  title: string;
+  component: React.ReactNode;
+};
 
-export const ChooseTemplate = () => {
+export const ChooseTemplate = ({ templates }: { templates: Template[] }) => {
   return (
     <>
       <header>
