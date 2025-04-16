@@ -1,28 +1,18 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-} from "@/components/ui/select";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+
 import { useState } from "react";
 import { Icon } from "@iconify/react";
-import PDFPreview from "./components/pdf/PDFPreview";
+
 import { fetchMockLsiReport } from "./api/ex_endpoint";
 import { Metric, ReportData } from "./types/report";
+import { ChooseTemplate } from "@/components/step/ChooseTemplate";
+import { AddSections } from "@/components/step/AddSections";
+import { Edit } from "@/components/step/Edit";
+import { Confirmation } from "@/components/step/Confirmation";
+import { MenuItem, Select, FormControl, FormLabel, Button, Typography, StepConnector } from "@mui/material";
+
 const logoUrl = new URL("./assets/logo.svg", import.meta.url).href;
 
 const states = {
@@ -31,16 +21,19 @@ const states = {
   "Arizona": ["AZ-1", "AZ-2", "AZ-3"],
   "Arkansas": ["AR-1", "AR-2", "AR-3"],
 };
-const tabs = {
-  "choose-template": "Choose template",
-  "add-sections": "Add sections",
-  "edit": "Edit",
-  "confirmation": "Confirmation",
-};
+const steps = [
+  "Choose Template",
+  "Add Sections",
+  "Edit",
+  "Confirmation",
+];
+
 
 function App() {
   const [selectedState, setSelectedState] = useState<string | undefined>(undefined);
   const [selectedDistrict, setSelectedDistrict] = useState<string | undefined>(undefined);
+
+  const [activeStep, setActiveStep] = useState(0);
 
   const [data, setData] = useState<ReportData | null>(null);
   const [loading, setLoading] = useState(false);
@@ -66,7 +59,7 @@ function App() {
   };
 
   const renderMetric = (label: string, metric: Metric) => (
-    <div className="border p-2 rounded bg-gray-100 mb-2">
+    <div className="border-2 p-3 bg-gray-100 mb-2 border-neutral-200">
       <h3 className="font-semibold">{label}</h3>
       <p>Location Type: {metric.LOCATION_TYPE}</p>
       <p>Value: {metric.VALUE}</p>
@@ -77,47 +70,60 @@ function App() {
   return (
     <>
       <div className="flex min-h-screen items-stretch">
-        <aside className="flex flex-col border-r-2 border-section-stroke p-10 gap-8 max-w-xs w-full shrink-0">
+        {/* Sidebar */}
+        <aside className="flex flex-col border-r-2 border-neutral-200 p-10 gap-8 max-w-xs w-full shrink-0 overflow-auto max-h-screen">
+          {/* Logo */}
           <img src={logoUrl} alt="Lafayette Square Institute" className="h-18 self-start" />
-          <div className="flex flex-col gap-2">
-            <h2 className="font-bold">
+          {/* State Select */}
+          <FormControl className="flex flex-col gap-2 items-stretch">
+            <FormLabel id="state-label">
               State
-            </h2>
-            <Select value={selectedState} onValueChange={(value) => { setSelectedState(value); setSelectedDistrict(undefined); }}>
-              <SelectTrigger className="w-full">
-                {selectedState ?? "Select a state"}
-              </SelectTrigger>
-              <SelectContent>
-                {Object.entries(states).map(([state]) => (
-                  <SelectItem key={state} value={state}>
-                    {state}
-                  </SelectItem>
-                ))}
-              </SelectContent>
+            </FormLabel>
+            <Select
+              labelId="state-label"
+              id="state-select"
+              className=""
+              value={selectedState}
+              onChange={(event) => { setSelectedState(event.target.value); setSelectedDistrict(undefined); }}
+              displayEmpty
+              renderValue={(value) => value ?? "Select one"}
+            >
+              {Object.entries(states).map(([state]) => (
+                <MenuItem key={state} value={state}>
+                  {state}
+                </MenuItem>
+              ))}
             </Select>
-          </div>
-          <div className="flex flex-col gap-2">
-            <h2 className="font-bold">
+          </FormControl>
+          {/* District Select */}
+          <FormControl disabled={!selectedState} className="flex flex-col gap-2 items-stretch">
+            <FormLabel id="district-label">
               District
-            </h2>
-            <Select value={selectedDistrict} onValueChange={setSelectedDistrict} disabled={selectedState == null}>
-              <SelectTrigger className="w-full">
-                {selectedDistrict ?? "Select a district"}
-              </SelectTrigger>
-              <SelectContent>
-                {(states[selectedState as keyof typeof states] ?? []).map((district) => (
-                  <SelectItem key={district} value={district}>
-                    {district}
-                  </SelectItem>
-                ))}
-              </SelectContent>
+            </FormLabel>
+            <Select
+              labelId="district-label"
+              id="district-select"
+              value={selectedDistrict}
+              onChange={(event) => { setSelectedDistrict(event.target.value); }}
+              displayEmpty
+              renderValue={(value) => value ?? "Select one"}
+            >
+              {(states[selectedState as keyof typeof states] ?? []).map((district) => (
+                <MenuItem key={district} value={district}>
+                  {district}
+                </MenuItem>
+              ))}
             </Select>
-            <button
+          </FormControl>
+          {/* LSI Report */}
+          {selectedDistrict && <div>
+            <Button
+              variant="contained"
               onClick={handleFetch}
               className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition mb-4"
             >
               Fetch LSI Report
-            </button>
+            </Button>
 
             {loading && <p>Loading...</p>}
             {error && <p className="text-red-500">{error}</p>}
@@ -140,128 +146,41 @@ function App() {
                 {renderMetric("Social Mobility", data.social_mobility)}
               </div>
             )}
-          </div>
+          </div>}
         </aside>
-        <div className="w-full max-w-7xl mx-auto flex items-stretch">
-          <Tabs defaultValue="choose-template" className="w-full flex flex-col relative max-h-screen">
-            <nav className="flex items-center gap-8 h-24 shrink-0 fixed w-[calc(100vw-320px)] max-w-7xl z-40 bg-[#F9F9F9] px-5">
-              <TabsList className="flex w-full gap-3">
-                {Object.entries(tabs).map(([key, value], index) => (
-                  <TabsTrigger key={key} value={key} className="flex flex-1 items-center gap-3 group">
-                    <div className="flex items-center justify-center rounded-full group-data-[state=active]:bg-foreground group-data-[state=active]:text-white size-8 text-base bg-[#E0E0E0]">
-                      {index + 1}
-                    </div>
-                    <h2 className="font-semibold text-base">
-                      {value}
-                    </h2>
-                    <hr className="grow border-t-2 border-section-stroke group-data-[state=active]:border-foreground/25" />
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-              <Icon icon="iconoir:profile-circle" className="size-9 text-secondary-foreground shrink-0" />
-            </nav>
-            <main className="p-5 pt-24">
-              <TabsContent value="choose-template" className="space-y-6">
-                <h2 className="text-2xl font-bold">
-                  Choose Template
-                </h2>
-                <div className="bg-white rounded-lg border-2 border-section-stroke px-20 py-8">
-                  <Carousel className="w-xl mx-auto">
-                    <CarouselContent>
-                      <CarouselItem className="flex flex-col gap-4">
-                        <p>Template 1</p>
-                        <div className="aspect-[8.5/11] bg-white border-2 border-section-stroke w-xl">
-                          <PDFPreview />
-                        </div>
-                      </CarouselItem>
-                      <CarouselItem className="flex flex-col gap-4">
-                        <p>Template 2</p>
-                        <div className="aspect-[8.5/11] bg-white border-2 border-section-stroke w-xl" />
-                      </CarouselItem>
-                      <CarouselItem className="flex flex-col gap-4">
-                        <p>Template 3</p>
-                        <div className="aspect-[8.5/11] bg-white border-2 border-section-stroke w-xl" />
-                      </CarouselItem>
-                    </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
-                  </Carousel>
-                </div>
-              </TabsContent>
-              <TabsContent value="add-sections" className="space-y-6">
-                <h2 className="text-2xl font-bold">
-                  Add Sections
-                </h2>
-                <div className="bg-white rounded-lg border-2 border-section-stroke px-20 py-9 flex flex-col gap-5">
-                  <button className="flex items-center gap-2 border-2 border-section-stroke px-4 py-5 justify-center font-bold hover:bg-muted cursor-pointer">
-                    <Icon icon="iconoir:plus" className="size-6" />
-                    Affordable Housing
-                  </button>
-                  <button className="flex items-center gap-2 border-2 border-section-stroke px-4 py-5 justify-center font-bold hover:bg-muted cursor-pointer">
-                    <Icon icon="iconoir:plus" className="size-6" />
-                    Employee Ownership
-                  </button>
-                  <button className="flex items-center gap-2 border-2 border-section-stroke px-4 py-5 justify-center font-bold hover:bg-muted cursor-pointer">
-                    <Icon icon="iconoir:plus" className="size-6" />
-                    Employee Ownership
-                  </button>
-                  <button className="flex items-center gap-2 border-2 border-section-stroke px-4 py-5 justify-center font-bold hover:bg-muted cursor-pointer">
-                    <Icon icon="iconoir:plus" className="size-6" />
-                    Employee Ownership
-                  </button>
-                </div>
-              </TabsContent>
-              <TabsContent value="edit" className="space-y-6">
-                <h2 className="text-2xl font-bold">
-                  Edit
-                </h2>
-                <div className="flex gap-4">
-                  <div className="w-full grow bg-white rounded-lg border-2 border-section-stroke px-20 py-9 flex flex-col gap-5 items-center">
-                    <h2 className="text-lg font-bold">
-                      Preview
-                    </h2>
-                    <PDFPreview />
-                  </div>
-                  <div className="max-w-xs shrink-0 flex flex-col items-stretch w-full gap-2">
-                    <Button variant="outline">
-                      <Icon icon="mdi:pencil-outline" className="size-5" />
-                      Edit Text
-                    </Button>
-                  </div>
-                </div>
-              </TabsContent>
-              <TabsContent value="confirmation" className="space-y-6">
-                <h2 className="text-2xl font-bold">
-                  Congratulations! Your new insights are ready.
-                </h2>
-                <div className="flex gap-4">
-                  <div className="w-full grow bg-white rounded-lg border-2 border-section-stroke px-20 py-9 flex flex-col gap-5 items-center">
-                    <div className="aspect-[8.5/11] bg-white border-2 border-section-stroke w-xl px-8 py-10 text-sm">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident dolorum esse autem, numquam saepe quod nihil dignissimos perferendis omnis labore modi, dolore molestias. Officia harum, iusto sapiente sequi similique totam?
-                    </div>
-                  </div>
-                  <div className="max-w-xs shrink-0 flex flex-col items-stretch w-full gap-2">
-                    <Button variant="outline">
-                      <Icon icon="material-symbols:download" className="size-5" />
-                      Download
-                    </Button>
-                    <Button variant="outline">
-                      <Icon icon="mdi:reload" className="size-5" />
-                      Regenerate
-                    </Button>
-                  </div>
-                </div>
-              </TabsContent>
-            </main>
-            <div className="flex justify-between items-center h-20 gap-4 border-t-2 border-section-stroke bottom-0 fixed w-[calc(100vw-320px)] max-w-7xl z-40 bg-[#F9F9F9] px-5">
-              <Button variant="outline">
+        <div className="w-full max-w-7xl mx-auto pt-5">
+          <nav className="flex justify-between items-center py-5 px-2.5">
+            <Stepper activeStep={activeStep} connector={<StepConnector />}>
+              {steps.map((label) => (
+                <Step key={label}>
+                  <StepLabel>
+                    <Typography variant="body1" className="font-semibold">{label}</Typography>
+                  </StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            <Icon icon="iconoir:profile-circle" className="size-9 text-neutral-500 shrink-0" />
+          </nav>
+          <main className="p-5 space-y-5">
+            {
+              activeStep === 0 ? <ChooseTemplate /> :
+              activeStep === 1 ? <AddSections /> :
+              activeStep === 2 ? <Edit /> :
+              activeStep === 3 ? <Confirmation /> :
+              null
+            }
+          </main>
+          <div className="h-20 bottom-0 fixed w-[calc(100vw-320px)] max-w-7xl z-40">
+            <div className="h-4 bg-gradient-to-b from-transparent to-neutral-100" />
+            <div className="flex justify-between items-center gap-4 bg-neutral-100 px-5 pb-4 h-full">
+              <Button variant="outlined" onClick={() => setActiveStep(activeStep - 1)} disabled={activeStep === 0}>
                 Previous
               </Button>
-              <Button variant="secondary">
+              <Button variant="contained" onClick={() => setActiveStep(activeStep + 1)} disabled={activeStep === steps.length - 1}>
                 Next Step
               </Button>
             </div>
-          </Tabs>
+          </div>
         </div>
       </div>
     </>
