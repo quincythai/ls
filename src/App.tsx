@@ -1,6 +1,15 @@
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
+import { 
+  MenuItem,
+  Select,
+  FormControl,
+  FormLabel,
+  Button,
+  Typography,
+  StepConnector,
+  Stepper,
+  Step,
+  StepLabel,
+} from "@mui/material";
 
 import { useState } from "react";
 import { Icon } from "@iconify/react";
@@ -11,7 +20,6 @@ import { ChooseTemplate } from "@/components/step/ChooseTemplate";
 import { AddSections } from "@/components/step/AddSections";
 import { Edit } from "@/components/step/Edit";
 import { Confirmation } from "@/components/step/Confirmation";
-import { MenuItem, Select, FormControl, FormLabel, Button, Typography, StepConnector } from "@mui/material";
 
 const logoUrl = new URL("./assets/logo.svg", import.meta.url).href;
 
@@ -27,7 +35,6 @@ const steps = [
   "Edit",
   "Confirmation",
 ];
-
 
 function App() {
   const [selectedState, setSelectedState] = useState<string | undefined>(undefined);
@@ -116,11 +123,12 @@ function App() {
             </Select>
           </FormControl>
           {/* LSI Report */}
-          {selectedDistrict && <div>
+          {selectedDistrict && <div className="flex flex-col gap-4 mt-6">
             <Button
-              variant="contained"
+              // @ts-expect-error MUI types are not updated
+              variant="gray"
               onClick={handleFetch}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition mb-4"
+              className="w-full"
             >
               Fetch LSI Report
             </Button>
@@ -150,10 +158,10 @@ function App() {
         </aside>
         <div className="w-full max-w-7xl mx-auto pt-5">
           <nav className="flex justify-between items-center py-5 px-2.5">
-            <Stepper activeStep={activeStep} connector={<StepConnector />}>
+            <Stepper activeStep={activeStep} connector={<StepConnector />} className="space-x-3">
               {steps.map((label) => (
                 <Step key={label}>
-                  <StepLabel>
+                  <StepLabel className="space-x-1">
                     <Typography variant="body1" className="font-semibold">{label}</Typography>
                   </StepLabel>
                 </Step>
@@ -170,13 +178,15 @@ function App() {
               null
             }
           </main>
-          <div className="h-20 bottom-0 fixed w-[calc(100vw-320px)] max-w-7xl z-40">
+          <div className="h-36 bottom-0 fixed w-[calc(100vw-320px)] max-w-7xl z-40">
             <div className="h-4 bg-gradient-to-b from-transparent to-neutral-100" />
             <div className="flex justify-between items-center gap-4 bg-neutral-100 px-5 pb-4 h-full">
-              <Button variant="outlined" onClick={() => setActiveStep(activeStep - 1)} disabled={activeStep === 0}>
+              {/* @ts-expect-error MUI types are not updated */}
+              <Button className="w-32" variant="gray" onClick={() => setActiveStep(activeStep - 1)} disabled={activeStep === 0}>
                 Previous
               </Button>
-              <Button variant="contained" onClick={() => setActiveStep(activeStep + 1)} disabled={activeStep === steps.length - 1}>
+              {/* @ts-expect-error MUI types are not updated */}
+              <Button className="w-32" variant="lafayette" onClick={() => setActiveStep(activeStep + 1)} disabled={activeStep === steps.length - 1}>
                 Next Step
               </Button>
             </div>
