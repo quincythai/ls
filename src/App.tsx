@@ -1,17 +1,34 @@
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
+import { 
+  MenuItem,
+  Select,
+  FormControl,
+  FormLabel,
+  Button,
+  Typography,
+  StepConnector,
+  Stepper,
+  Step,
+  StepLabel,
+} from "@mui/material";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Icon } from "@iconify/react";
 
 import { fetchMockLsiReport } from "./api/ex_endpoint";
 import { Metric, ReportData } from "./types/report";
+
 import { ChooseTemplate } from "@/components/step/ChooseTemplate";
 import { AddSections } from "@/components/step/AddSections";
 import { Edit } from "@/components/step/Edit";
 import { Confirmation } from "@/components/step/Confirmation";
-import { MenuItem, Select, FormControl, FormLabel, Button, Typography, StepConnector } from "@mui/material";
+
+import PDFPreview from "@/components/pdf/PDFPreview";
+import {
+  defaultTemplate1CoverPageContent,
+  Template1CoverPageContent,
+} from "@/types/pageConfigs";
+
+import CoverEditor from "./components/ui/CoverEditor";
 
 const logoUrl = new URL("./assets/logo.svg", import.meta.url).href;
 
@@ -21,13 +38,13 @@ const states = {
   "Arizona": ["AZ-1", "AZ-2", "AZ-3"],
   "Arkansas": ["AR-1", "AR-2", "AR-3"],
 };
+
 const steps = [
   "Choose Template",
   "Add Sections",
   "Edit",
   "Confirmation",
 ];
-
 
 function App() {
   const [selectedState, setSelectedState] = useState<string | undefined>(undefined);
@@ -38,6 +55,18 @@ function App() {
   const [data, setData] = useState<ReportData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [coverPageContent, setCoverPageContent] = useState<Template1CoverPageContent>(
+    defaultTemplate1CoverPageContent,
+  );
+  const [pdfPreviewConfig, setPdfPreviewConfig] = useState<Template1CoverPageContent>(
+    defaultTemplate1CoverPageContent,
+  );
+
+  // 🧠 Only regenerate PDF component when config changes
+  const memoizedPDFPreview = useMemo(() => {
+    return <PDFPreview config={pdfPreviewConfig} />;
+  }, [pdfPreviewConfig]);
 
   const handleFetch = async () => {
     setLoading(true);
@@ -116,25 +145,24 @@ function App() {
             </Select>
           </FormControl>
           {/* LSI Report */}
-          {selectedDistrict && <div>
+          {selectedDistrict && <div className="flex flex-col gap-4 mt-6">
             <Button
-              variant="contained"
+              // @ts-expect-error MUI types are not updated
+              variant="gray"
               onClick={handleFetch}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition mb-4"
+              className="w-full"
             >
               Fetch LSI Report
             </Button>
+          {loading && <p>Loading...</p>}
+          {error && <p className="text-red-500">{error}</p>}
 
-            {loading && <p>Loading...</p>}
-            {error && <p className="text-red-500">{error}</p>}
-
-            {data && (
-              <div className="space-y-4">
-                <h2 className="text-2xl font-bold">LSI Report</h2>
-                <p><strong>Congressional District:</strong> {data.CD}</p>
-                <p><strong>State Name:</strong> {data.CD_FIPS}</p>
-                <p><strong>State FIPS:</strong> {data.STATE_FIPS}</p>
-
+          {data && (
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold">LSI Report</h2>
+              <p><strong>Congressional District:</strong> {data.CD}</p>
+              <p><strong>State Name:</strong> {data.CD_FIPS}</p>
+              <p><strong>State FIPS:</strong> {data.STATE_FIPS}</p>
                 {renderMetric("Eviction Risk", data.eviction_risk)}
                 {renderMetric("Financial Problems", data.financial_problems)}
                 {renderMetric("Home Ownership Rate", data.home_ownership_rate)}
@@ -150,10 +178,10 @@ function App() {
         </aside>
         <div className="w-full max-w-7xl mx-auto pt-5">
           <nav className="flex justify-between items-center py-5 px-2.5">
-            <Stepper activeStep={activeStep} connector={<StepConnector />}>
+            <Stepper activeStep={activeStep} connector={<StepConnector />} className="space-x-3">
               {steps.map((label) => (
                 <Step key={label}>
-                  <StepLabel>
+                  <StepLabel className="space-x-1">
                     <Typography variant="body1" className="font-semibold">{label}</Typography>
                   </StepLabel>
                 </Step>
@@ -163,20 +191,22 @@ function App() {
           </nav>
           <main className="p-5 space-y-5">
             {
-              activeStep === 0 ? <ChooseTemplate /> :
+              activeStep === 0 ? <ChooseTemplate templates={[{title: "Template 1", component: memoizedPDFPreview}]} /> :
               activeStep === 1 ? <AddSections /> :
-              activeStep === 2 ? <Edit /> :
+              activeStep === 2 ? <Edit preview={memoizedPDFPreview} refreshPreview={() => setPdfPreviewConfig(coverPageContent)} editor={<CoverEditor coverData={coverPageContent} setCoverData={setCoverPageContent} />} /> :
               activeStep === 3 ? <Confirmation /> :
               null
             }
           </main>
-          <div className="h-20 bottom-0 fixed w-[calc(100vw-320px)] max-w-7xl z-40">
-            <div className="h-4 bg-gradient-to-b from-transparent to-neutral-100" />
-            <div className="flex justify-between items-center gap-4 bg-neutral-100 px-5 pb-4 h-full">
-              <Button variant="outlined" onClick={() => setActiveStep(activeStep - 1)} disabled={activeStep === 0}>
+          <div className="h-18" />
+          <div className="h-18 border-t-2 border-neutral-200 bottom-0 left-[320px] fixed w-[calc(100vw-320px)] z-40">
+            <div className="flex justify-between items-center gap-4 bg-neutral-100 max-w-7xl mx-auto px-5 h-full">
+              {/* @ts-expect-error MUI types are not updated */}
+              <Button className="w-32" variant="gray" onClick={() => setActiveStep(activeStep - 1)} disabled={activeStep === 0}>
                 Previous
               </Button>
-              <Button variant="contained" onClick={() => setActiveStep(activeStep + 1)} disabled={activeStep === steps.length - 1}>
+              {/* @ts-expect-error MUI types are not updated */}
+              <Button className="w-32" variant="lafayette" onClick={() => setActiveStep(activeStep + 1)} disabled={activeStep === steps.length - 1}>
                 Next Step
               </Button>
             </div>

@@ -1,22 +1,21 @@
-// import {
-//   Carousel,
-//   CarouselContent,
-//   CarouselItem,
-//   CarouselNext,
-//   CarouselPrevious,
-// } from "@/components/ui/carousel";
-// import PDFPreview from "@/components/pdf/PDFPreview";
+import { Carousel } from "@/components/ui/Carousel";
+import { Typography } from "@mui/material";
 
-export const ChooseTemplate = () => {
+type Template = {
+  title: string;
+  component: React.ReactNode;
+};
+
+export const ChooseTemplate = ({ templates }: { templates: Template[] }) => {
   return (
     <>
-      <h2 className="text-2xl font-bold">
-        Choose Template
-      </h2>
-      <div className="bg-white rounded-lg border-2 border-neutral-200 px-20 py-8">
-        <div>
-          Carousel WIP
-        </div>
+      <header>
+        <Typography variant="h1" className="font-bold">
+          Choose Template
+        </Typography>
+      </header>
+      <div className="bg-white rounded-lg border-2 border-neutral-200 px-4 py-8">
+        <Carousel templates={templates} />
         {/* <Carousel className="w-xl mx-auto">
           <CarouselContent>
             <CarouselItem className="flex flex-col gap-4">
