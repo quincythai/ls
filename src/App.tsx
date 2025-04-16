@@ -16,10 +16,18 @@ import { Icon } from "@iconify/react";
 
 import { fetchMockLsiReport } from "./api/ex_endpoint";
 import { Metric, ReportData } from "./types/report";
+
 import { ChooseTemplate } from "@/components/step/ChooseTemplate";
 import { AddSections } from "@/components/step/AddSections";
 import { Edit } from "@/components/step/Edit";
 import { Confirmation } from "@/components/step/Confirmation";
+
+import {
+  defaultTemplate1CoverPageContent,
+  Template1CoverPageContent,
+} from "@/types/pageConfigs";
+
+import CoverEditor from "./components/ui/CoverEditor";
 
 const logoUrl = new URL("./assets/logo.svg", import.meta.url).href;
 
@@ -29,6 +37,7 @@ const states = {
   "Arizona": ["AZ-1", "AZ-2", "AZ-3"],
   "Arkansas": ["AR-1", "AR-2", "AR-3"],
 };
+
 const steps = [
   "Choose Template",
   "Add Sections",
@@ -45,6 +54,18 @@ function App() {
   const [data, setData] = useState<ReportData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [coverPageContent, setCoverPageContent] = useState<Template1CoverPageContent>(
+    defaultTemplate1CoverPageContent
+  );
+  const [pdfPreviewConfig, setPdfPreviewConfig] = useState<Template1CoverPageContent>(
+    defaultTemplate1CoverPageContent
+  );
+
+  // 🧠 Only regenerate PDF component when config changes
+  const memoizedPDFPreview = useMemo(() => {
+    return <PDFPreview config={pdfPreviewConfig} />;
+  }, [pdfPreviewConfig]);
 
   const handleFetch = async () => {
     setLoading(true);
@@ -132,17 +153,15 @@ function App() {
             >
               Fetch LSI Report
             </Button>
+          {loading && <p>Loading...</p>}
+          {error && <p className="text-red-500">{error}</p>}
 
-            {loading && <p>Loading...</p>}
-            {error && <p className="text-red-500">{error}</p>}
-
-            {data && (
-              <div className="space-y-4">
-                <h2 className="text-2xl font-bold">LSI Report</h2>
-                <p><strong>Congressional District:</strong> {data.CD}</p>
-                <p><strong>State Name:</strong> {data.CD_FIPS}</p>
-                <p><strong>State FIPS:</strong> {data.STATE_FIPS}</p>
-
+          {data && (
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold">LSI Report</h2>
+              <p><strong>Congressional District:</strong> {data.CD}</p>
+              <p><strong>State Name:</strong> {data.CD_FIPS}</p>
+              <p><strong>State FIPS:</strong> {data.STATE_FIPS}</p>
                 {renderMetric("Eviction Risk", data.eviction_risk)}
                 {renderMetric("Financial Problems", data.financial_problems)}
                 {renderMetric("Home Ownership Rate", data.home_ownership_rate)}
@@ -171,9 +190,42 @@ function App() {
           </nav>
           <main className="p-5 space-y-5">
             {
-              activeStep === 0 ? <ChooseTemplate /> :
+              activeStep === 0 ? <div value="choose-template" className="space-y-6">
+                <h2 className="text-2xl font-bold">Choose Template</h2>
+                <div className="bg-white rounded-lg border-2 border-section-stroke px-20 py-8">
+                  <Carousel className="w-xl mx-auto">
+                    <CarouselContent>
+                      <CarouselItem className="flex flex-col gap-4">
+                        <p>Template 1</p>
+                        <div className="aspect-[8.5/11] bg-white border-2 border-section-stroke w-xl">
+                          {memoizedPDFPreview}
+                        </div>
+                      </CarouselItem>
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                </div>
+              </div> :
               activeStep === 1 ? <AddSections /> :
-              activeStep === 2 ? <Edit /> :
+              activeStep === 2 ? <div value="edit" className="space-y-6">
+                <h2 className="text-2xl font-bold">Edit</h2>
+                <div className="flex gap-4">
+                  {/* Left: PDF Preview */}
+                  <div className="w-full grow bg-white rounded-lg border-2 border-section-stroke px-20 py-9 flex flex-col gap-5 items-center">
+                    <h2 className="text-lg font-bold">Preview</h2>
+                    {memoizedPDFPreview}
+                    <Button className="mt-2" onClick={() => setPdfPreviewConfig(coverPageContent)}>
+                      Refresh Preview
+                    </Button>
+                  </div>
+
+                  {/* Right: Editor */}
+                  <div className="max-w-xs shrink-0 flex flex-col items-stretch w-full gap-4 overflow-y-auto max-h-[80vh] pr-2">
+                    <CoverEditor coverData={coverPageContent} setCoverData={setCoverPageContent} />
+                  </div>
+                </div>
+              </div> :
               activeStep === 3 ? <Confirmation /> :
               null
             }
@@ -193,7 +245,7 @@ function App() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
