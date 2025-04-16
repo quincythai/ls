@@ -11,24 +11,15 @@ import {
   StepLabel,
 } from "@mui/material";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Icon } from "@iconify/react";
 
 import { fetchMockLsiReport } from "./api/ex_endpoint";
 import { Metric, ReportData } from "./types/report";
-
 import { ChooseTemplate } from "@/components/step/ChooseTemplate";
 import { AddSections } from "@/components/step/AddSections";
 import { Edit } from "@/components/step/Edit";
 import { Confirmation } from "@/components/step/Confirmation";
-
-import PDFPreview from "@/components/pdf/PDFPreview";
-import {
-  defaultTemplate1CoverPageContent,
-  Template1CoverPageContent,
-} from "@/types/pageConfigs";
-
-import CoverEditor from "./components/ui/CoverEditor";
 
 const logoUrl = new URL("./assets/logo.svg", import.meta.url).href;
 
@@ -38,7 +29,6 @@ const states = {
   "Arizona": ["AZ-1", "AZ-2", "AZ-3"],
   "Arkansas": ["AR-1", "AR-2", "AR-3"],
 };
-
 const steps = [
   "Choose Template",
   "Add Sections",
@@ -55,18 +45,6 @@ function App() {
   const [data, setData] = useState<ReportData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const [coverPageContent, setCoverPageContent] = useState<Template1CoverPageContent>(
-    defaultTemplate1CoverPageContent,
-  );
-  const [pdfPreviewConfig, setPdfPreviewConfig] = useState<Template1CoverPageContent>(
-    defaultTemplate1CoverPageContent,
-  );
-
-  // 🧠 Only regenerate PDF component when config changes
-  const memoizedPDFPreview = useMemo(() => {
-    return <PDFPreview config={pdfPreviewConfig} />;
-  }, [pdfPreviewConfig]);
 
   const handleFetch = async () => {
     setLoading(true);
@@ -154,15 +132,17 @@ function App() {
             >
               Fetch LSI Report
             </Button>
-          {loading && <p>Loading...</p>}
-          {error && <p className="text-red-500">{error}</p>}
 
-          {data && (
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">LSI Report</h2>
-              <p><strong>Congressional District:</strong> {data.CD}</p>
-              <p><strong>State Name:</strong> {data.CD_FIPS}</p>
-              <p><strong>State FIPS:</strong> {data.STATE_FIPS}</p>
+            {loading && <p>Loading...</p>}
+            {error && <p className="text-red-500">{error}</p>}
+
+            {data && (
+              <div className="space-y-4">
+                <h2 className="text-2xl font-bold">LSI Report</h2>
+                <p><strong>Congressional District:</strong> {data.CD}</p>
+                <p><strong>State Name:</strong> {data.CD_FIPS}</p>
+                <p><strong>State FIPS:</strong> {data.STATE_FIPS}</p>
+
                 {renderMetric("Eviction Risk", data.eviction_risk)}
                 {renderMetric("Financial Problems", data.financial_problems)}
                 {renderMetric("Home Ownership Rate", data.home_ownership_rate)}
@@ -191,9 +171,9 @@ function App() {
           </nav>
           <main className="p-5 space-y-5">
             {
-              activeStep === 0 ? <ChooseTemplate templates={[{title: "Template 1", component: memoizedPDFPreview}]} /> :
+              activeStep === 0 ? <ChooseTemplate /> :
               activeStep === 1 ? <AddSections /> :
-              activeStep === 2 ? <Edit preview={memoizedPDFPreview} refreshPreview={() => setPdfPreviewConfig(coverPageContent)} editor={<CoverEditor coverData={coverPageContent} setCoverData={setCoverPageContent} />} /> :
+              activeStep === 2 ? <Edit /> :
               activeStep === 3 ? <Confirmation /> :
               null
             }
