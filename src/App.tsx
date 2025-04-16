@@ -100,11 +100,12 @@ function App() {
     <>
       <div className="flex min-h-screen items-stretch">
         {/* Sidebar */}
-        <aside className="flex flex-col border-r-2 border-neutral-200 p-10 gap-8 max-w-xs w-full shrink-0 overflow-auto max-h-screen">
+        <aside className="max-w-xs w-full shrink-0"></aside>
+        <aside className="fixed flex flex-col border-r-2 border-neutral-200 p-10 gap-8 max-w-xs w-full shrink-0 overflow-auto h-screen max-h-screen">
           {/* Logo */}
           <img src={logoUrl} alt="Lafayette Square Institute" className="h-18 self-start" />
           {/* State Select */}
-          <FormControl className="flex flex-col gap-2 items-stretch">
+          <FormControl disabled={activeStep > 0} className="flex flex-col gap-2 items-stretch">
             <FormLabel id="state-label">
               State
             </FormLabel>
@@ -125,7 +126,7 @@ function App() {
             </Select>
           </FormControl>
           {/* District Select */}
-          <FormControl disabled={!selectedState} className="flex flex-col gap-2 items-stretch">
+          <FormControl disabled={!selectedState || activeStep > 0} className="flex flex-col gap-2 items-stretch">
             <FormLabel id="district-label">
               District
             </FormLabel>
@@ -206,7 +207,7 @@ function App() {
                 Previous
               </Button>
               {/* @ts-expect-error MUI types are not updated */}
-              <Button className="w-32" variant="lafayette" onClick={() => setActiveStep(activeStep + 1)} disabled={activeStep === steps.length - 1}>
+              <Button className="w-32" variant="lafayette" onClick={() => setActiveStep(activeStep + 1)} disabled={activeStep === steps.length - 1 || (activeStep === 0 && selectedDistrict == null)}>
                 Next Step
               </Button>
             </div>
