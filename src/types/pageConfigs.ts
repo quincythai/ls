@@ -8,6 +8,19 @@ export interface StatBoxContent {
   rank?: string;
 }
 
+export interface Template1Colors {
+  selectedColors: Record<string, string>
+}
+
+export const defaultTemplate1Colors: Template1Colors = {
+  selectedColors: {
+    "Base *": "#D7F1EF",
+    "Section 1 *": "#D3E8C8", 
+    "Section 2": "#C1D9EC",
+    "Section 3": "#FFD5A5"
+  }
+};
+
 export interface Template1CoverPageContent {
   reportTitle: RichTextValue;
   missionStatement: RichTextValue;

@@ -20,6 +20,7 @@
     "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.487.0",
     "react": "^19.0.0",
+    "react-colorful": "^5.6.1",
     "react-dom": "^19.0.0",
     "react-pdf-tailwind": "^2.3.0",
     "slate": "^0.112.0",

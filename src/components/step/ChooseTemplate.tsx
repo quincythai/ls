@@ -1,12 +1,21 @@
 import { Carousel } from "@/components/ui/Carousel";
+import { ColorPicker } from "@/components/ui/ColorPicker";
 import { Typography } from "@mui/material";
+import { Template1Colors } from "@/types/pageConfigs";
 
 type Template = {
   title: string;
   component: React.ReactNode;
 };
 
-export const ChooseTemplate = ({ templates }: { templates: Template[] }) => {
+interface ChooseTemplateProps {
+  templates: Template[];
+  templateColors: Template1Colors;
+  onColorsChange: (updatedColors: Record<string, string>) => void;
+}
+
+export const ChooseTemplate = ({ templates, templateColors, onColorsChange }: ChooseTemplateProps) => {
+
   return (
     <>
       <header>
@@ -14,28 +23,35 @@ export const ChooseTemplate = ({ templates }: { templates: Template[] }) => {
           Choose Template
         </Typography>
       </header>
-      <div className="bg-white rounded-lg border-2 border-neutral-200 px-4 py-8">
-        <Carousel templates={templates} />
-        {/* <Carousel className="w-xl mx-auto">
-          <CarouselContent>
-            <CarouselItem className="flex flex-col gap-4">
-              <p>Template 1</p>
-              <div className="aspect-[8.5/11] bg-white border-2 border-neutral-200 w-xl">
-                <PDFPreview />
-              </div>
-            </CarouselItem>
-            <CarouselItem className="flex flex-col gap-4">
-              <p>Template 2</p>
-              <div className="aspect-[8.5/11] bg-white border-2 border-neutral-200 w-xl" />
-            </CarouselItem>
-            <CarouselItem className="flex flex-col gap-4">
-              <p>Template 3</p>
-              <div className="aspect-[8.5/11] bg-white border-2 border-neutral-200 w-xl" />
-            </CarouselItem>
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel> */}
+      {/* yucian: added color picker to right panel */}
+      <div className="flex flex-row gap-4"> 
+        <div className="w-3/5 grow bg-white rounded-lg border-2 border-neutral-200 px-20 py-9 flex flex-col gap-5 items-center">
+          <Carousel templates={templates} />
+
+          {/* <Carousel className="w-xl mx-auto">
+            <CarouselContent>
+              <CarouselItem className="flex flex-col gap-4">
+                <p>Template 1</p>
+                <div className="aspect-[8.5/11] bg-white border-2 border-neutral-200 w-xl">
+                  <PDFPreview />
+                </div>
+              </CarouselItem>
+              <CarouselItem className="flex flex-col gap-4">
+                <p>Template 2</p>
+                <div className="aspect-[8.5/11] bg-white border-2 border-neutral-200 w-xl" />
+              </CarouselItem>
+              <CarouselItem className="flex flex-col gap-4">
+                <p>Template 3</p>
+                <div className="aspect-[8.5/11] bg-white border-2 border-neutral-200 w-xl" />
+              </CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel> */}
+        </div>
+        <div className="max-w-xs grow bg-white rounded-lg border-2 border-neutral-200 px-8 py-9 flex flex-col items-stretch w-2/5 gap-4 overflow-y-auto">
+          <ColorPicker currentColors={templateColors.selectedColors} onColorsChange={onColorsChange}/>
+        </div>
       </div>
     </>
   );

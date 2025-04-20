@@ -24,11 +24,18 @@ import { Confirmation } from "@/components/step/Confirmation";
 
 import PDFPreview from "@/components/pdf/PDFPreview";
 import {
+  defaultTemplate1Colors,
+  Template1Colors,
   defaultTemplate1CoverPageContent,
   Template1CoverPageContent,
 } from "@/types/pageConfigs";
 
 import CoverEditor from "./components/ui/CoverEditor";
+
+interface PreviewConfig {
+  config: Template1CoverPageContent;
+  templateColors: Template1Colors;
+}
 
 const logoUrl = new URL("./assets/logo.svg", import.meta.url).href;
 
@@ -62,11 +69,15 @@ function App() {
   const [pdfPreviewConfig, setPdfPreviewConfig] = useState<Template1CoverPageContent>(
     defaultTemplate1CoverPageContent,
   );
+  const [templateColors, setTemplateColors] = useState<Template1Colors>(defaultTemplate1Colors);
 
   // 🧠 Only regenerate PDF component when config changes
   const memoizedPDFPreview = useMemo(() => {
     return <PDFPreview config={pdfPreviewConfig} />;
   }, [pdfPreviewConfig]);
+  // const memoizedPDFPreview = useMemo(() => {
+  //   return <PDFPreview config={pdfPreviewConfig} templateColors={templateColors} />;
+  // }, [pdfPreviewConfig, templateColors]);
 
   const handleFetch = async () => {
     setLoading(true);
@@ -95,6 +106,10 @@ function App() {
       <p>Rank: {metric.RANK} / {metric.TOTAL_COUNT}</p>
     </div>
   );
+
+  const handleColorChange = (newColors: Record<string, string>) => {
+    setTemplateColors({ selectedColors: newColors });
+  }
 
   return (
     <>
@@ -192,7 +207,10 @@ function App() {
           </nav>
           <main className="p-5 space-y-5">
             {
-              activeStep === 0 ? <ChooseTemplate templates={[{title: "Template 1", component: memoizedPDFPreview}]} /> :
+              activeStep === 0 ? <ChooseTemplate 
+                templates={[{title: "Template 1", component: memoizedPDFPreview}]} 
+                templateColors={templateColors}
+                onColorsChange={handleColorChange} /> :
               activeStep === 1 ? <AddSections /> :
               activeStep === 2 ? <Edit preview={memoizedPDFPreview} refreshPreview={() => setPdfPreviewConfig(coverPageContent)} editor={<CoverEditor coverData={coverPageContent} setCoverData={setCoverPageContent} />} /> :
               activeStep === 3 ? <Confirmation /> :

@@ -1,5 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
+import { Template1Colors } from "@/types/pageConfigs";
 
 export const Edit = (props: {
   preview: React.ReactNode;

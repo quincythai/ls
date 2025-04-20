@@ -3,14 +3,16 @@ import Template1CoverPage from "./Template1CoverPage";
 import HousingSection from "./sections/HousingSection";
 import EmployeeOwnershipSection from "./sections/EmployeeOwnershipSection";
 import ReferencePage from "./ReferencePage";
-import { Template1CoverPageContent } from "@/types/pageConfigs";
+import { Template1Colors, Template1CoverPageContent } from "@/types/pageConfigs";
 
 interface Template1Props {
   config: Template1CoverPageContent;
+  // templateColors: Template1Colors;
 }
 
-const Template1 = ({ config }: Template1Props) => {
+const Template = ({ config }: Template1Props) => {
   console.log(config);
+  // console.log("template colors that have been passed down to Template.tsx:", templateColors.selectedColors);
 
   return (
     <Document>
@@ -22,5 +24,5 @@ const Template1 = ({ config }: Template1Props) => {
   );
 };
 
-export default Template1;
+export default Template;
 
