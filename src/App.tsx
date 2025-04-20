@@ -72,12 +72,12 @@ function App() {
   const [templateColors, setTemplateColors] = useState<Template1Colors>(defaultTemplate1Colors);
 
   // 🧠 Only regenerate PDF component when config changes
-  const memoizedPDFPreview = useMemo(() => {
-    return <PDFPreview config={pdfPreviewConfig} />;
-  }, [pdfPreviewConfig]);
   // const memoizedPDFPreview = useMemo(() => {
-  //   return <PDFPreview config={pdfPreviewConfig} templateColors={templateColors} />;
-  // }, [pdfPreviewConfig, templateColors]);
+  //   return <PDFPreview config={pdfPreviewConfig} />;
+  // }, [pdfPreviewConfig]);
+  const memoizedPDFPreview = useMemo(() => {
+    return <PDFPreview config={pdfPreviewConfig} templateColors={templateColors} />;
+  }, [pdfPreviewConfig, templateColors]);
 
   const handleFetch = async () => {
     setLoading(true);

@@ -7,16 +7,16 @@ import { Template1Colors, Template1CoverPageContent } from "@/types/pageConfigs"
 
 interface Template1Props {
   config: Template1CoverPageContent;
-  // templateColors: Template1Colors;
+  templateColors: Template1Colors;
 }
 
-const Template = ({ config }: Template1Props) => {
+const Template = ({ config, templateColors }: Template1Props) => {
   console.log(config);
-  // console.log("template colors that have been passed down to Template.tsx:", templateColors.selectedColors);
+  console.log("template colors that have been passed down to Template.tsx:", templateColors.selectedColors);
 
   return (
     <Document>
-      <Template1CoverPage config={config} />
+      <Template1CoverPage config={config} templateColors={templateColors} />
       {/* <HousingSection />
       <EmployeeOwnershipSection />
       <ReferencePage /> */}
