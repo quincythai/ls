@@ -40,7 +40,7 @@ const CoverEditor = ({ coverData, setCoverData }: CoverEditorProps) => {
     <div className="flex flex-col gap-6 p-4 max-w-4xl mx-auto mb-16">
       {editableFields.map(({ key, label }) => (
         <div key={key}>
-          <label className="font-semibold">{label}</label>
+          <label className="font-semibold text-neutral-600">{label}</label>
           <RichTextEditor
             value={coverData[key] as any}
             onChange={(val) =>

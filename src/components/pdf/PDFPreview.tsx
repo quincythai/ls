@@ -1,21 +1,21 @@
 import { PDFViewer } from "@react-pdf/renderer";
 import Template from "./Template";
-import { Template1CoverPageContent, Template1Colors } from "@/types/pageConfigs";
+import { Template1Colors, Template1CoverPageContent } from "@/types/pageConfigs";
 
 interface PDFPreviewProps {
   config: Template1CoverPageContent;
-  templateColors: Template1Colors;
+  templateColors : Template1Colors;
 }
 
 const PDFPreview = ({ config, templateColors }: PDFPreviewProps) => {
-  console.log("PDF Preview rendering...");
+  console.log("PDFPreview rendering...");
 
   return (
-    // <div className="w-full h-full">
+    <div className="w-full h-full">
       <PDFViewer className="w-full h-full">
         <Template config={config} templateColors={templateColors}/>
       </PDFViewer>
-    // </div>
+    </div>
   );
 };
 

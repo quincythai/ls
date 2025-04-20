@@ -42,7 +42,13 @@ export const ColorPicker = ({ currentColors, onColorsChange }: ColorPickerProps)
                         width: name === "Base *" ? 1 : '30%',
                     }}
                 >
-                    <Typography variant="caption" className="text-neutral-600 mt-1 text-sm font-medium">
+                    <Typography 
+                        variant="caption" 
+                        className="text-neutral-400 mt-1 text-sm font-medium"
+                        sx={{
+                            color: currentColorName === name ? "var(--color-neutral-600)" : "var(--color-neutral-400)"
+                        }}
+                    >
                         {name}
                     </Typography>
                     <ButtonBase
@@ -50,7 +56,8 @@ export const ColorPicker = ({ currentColors, onColorsChange }: ColorPickerProps)
                         className="w-full h-12 rounded-lg overflow-hidden"
                         sx={{
                             bgcolor: color,
-                            borderRadius: currentColorName === name ? "8px" : "0px"
+                            borderRadius: "8px",
+                            border: currentColorName === name ? "2px solid var(--color-neutral-400)" : "0"
                         }}
                     >
                         {/* optionally can also display hex codes in the swatches */}

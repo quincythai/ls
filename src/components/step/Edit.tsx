@@ -1,6 +1,5 @@
 import { Button, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
-import { Template1Colors } from "@/types/pageConfigs";
 
 export const Edit = (props: {
   preview: React.ReactNode;
@@ -14,18 +13,22 @@ export const Edit = (props: {
           Edit
         </Typography>
       </header>
-      <div className="flex gap-4">
+      <div className="flex gap-4 max-h-[70vh]">
         {/* Left: PDF Preview */}
-        <div className="w-full grow bg-white rounded-lg border-2 border-neutral-200 px-20 py-9 flex flex-col gap-5 items-center">
-          <h2 className="text-lg font-bold">Preview</h2>
+        <div className="w-3/5 grow bg-white rounded-lg border-2 border-neutral-400 px-20 py-9 flex flex-col gap-5 items-center overflow-y-auto">
+          <div className="flex flex-row w-full items-center gap-4">
+            <Typography variant="h2" className="font-bold">
+              Preview
+            </Typography>
+            <Button variant="outlined" className="mt-2" onClick={props.refreshPreview} endIcon={<Icon icon="mdi:refresh" className="size-5" />}>
+              Refresh
+            </Button>
+          </div>
           {props.preview}
-          <Button variant="outlined" className="mt-2" onClick={props.refreshPreview} endIcon={<Icon icon="mdi:refresh" className="size-5" />}>
-            Refresh Preview
-          </Button>
         </div>
 
         {/* Right: Editor */}
-        <div className="max-w-xs shrink-0 flex flex-col items-stretch w-full gap-4 overflow-y-auto max-h-[80vh] pr-2">
+        <div className="w-2/5 grow flex flex-col scroll-smooth items-stretch gap-4 overflow-y-auto pr-2">
           {props.editor}
         </div>
       </div>

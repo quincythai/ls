@@ -16,7 +16,6 @@ const Template1CoverPage = ({ config, templateColors }: Template1CoverPageProps)
   console.log("Raw mission statement nodes:", config.missionStatement);
 
   const selectedColors = templateColors.selectedColors;
-  // console.log("template colors that have been passed down:", selectedColors["Base *"]);
 
   return (
     <Page size="A4" style={tw("flex flex-col bg-background px-10 pt-10 pb-4")}>

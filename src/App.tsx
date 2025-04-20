@@ -32,11 +32,6 @@ import {
 
 import CoverEditor from "./components/ui/CoverEditor";
 
-interface PreviewConfig {
-  config: Template1CoverPageContent;
-  templateColors: Template1Colors;
-}
-
 const logoUrl = new URL("./assets/logo.svg", import.meta.url).href;
 
 const states = {
@@ -71,10 +66,8 @@ function App() {
   );
   const [templateColors, setTemplateColors] = useState<Template1Colors>(defaultTemplate1Colors);
 
+
   // 🧠 Only regenerate PDF component when config changes
-  // const memoizedPDFPreview = useMemo(() => {
-  //   return <PDFPreview config={pdfPreviewConfig} />;
-  // }, [pdfPreviewConfig]);
   const memoizedPDFPreview = useMemo(() => {
     return <PDFPreview config={pdfPreviewConfig} templateColors={templateColors} />;
   }, [pdfPreviewConfig, templateColors]);
@@ -217,9 +210,9 @@ function App() {
               null
             }
           </main>
-          <div className="h-18" />
-          <div className="h-18 border-t-2 border-neutral-200 bottom-0 left-[320px] fixed w-[calc(100vw-320px)] z-40">
-            <div className="flex justify-between items-center gap-4 bg-neutral-100 max-w-7xl mx-auto px-5 h-full">
+          <div className="h-36 bottom-0 fixed w-[calc(100vw-320px)] max-w-7xl z-40">
+            <div className="h-4 bg-gradient-to-b from-transparent to-neutral-100" />
+            <div className="flex justify-between items-center gap-4 bg-neutral-100 px-5 pb-4 h-full">
               {/* @ts-expect-error MUI types are not updated */}
               <Button className="w-32" variant="gray" onClick={() => setActiveStep(activeStep - 1)} disabled={activeStep === 0}>
                 Previous
