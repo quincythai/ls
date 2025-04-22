@@ -7,9 +7,10 @@ import {
   useFocused,
   RenderLeafProps,
 } from "slate-react";
-import { createEditor, Editor, Descendant, Range, Text as SlateText } from "slate";
+import { createEditor, Transforms, Editor, Descendant, Range, Text as SlateText } from "slate";
 import { withHistory } from "slate-history";
 import ReactDOM from "react-dom";
+
 
 // Props
 export interface RichTextEditorProps {
@@ -103,6 +104,61 @@ const LinkButton = () => {
   );
 };
 
+const CitationButton = () => {
+  const editor = useSlate();
+
+  return (
+    <button
+      onMouseDown={(e) => {
+        e.preventDefault();
+        const citationText = window.prompt("Enter citation text:");
+        if (!citationText) return;
+
+        const citationNumber = getNextCitationNumber(editor);
+        insertCitation(editor, citationNumber, citationText);
+      }}
+      className="px-2 py-1 mr-1 text-sm bg-gray-800 text-gray-400"
+    >
+      📘
+    </button>
+  );
+};
+
+// These will be implemented in Step 2
+const getNextCitationNumber = (editor: Editor): number => {
+  let count = 1;
+
+  for (const [node] of Editor.nodes(editor, {
+    match: (n) => SlateText.isText(n) && !!n.citation,
+    universal: true,
+  })) {
+    count++;
+  }
+
+  return count;
+};
+
+export const insertCitation = (editor: Editor, number: number, value: string) => {
+  if (!editor.selection || Range.isCollapsed(editor.selection)) return;
+
+  const end = Range.end(editor.selection);
+  Transforms.select(editor, { anchor: end, focus: end });
+
+  // Create a new Text node just for the citation number
+  const citationNode: SlateText = {
+    text: String(number),
+    superscript: true,
+    citation: value,
+  };
+
+  // Insert as a separate node (not part of current typing context)
+  Transforms.insertNodes(editor, citationNode);
+
+  // Clear any active marks so user doesn't keep typing in superscript/citation mode
+  Editor.removeMark(editor, "superscript");
+  Editor.removeMark(editor, "citation");
+};
+
 
 // Toolbar
 const HoveringToolbar = () => {
@@ -148,6 +204,8 @@ const HoveringToolbar = () => {
       <FormatButton format="italic" label="I" />
       <FormatButton format="underline" label="U" />
       <LinkButton /> 
+      <CitationButton />
+      
     </div>,
     document.body
   );
@@ -157,9 +215,19 @@ const HoveringToolbar = () => {
 const renderLeaf = (props: RenderLeafProps) => {
   let { children, leaf } = props;
 
-  if (leaf.bold) children = <strong>{children}</strong>;
-  if (leaf.italic) children = <em>{children}</em>;
-  if (leaf.underline) children = <u>{children}</u>;
+  if (leaf.bold) {
+    children = <strong>{children}</strong>;
+  }
+  if (leaf.italic) {
+    children = <em>{children}</em>;
+  }
+  if (leaf.underline) {
+    children = <u>{children}</u>;
+  }
+
+  if (leaf.superscript) {
+    children = <sup>{children}</sup>;
+  }
 
   if (leaf.link) {
     children = (

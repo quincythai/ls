@@ -1,5 +1,5 @@
 import { Descendant, Text as SlateText } from "slate";
-import { Text, Link } from "@react-pdf/renderer";
+import { Text, Link, View } from "@react-pdf/renderer";
 import type { ReactNode } from "react";
 
 export function serializeToPDFText(
@@ -7,6 +7,7 @@ export function serializeToPDFText(
   baseStyle: Record<string, any> = {}
 ): ReactNode {
   const inlineChildren: ReactNode[] = [];
+  const citations: { number: string; text: string }[] = [];
 
   const walk = (children: Descendant[]) => {
     for (const node of children) {
@@ -20,24 +21,23 @@ export function serializeToPDFText(
           style.fontSize = 8;
           style.verticalAlign = "super";
         }
-        if (node.subscript) {
-          style.fontSize = 8;
-          style.verticalAlign = "sub";
+
+
+        if (node.citation) {
+          citations.push({ number: node.text, text: node.citation });
         }
 
-        if (node.link) {
-          inlineChildren.push(
-            <Link key={inlineChildren.length} src={node.link}>
-              <Text style={style}>{node.text}</Text>
-            </Link>
-          );
-        } else {
-          inlineChildren.push(
-            <Text key={inlineChildren.length} style={style}>
-              {node.text}
-            </Text>
-          );
-        }
+        const element = node.link ? (
+          <Link key={inlineChildren.length} src={node.link}>
+            <Text style={style}>{node.text}</Text>
+          </Link>
+        ) : (
+          <Text key={inlineChildren.length} style={style}>
+            {node.text}
+          </Text>
+        );
+
+        inlineChildren.push(element);
       } else if ("children" in node && Array.isArray(node.children)) {
         walk(node.children);
       }
@@ -46,7 +46,11 @@ export function serializeToPDFText(
 
   walk(nodes);
 
-  console.log(inlineChildren)
+  // This is where you can handle citations
+  // For example adding them to the footnotes manager
+  console.log("Citations:", citations);
 
   return inlineChildren
 }
+
+

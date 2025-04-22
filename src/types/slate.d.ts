@@ -9,5 +9,6 @@ declare module "slate" {
     superscript?: boolean;
     subscript?: boolean;
     link?: string;
+    citation?: string;
   }
 }
