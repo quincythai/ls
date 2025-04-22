@@ -7,7 +7,7 @@ import {
   useFocused,
   RenderLeafProps,
 } from "slate-react";
-import { createEditor, Editor, Descendant, Range } from "slate";
+import { createEditor, Editor, Descendant, Range, Text as SlateText } from "slate";
 import { withHistory } from "slate-history";
 import ReactDOM from "react-dom";
 
@@ -18,7 +18,7 @@ export interface RichTextEditorProps {
 }
 
 // Formatting types
-type Format = "bold" | "italic" | "underline";
+type Format = "bold" | "italic" | "underline" | "link";
 
 // Mark toggle logic
 const toggleMark = (editor: Editor, format: Format) => {
@@ -33,6 +33,30 @@ const toggleMark = (editor: Editor, format: Format) => {
 const isMarkActive = (editor: Editor, format: Format) => {
   const marks = Editor.marks(editor);
   return marks ? marks[format] === true : false;
+};
+
+export const toggleLink = (editor: Editor, url: string) => {
+  const { selection } = editor;
+
+  if (!selection || Range.isCollapsed(selection)) return;
+
+  const [match] = Editor.nodes(editor, {
+    match: (n) => SlateText.isText(n) && !!n.link,
+    universal: true,
+  });
+
+  if (match) {
+    // Link already exists — remove it
+    Editor.removeMark(editor, "link");
+  } else {
+    // Add new link
+    Editor.addMark(editor, "link", url);
+  }
+};
+
+export const isLinkActive = (editor: Editor) => {
+  const marks = Editor.marks(editor);
+  return marks ? !!marks.link : false;
 };
 
 // Format button
@@ -53,6 +77,32 @@ const FormatButton = ({ format, label }: { format: Format; label: string }) => {
     </button>
   );
 };
+
+// Link Button
+const LinkButton = () => {
+  const editor = useSlate();
+  const active = isLinkActive(editor);
+
+  return (
+    <button
+      onMouseDown={(e) => {
+        e.preventDefault();
+        const url = window.prompt("Enter URL:");
+        if (url) {
+          toggleLink(editor, url);
+        } else {
+          toggleLink(editor, ""); // Removes link if input is empty
+        }
+      }}
+      className={`px-2 py-1 mr-1 text-sm bg-gray-800 ${
+        active ? "font-bold text-white" : "text-gray-400"
+      }`}
+    >
+      🔗
+    </button>
+  );
+};
+
 
 // Toolbar
 const HoveringToolbar = () => {
@@ -97,6 +147,7 @@ const HoveringToolbar = () => {
       <FormatButton format="bold" label="B" />
       <FormatButton format="italic" label="I" />
       <FormatButton format="underline" label="U" />
+      <LinkButton /> 
     </div>,
     document.body
   );
@@ -104,10 +155,25 @@ const HoveringToolbar = () => {
 
 // Text formatting
 const renderLeaf = (props: RenderLeafProps) => {
-  let { children } = props;
-  if (props.leaf.bold) children = <strong>{children}</strong>;
-  if (props.leaf.italic) children = <em>{children}</em>;
-  if (props.leaf.underline) children = <u>{children}</u>;
+  let { children, leaf } = props;
+
+  if (leaf.bold) children = <strong>{children}</strong>;
+  if (leaf.italic) children = <em>{children}</em>;
+  if (leaf.underline) children = <u>{children}</u>;
+
+  if (leaf.link) {
+    children = (
+      <a
+        href={leaf.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-500 underline"
+      >
+        {children}
+      </a>
+    );
+  }
+
   return <span {...props.attributes}>{children}</span>;
 };
 

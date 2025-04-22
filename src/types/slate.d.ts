@@ -8,5 +8,6 @@ declare module "slate" {
     underline?: boolean;
     superscript?: boolean;
     subscript?: boolean;
+    link?: string;
   }
 }

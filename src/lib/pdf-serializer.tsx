@@ -1,5 +1,5 @@
 import { Descendant, Text as SlateText } from "slate";
-import { Text } from "@react-pdf/renderer";
+import { Text, Link } from "@react-pdf/renderer";
 import type { ReactNode } from "react";
 
 export function serializeToPDFText(
@@ -25,11 +25,19 @@ export function serializeToPDFText(
           style.verticalAlign = "sub";
         }
 
-        inlineChildren.push(
-          <Text style={style}>
-            {node.text}
-          </Text>
-        );
+        if (node.link) {
+          inlineChildren.push(
+            <Link key={inlineChildren.length} src={node.link}>
+              <Text style={style}>{node.text}</Text>
+            </Link>
+          );
+        } else {
+          inlineChildren.push(
+            <Text key={inlineChildren.length} style={style}>
+              {node.text}
+            </Text>
+          );
+        }
       } else if ("children" in node && Array.isArray(node.children)) {
         walk(node.children);
       }
@@ -38,6 +46,7 @@ export function serializeToPDFText(
 
   walk(nodes);
 
-  // Return ONE parent <Text> with all inline children
-  return inlineChildren;
+  console.log(inlineChildren)
+
+  return inlineChildren
 }
