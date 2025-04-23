@@ -11,7 +11,6 @@ interface StatBoxProps {
   labelFontSize?: string;
   rankFontSize?: string;
   textContainerHeight?: number;
-  isNormal?: boolean;
 }
 
 const StatBox = ({
@@ -22,11 +21,10 @@ const StatBox = ({
   labelFontSize = "text-caption",
   rankFontSize = "text-caption",
   textContainerHeight = 43,
-  isNormal = false
 }: StatBoxProps) => {
   return (
     <View style={tw("flex-1 px-1 text-left")}>
-      <Text style={tw(`${numberFontSize} text-foreground mb-1 ${isNormal ? "font-normal" : "font-extrabold"}`)}>
+      <Text style={tw(`${numberFontSize} text-foreground mb-1 font-extrabold`)}>
         {number}
       </Text>
 
