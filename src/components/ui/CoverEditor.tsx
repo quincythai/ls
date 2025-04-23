@@ -1,5 +1,7 @@
 import { Template1CoverPageContent } from "@/types/pageConfigs";
 import RichTextEditor from "./RichTextEditor";
+import React, { useRef } from "react";
+import { Button } from "@mui/material";
 
 interface CoverEditorProps {
   coverData: Template1CoverPageContent;
@@ -36,8 +38,60 @@ const statFields: {
 ];
 
 const CoverEditor = ({ coverData, setCoverData }: CoverEditorProps) => {
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result as string;
+      setCoverData(prev => ({ ...prev, coverImage: dataUrl }));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+
   return (
     <div className="flex flex-col gap-6 p-4 max-w-4xl mx-auto mb-16">
+      <div>
+        <label className="font-semibold">Select Logo Image</label>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          className="hidden"
+        />
+
+        <Button
+          variant="contained"
+          onClick={() => fileInputRef.current?.click()}
+          sx={{
+            fontWeight: 600,
+            color: "var(--color-lafayette-500)",
+            backgroundColor: "var(--color-lafayette-900)",
+            "&:hover": {
+              backgroundColor: "var(--color-lafayette-500)",
+              color: "var(--color-lafayette-900)",
+            },
+          }}
+        >
+          Upload Cover Image
+        </Button>
+      
+        {coverData.coverImage && (
+          <div className="mt-2 flex flex-col items-start gap-2">
+            <img
+              src={coverData.coverImage}
+              alt="Cover Preview"
+              className="w-70 h-70 object-contain rounded"
+            />
+          </div>
+        )}
+      </div>
+
       {editableFields.map(({ key, label }) => (
         <div key={key}>
           <label className="font-semibold">{label}</label>

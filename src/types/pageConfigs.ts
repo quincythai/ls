@@ -9,6 +9,8 @@ export interface StatBoxContent {
 }
 
 export interface Template1CoverPageContent {
+  coverImage?: string;
+
   reportTitle: RichTextValue;
   missionStatement: RichTextValue;
   missionSubtext: RichTextValue;
@@ -29,6 +31,8 @@ export interface Template1CoverPageContent {
 }
 
 export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
+  coverImage: "",
+  
   reportTitle: [
     {
       type: "paragraph",

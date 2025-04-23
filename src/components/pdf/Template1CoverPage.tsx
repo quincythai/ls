@@ -1,4 +1,4 @@
-import { Page, View, Text, Svg, Path } from "@react-pdf/renderer";
+import { Page, View, Text, Svg, Path, Image } from "@react-pdf/renderer";
 import { tw } from "../../lib/pdf-theme";
 import { serializeToPDFText } from "@/lib/pdf-serializer";
 import { Template1CoverPageContent } from "@/types/pageConfigs";
@@ -17,6 +17,19 @@ const Template1CoverPage = ({ config }: Template1CoverPageProps) => {
   return (
     <Page size="A4" style={tw("flex flex-col bg-background px-10 pt-10 pb-4")}>
       {/* Header */}
+      {config.coverImage && (
+        <Image
+          src={config.coverImage}
+          style={{
+            position: "absolute",
+            top: -10,
+            right: 30,
+            width: 150,
+            height: 150,
+            objectFit: "contain",
+          }}
+        />
+      )}
       <View style={tw("flex flex-row justify-between items-start mb-4")}>
         <View style={tw("relative")}>
           <Svg width="380" height="50" viewBox="0 0 380 50">
@@ -30,16 +43,6 @@ const Template1CoverPage = ({ config }: Template1CoverPageProps) => {
           >
             535 Insights
           </Text>
-        </View>
-        <View style={tw("flex flex-row items-start gap-2 top-8")}>
-          <Svg width="65" height="60" viewBox="0 0 700 568">
-            {/* Logo paths... */}
-          </Svg>
-          <View style={tw("flex flex-col")}>
-            <Text style={tw("text-[16px] font-medium text-foreground")}>Lafayette</Text>
-            <Text style={tw("text-[16px] font-medium text-foreground")}>Square</Text>
-            <Text style={tw("text-[16px] font-medium text-foreground")}>Institute</Text>
-          </View>
         </View>
       </View>
 
