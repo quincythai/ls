@@ -255,7 +255,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange }) => {
       <Editable
         renderLeaf={renderLeaf}
         placeholder="Type something..."
-        className="border border-gray-300 rounded p-3 min-h-[100px] focus:outline-none"
+        className="border-2 border-gray-300 rounded-lg p-3 min-h-[100px] focus:outline-none"
       />
     </Slate>
   );

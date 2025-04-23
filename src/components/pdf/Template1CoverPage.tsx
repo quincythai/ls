@@ -1,18 +1,21 @@
 import { Page, View, Text, Svg, Path, Image } from "@react-pdf/renderer";
 import { tw } from "../../lib/pdf-theme";
 import { serializeToPDFText } from "@/lib/pdf-serializer";
-import { Template1CoverPageContent } from "@/types/pageConfigs";
+import { Template1CoverPageContent, Template1Colors } from "@/types/pageConfigs";
 import StatBox from "./StatBox";
 import { Highlight } from "./Highlight";
 
 interface Template1CoverPageProps {
   config: Template1CoverPageContent;
+  templateColors: Template1Colors;
 }
 
-const Template1CoverPage = ({ config }: Template1CoverPageProps) => {
+const Template1CoverPage = ({ config, templateColors }: Template1CoverPageProps) => {
   // Debug logs – placed safely outside JSX
   console.log("Serialized mission statement:", serializeToPDFText(config.missionStatement));
   console.log("Raw mission statement nodes:", config.missionStatement);
+
+  const selectedColors = templateColors.selectedColors;
 
   return (
     <Page size="A4" style={tw("flex flex-col bg-background px-10 pt-10 pb-4")}>
@@ -72,7 +75,7 @@ const Template1CoverPage = ({ config }: Template1CoverPageProps) => {
       {/* Stats */}
       <Highlight
         isFullWidth
-        color="#d7f1ef"
+        color={selectedColors["Base *"]}
         top={25}
         height={125}
         className="mb-4"
@@ -111,7 +114,10 @@ const Template1CoverPage = ({ config }: Template1CoverPageProps) => {
       </Highlight>
 
       <View style={tw("flex flex-row gap-5")}>
-        <View style={tw("flex-1 bg-[#D3E8C8] py-6 px-8")}>
+        <View style={[
+          tw("flex-1 py-6 px-8"), 
+          { backgroundColor: selectedColors["Section 1 *"] }
+          ]}>
           <Text style={tw("text-heading-4 font-black text-foreground mb-4")}>
             {serializeToPDFText(config.affordableHousingTitle)}
           </Text>
@@ -122,7 +128,10 @@ const Template1CoverPage = ({ config }: Template1CoverPageProps) => {
             )}
           </Text>
         </View>
-        <View style={tw("flex-1 bg-[#C1D9EC] py-6 px-8")}>
+        <View style={[
+          tw("flex-1 py-6 px-8"),
+          { backgroundColor: selectedColors["Section 2"] }
+          ]}>
           <Text style={tw("text-heading-4 text-foreground mb-4")}>
             {serializeToPDFText(config.employeeOwnershipTitle)}
           </Text>
