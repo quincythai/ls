@@ -1,4 +1,7 @@
 // tailwind.config.js
+
+const plugin = require("tailwindcss/plugin");
+
 module.exports = {
     content: [
       './index.html',
@@ -6,17 +9,6 @@ module.exports = {
     ],
     important: "#root",
     theme: {
-      extend: {
-        colors: {
-          lafayette: {
-            100: "#D7F1EF",
-            200: "#B9DEDD",
-            400: "#22D6CD",
-            600: "#65D4CC",
-            900: "#0F202B"
-          },
-        },
-      },
       letterSpacing: {
         normal: '0.46px',
       },

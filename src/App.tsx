@@ -19,7 +19,7 @@ import { Metric, ReportData } from "./types/report";
 
 import { ChooseTemplate } from "@/components/step/ChooseTemplate";
 import { AddSections } from "@/components/step/AddSections";
-import { Edit } from "@/components/step/Edit";
+import { NewEdit } from "@/components/step/NewEdit";
 import { Confirmation } from "@/components/step/Confirmation";
 
 import PDFPreview from "@/components/pdf/PDFPreview";
@@ -29,7 +29,6 @@ import {
 } from "@/types/pageConfigs";
 
 import CoverEditor from "./components/ui/CoverEditor";
-
 const logoUrl = new URL("./assets/logo.svg", import.meta.url).href;
 
 const states = {
@@ -194,7 +193,7 @@ function App() {
             {
               activeStep === 0 ? <ChooseTemplate templates={[{title: "Template 1", component: memoizedPDFPreview}]} /> :
               activeStep === 1 ? <AddSections /> :
-              activeStep === 2 ? <Edit preview={memoizedPDFPreview} refreshPreview={() => setPdfPreviewConfig(coverPageContent)} editor={<CoverEditor coverData={coverPageContent} setCoverData={setCoverPageContent} />} /> :
+              activeStep === 2 ? <NewEdit preview={memoizedPDFPreview} refreshPreview={() => setPdfPreviewConfig(coverPageContent)} editor={<CoverEditor coverData={coverPageContent} setCoverData={setCoverPageContent} />} /> :
               activeStep === 3 ? <Confirmation /> :
               null
             }

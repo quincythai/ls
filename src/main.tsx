@@ -90,10 +90,10 @@ const theme = createTheme({
                 border: "1px solid var(--color-lafayette-900)",
                 backgroundColor: "white",
                 "&:hover": {
-                  backgroundColor: "var(--color-lafayette-200)",
+                  backgroundColor: "var(--color-lafayette-300)",
                 },
                 "&:active": {
-                  backgroundColor: "var(--color-lafayette-200)",
+                  backgroundColor: "var(--color-lafayette-300)",
                 },
               },
             },
@@ -188,10 +188,10 @@ const theme = createTheme({
                 background: "transparent",
               },
               "& li:hover": {
-                background: "color-mix(in srgb, var(--color-lafayette-200) 50%, transparent)",
+                background: "color-mix(in srgb, var(--color-lafayette-300) 50%, transparent)",
               },
               "& li.Mui-selected": {
-                background: "var(--color-lafayette-200)",
+                background: "var(--color-lafayette-300)",
               },
             },
           },
@@ -251,16 +251,16 @@ const theme = createTheme({
             fontSize: "15px",
             color: "var(--color-lafayette-900)",
             "&:hover": {
-              border: "2px solid color-mix(in srgb, var(--color-lafayette-200) 50%, transparent)",
-              backgroundColor: "color-mix(in srgb, var(--color-lafayette-200) 50%, transparent)",
+              border: "2px solid color-mix(in srgb, var(--color-lafayette-300) 50%, transparent)",
+              backgroundColor: "color-mix(in srgb, var(--color-lafayette-300) 50%, transparent)",
             },
             "&.Mui-selected": {
-              border: "2px solid var(--color-lafayette-200)",
-              backgroundColor: "var(--color-lafayette-200)",
+              border: "2px solid var(--color-lafayette-300)",
+              backgroundColor: "var(--color-lafayette-300)",
             },
             "&.Mui-selected:hover": {
-              border: "2px solid var(--color-lafayette-200)",
-              backgroundColor: "var(--color-lafayette-200)",
+              border: "2px solid var(--color-lafayette-300)",
+              backgroundColor: "var(--color-lafayette-300)",
             },
           },
         },

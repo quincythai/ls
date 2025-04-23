@@ -7,8 +7,24 @@
 @theme {
   --font-sans: "Inter", sans-serif;
   --color-lafayette-100: #d7f1ef;
-  --color-lafayette-200: #b9dedd;
+  --color-lafayette-200: #c2eae6;
+  --color-lafayette-300: #b9dedd;
   --color-lafayette-500: #22d6cd;
   --color-lafayette-700: #65d4cc;
   --color-lafayette-900: #0f202b;
+  --color-lafayette-950: #13202a;
+  --color-olive-200: #cee4c4;
+  --color-navyish-200: #bfd8e9;
+}
+
+.highlight-lafayette-100 {
+  background-image: linear-gradient(
+    to bottom,
+    transparent 50%,
+    var(--color-lafayette-100) 50%
+  );
+}
+
+.highlight-white {
+  background-image: linear-gradient(to bottom, transparent 50%, white 50%);
 }
