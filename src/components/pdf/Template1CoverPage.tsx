@@ -32,8 +32,12 @@ const Template1CoverPage = ({ config }: Template1CoverPageProps) => {
           </Text>
         </View>
         <View style={tw("flex flex-row items-start gap-2 top-8")}>
-          <Svg width="65" height="60" viewBox="0 0 700 568">
-            {/* Logo paths... */}
+        <Svg width="65" height="60" viewBox="0 0 700 568">
+            <Path d="M-1.04847e-05 284L140.287 523.861L287.613 486.951L148.439 30.2003L-1.04847e-05 284Z" fill="#6F9B9A"/>
+            <Path d="M543.144 76.6627L498.307 8.88674e-05L436.873 9.15527e-05L492.408 89.3109L543.144 76.6627Z" fill="#6F9B9A"/>
+            <Path d="M402.026 0.000173205L175.522 0.000183105L222.228 156.666L459.12 97.6094L402.026 0.000173205Z" fill="#22D6CD"/>
+            <Path d="M664.41 284L590.02 411.19L318.395 479.24L232.333 190.557L561.488 108.024L664.41 284Z" fill="#B9EAE4"/>
+            <Path d="M166.102 568L498.306 568L568.619 447.779L156.591 551.738L166.102 568Z" fill="#0F202B"/>
           </Svg>
           <View style={tw("flex flex-col")}>
             <Text style={tw("text-[16px] font-medium text-foreground")}>Lafayette</Text>

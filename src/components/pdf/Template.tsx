@@ -13,13 +13,13 @@ const Template1 = ({ config }: Template1Props) => {
   console.log(config);
 
   return (
-    <Document>
+  <Document>
       <Template1CoverPage config={config} />
       {/* <HousingSection />
       <EmployeeOwnershipSection />
       <ReferencePage /> */}
-    </Document>
-  );
+  </Document>
+);
 };
 
 export default Template1;

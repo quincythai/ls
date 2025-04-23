@@ -6,7 +6,12 @@ type Template = {
   component: React.ReactNode;
 };
 
-export const ChooseTemplate = ({ templates }: { templates: Template[] }) => {
+interface ChooseTemplateProps {
+  templates: Template[];
+  onTemplateSelect: (index: number) => void;
+}
+
+export const ChooseTemplate = ({ templates, onTemplateSelect }: ChooseTemplateProps) => {
   return (
     <>
       <header>
@@ -15,7 +20,7 @@ export const ChooseTemplate = ({ templates }: { templates: Template[] }) => {
         </Typography>
       </header>
       <div className="bg-white rounded-lg border-2 border-neutral-200 px-4 py-8">
-        <Carousel templates={templates} />
+        <Carousel templates={templates} onTemplateSelect={onTemplateSelect} />
         {/* <Carousel className="w-xl mx-auto">
           <CarouselContent>
             <CarouselItem className="flex flex-col gap-4">

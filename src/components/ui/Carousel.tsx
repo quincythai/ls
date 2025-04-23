@@ -12,8 +12,17 @@ type Template = {
   component: React.ReactNode;
 };
 
-export const Carousel = ({ templates }: { templates: Template[] }) => {
+interface CarouselProps {
+  templates: Template[];
+  onTemplateSelect: (index: number) => void;
+}
+
+export const Carousel = ({ templates, onTemplateSelect }: CarouselProps) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    onTemplateSelect(activeIndex);
+  }, [activeIndex, onTemplateSelect]);
 
   const handlePrev = () => {
     setActiveIndex((prev) => (prev === 0 ? templates.length - 1 : prev - 1));
@@ -30,9 +39,13 @@ export const Carousel = ({ templates }: { templates: Template[] }) => {
       </Typography>
       <Card
         elevation={0}
-        className="bg-white border-2 border-neutral-200 rounded-none aspect-[8.5/11] mx-auto h-96 flex items-center justify-center"
+        className="bg-white border-2 border-neutral-200 rounded-none aspect-[8.5/11] mx-auto h-[600px] flex items-center justify-center"
       >
-        {templates[activeIndex].component}
+        {templates[activeIndex].component || (
+          <Typography variant="body1" color="textSecondary">
+            Loading template...
+          </Typography>
+        )}
       </Card>
 
       <IconButton

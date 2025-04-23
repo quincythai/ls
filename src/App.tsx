@@ -26,9 +26,12 @@ import PDFPreview from "@/components/pdf/PDFPreview";
 import {
   defaultTemplate1CoverPageContent,
   Template1CoverPageContent,
+  defaultTemplate2CoverPageContent,
+  Template2CoverPageContent,
 } from "@/types/pageConfigs";
 
 import CoverEditor from "./components/ui/CoverEditor";
+import Template2Editor from "./components/ui/Template2Editor";
 
 const logoUrl = new URL("./assets/logo.svg", import.meta.url).href;
 
@@ -49,6 +52,7 @@ const steps = [
 function App() {
   const [selectedState, setSelectedState] = useState<string | undefined>(undefined);
   const [selectedDistrict, setSelectedDistrict] = useState<string | undefined>(undefined);
+  const [selectedTemplateIndex, setSelectedTemplateIndex] = useState(0);
 
   const [activeStep, setActiveStep] = useState(0);
 
@@ -59,7 +63,10 @@ function App() {
   const [coverPageContent, setCoverPageContent] = useState<Template1CoverPageContent>(
     defaultTemplate1CoverPageContent,
   );
-  const [pdfPreviewConfig, setPdfPreviewConfig] = useState<Template1CoverPageContent>(
+  const [template2Config, setTemplate2Config] = useState<Template2CoverPageContent>(
+    defaultTemplate2CoverPageContent,
+  );
+  const [pdfPreviewConfig, setPdfPreviewConfig] = useState<Template1CoverPageContent | Template2CoverPageContent>(
     defaultTemplate1CoverPageContent,
   );
 
@@ -67,6 +74,26 @@ function App() {
   const memoizedPDFPreview = useMemo(() => {
     return <PDFPreview config={pdfPreviewConfig} />;
   }, [pdfPreviewConfig]);
+
+  const handleTemplateSelect = (index: number) => {
+    setSelectedTemplateIndex(index);
+    if (index === 0) {
+      setPdfPreviewConfig(coverPageContent);
+    } else {
+      setPdfPreviewConfig(template2Config);
+    }
+  };
+
+  const templates = [
+    { 
+      title: "Template 1", 
+      component: selectedTemplateIndex === 0 ? memoizedPDFPreview : null 
+    },
+    { 
+      title: "Template 2", 
+      component: selectedTemplateIndex === 1 ? memoizedPDFPreview : null 
+    },
+  ];
 
   const handleFetch = async () => {
     setLoading(true);
@@ -192,9 +219,27 @@ function App() {
           </nav>
           <main className="p-5 space-y-5">
             {
-              activeStep === 0 ? <ChooseTemplate templates={[{title: "Template 1", component: memoizedPDFPreview}]} /> :
+              activeStep === 0 ? <ChooseTemplate templates={templates} onTemplateSelect={handleTemplateSelect} /> :
               activeStep === 1 ? <AddSections /> :
-              activeStep === 2 ? <Edit preview={memoizedPDFPreview} refreshPreview={() => setPdfPreviewConfig(coverPageContent)} editor={<CoverEditor coverData={coverPageContent} setCoverData={setCoverPageContent} />} /> :
+              activeStep === 2 ? (
+                <Edit 
+                  preview={memoizedPDFPreview} 
+                  refreshPreview={() => {
+                    if ("missionStatement" in pdfPreviewConfig) {
+                      setPdfPreviewConfig(coverPageContent);
+                    } else {
+                      setPdfPreviewConfig(template2Config);
+                    }
+                  }} 
+                  editor={
+                    "missionStatement" in pdfPreviewConfig ? (
+                      <CoverEditor coverData={coverPageContent} setCoverData={setCoverPageContent} />
+                    ) : (
+                      <Template2Editor coverData={template2Config} setCoverData={setTemplate2Config} />
+                    )
+                  } 
+                />
+              ) :
               activeStep === 3 ? <Confirmation /> :
               null
             }
