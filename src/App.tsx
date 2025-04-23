@@ -19,7 +19,7 @@ import { Metric, ReportData } from "./types/report";
 
 import { ChooseTemplate } from "@/components/step/ChooseTemplate";
 import { AddSections } from "@/components/step/AddSections";
-import { NewEdit } from "@/components/step/NewEdit";
+import { Edit } from "./components/step/Edit";
 import { Confirmation } from "@/components/step/Confirmation";
 
 import PDFPreview from "@/components/pdf/PDFPreview";
@@ -204,7 +204,7 @@ function App() {
                 templateColors={templateColors}
                 onColorsChange={handleColorChange} /> :
               activeStep === 1 ? <AddSections /> :
-              activeStep === 2 ? <NewEdit preview={memoizedPDFPreview} refreshPreview={() => setPdfPreviewConfig(coverPageContent)} editor={<CoverEditor coverData={coverPageContent} setCoverData={setCoverPageContent} />} /> :
+              activeStep === 2 ? <Edit preview={memoizedPDFPreview} refreshPreview={() => setPdfPreviewConfig(coverPageContent)} editor={<CoverEditor coverData={coverPageContent} setCoverData={setCoverPageContent} />} /> :
               activeStep === 3 ? <Confirmation /> :
               null
             }
