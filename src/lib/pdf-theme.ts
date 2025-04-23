@@ -12,6 +12,29 @@ Font.register({
   ],
 });
 
+let SourceDict: Record<string, string> = {};
+
+export const getFootnoteIndex = (source: string): number => {
+  // Check if the source is already present in SourceDict.
+  for (const key of Object.keys(SourceDict)) {
+    if (SourceDict[key] === source) {
+      return parseInt(key, 10);
+    }
+  }
+
+  // If not found, create a new index.
+  const newIndex = Object.keys(SourceDict).length + 1;
+  SourceDict[newIndex.toString()] = source;
+  return newIndex;
+};
+
+
+export const getAllFootnotes = (): Record<string, string> => {
+  // Return a shallow copy of SourceDict.
+  return { ...SourceDict };
+};
+
+
 export const tw = createTw({
   theme: {
     fontFamily: {
