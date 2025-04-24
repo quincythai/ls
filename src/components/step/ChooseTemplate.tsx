@@ -2,6 +2,8 @@ import { Carousel } from "@/components/ui/Carousel";
 import { ColorPicker } from "@/components/ui/ColorPicker";
 import { Typography } from "@mui/material";
 import { Template1Colors } from "@/types/pageConfigs";
+import { ChartSection } from "@/components/ui/ChartSection";
+import { generateRentBurdenData } from "@/lib/utils";
 
 type Template = {
   title: string;
@@ -15,6 +17,13 @@ interface ChooseTemplateProps {
 }
 
 export const ChooseTemplate = ({ templates, templateColors, onColorsChange }: ChooseTemplateProps) => {
+  // Example: Can put this wherever you want to display the chart and mod values
+  const customRentData = generateRentBurdenData(
+    { burdened: 72, severelyBurdened: 49 },
+    { burdened: 43, severelyBurdened: 5 },
+    { burdened: 9, severelyBurdened: 0 },
+    { burdened: 2, severelyBurdened: 1 },
+  );
 
   return (
     <>
@@ -53,6 +62,7 @@ export const ChooseTemplate = ({ templates, templateColors, onColorsChange }: Ch
           <ColorPicker currentColors={templateColors.selectedColors} onColorsChange={onColorsChange}/>
         </div>
       </div>
+      <ChartSection rentData={customRentData} />
     </>
   );
 };
