@@ -106,7 +106,7 @@ export interface HousingSectionContent {
         ],
       },
     ],
-    rentBurdenChart: new URL("../../../assets/rent-burden-chart.png", import.meta.url).href,
+    rentBurdenChart: new URL("../../assets/rent-burden-chart.png", import.meta.url).href,
     statGroup2: [
       {
         number: "$1,796",
@@ -148,7 +148,7 @@ export interface HousingSectionContent {
         rank: "RANK 287 OUT OF 435",
       },
     ],
-    qrImageSrc: new URL("../assets/qr-code.png", import.meta.url).href,
+    qrImageSrc: new URL("../../assets/qr-code.png", import.meta.url).href,
     qrCaption: [
       {
         type: "paragraph",

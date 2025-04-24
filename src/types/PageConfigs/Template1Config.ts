@@ -38,7 +38,7 @@ export interface Template1CoverPageContent {
 }
 
 export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
-  coverImage: new URL("../assets/logo.svg", import.meta.url).href,
+  coverImage: new URL("../../assets/logo.svg", import.meta.url).href,
   
   reportTitle: [
     {
