@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HexColorPicker, HexColorInput } from "react-colorful";
-import { lightenHexColor } from "@/lib/pdf-theme";
+import { lightenHexColor } from "@/utils/pdf-theme";
 import {
     Typography,
     ButtonBase,

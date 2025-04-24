@@ -3,7 +3,10 @@ import Template1CoverPage from "./Template1CoverPage";
 import HousingSection from "./sections/HousingSection";
 import EmployeeOwnershipSection from "./sections/EmployeeOwnershipSection";
 import ReferencePage from "./ReferencePage";
-import { Template1Colors, Template1CoverPageContent } from "@/types/pageConfigs";
+import { Template1Colors, Template1CoverPageContent } from "@/types/PageConfigs/Template1Config";
+import { defaultEmployeeOwnershipSectionContent } from "@/types/PageConfigs/EmployeeOwnershipConfig";
+import { defaultHousingSectionContent } from "@/types/PageConfigs/HousingConfig";
+import { defaultReferencePageContent } from "@/types/PageConfigs/ReferenceConfig";
 
 
 interface Template1Props {
@@ -18,9 +21,9 @@ const Template1 = ({ config, templateColors }: Template1Props) => {
   return (
     <Document>
       <Template1CoverPage config={config} templateColors={templateColors} />
-      {/* <HousingSection />
-      <EmployeeOwnershipSection /> */}
-      <ReferencePage />
+      <HousingSection config={defaultHousingSectionContent} />
+      <EmployeeOwnershipSection config={defaultEmployeeOwnershipSectionContent} />
+      <ReferencePage config={defaultReferencePageContent} />
     </Document>
   );
 };

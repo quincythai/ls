@@ -1,16 +1,13 @@
 import { Page, View, Text, Svg, Path, Image } from "@react-pdf/renderer";
-import { tw } from "../../lib/pdf-theme";
-import { serializeToPDFText } from "@/lib/pdf-serializer";
-import {
-  ReferencePageContent,
-  defaultReferencePageContent,
-} from "@/types/pageConfigs";
+import { tw } from "../../utils/pdf-theme";
+import { serializeToPDFText } from "@/utils/pdf-serializer";
+import { ReferencePageContent } from "@/types/PageConfigs/ReferenceConfig";
 
 interface Props {
   config: ReferencePageContent;
 }
 
-const ReferencePage = ({ config = defaultReferencePageContent }: Props) => (
+const ReferencePage = ({ config }: Props) => (
   <Page size="A4" style={tw("flex flex-col bg-background px-10 pt-10 pb-4")}>
     <View style={tw("relative flex-1")}>
       {/* Colored top bars */}

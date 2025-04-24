@@ -9,7 +9,7 @@ import {
   } from "recharts";
   import { useCallback, useState, useEffect } from "react";
   import html2canvas from "html2canvas-pro";
-  import { generateRentBurdenData, type RentBurdenData } from "@/lib/utils";
+  import { generateRentBurdenData, type RentBurdenData } from "@/utils/sharedUtils";
   
   interface RentBurdenChartProps {
     onChartImageGenerated?: (img: string) => void;

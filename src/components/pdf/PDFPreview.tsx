@@ -1,6 +1,6 @@
 import { PDFViewer } from "@react-pdf/renderer";
 import Template from "./Template";
-import { Template1Colors, Template1CoverPageContent } from "@/types/pageConfigs";
+import { Template1Colors, Template1CoverPageContent } from "@/types/PageConfigs/Template1Config";
 
 interface PDFPreviewProps {
   config: Template1CoverPageContent;

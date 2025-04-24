@@ -3,7 +3,7 @@ import { ColorPicker } from "@/components/ui/ColorPicker";
 import { Typography } from "@mui/material";
 import { Template1Colors } from "@/types/pageConfigs";
 import { ChartSection } from "@/components/ui/ChartSection";
-import { generateRentBurdenData } from "@/lib/utils";
+import { generateRentBurdenData } from "@/utils/sharedUtils";
 
 type Template = {
   title: string;

@@ -1,12 +1,4 @@
-import { Descendant } from "slate";
-
-export type RichTextValue = Descendant[];
-
-export interface StatBoxContent {
-  number: string;
-  label: RichTextValue;
-  rank?: string;
-}
+import { RichTextValue, StatBoxContent } from "./BasePageConfig";
 
 export interface Template1Colors {
   selectedColors: Record<string, string>
@@ -19,7 +11,7 @@ export const defaultTemplate1Colors: Template1Colors = {
     "Section 2": "#C1D9EC",
     "Section 3": "#FFD5A5",
 
-    "Highlight": "#E7FEFC",   // not user defined; automatically generated using Base
+    "Highlight": "#E7FEFC",   
   }
 };
 
@@ -45,128 +37,8 @@ export interface Template1CoverPageContent {
   successionRiskStat: StatBoxContent;
 }
 
-export interface ReferencePageContent {
-  contactEmail: RichTextValue;
-  qrImageSrc: string;
-  leftColumn: RichTextValue[];
-  rightColumn: RichTextValue[];
-}
-
-export const defaultReferencePageContent: ReferencePageContent = {
-  contactEmail: [
-    {
-      type: "paragraph",
-      children: [
-        { text: "Connect with us at " },
-        { text: "535@lafayettesquareinstitute.org", underline: true },
-      ],
-    },
-  ],
-  qrImageCaption: [
-    {
-      type: "paragraph",
-      children: [{ text: "Want to learn more?" }],
-    },
-  ],
-  qrImageCTA: [
-    {
-      type: "paragraph",
-      children: [{ text: "Visit our website!", underline: true }],
-    },
-  ],
-  qrImageSrc: new URL("../../assets/qr-code.png", import.meta.url).href,
-  leftColumn: [
-    [
-      {
-        type: "paragraph",
-        children: [
-          { text: "Chetty, R. et al. " },
-          { text: "Opportunity Insights", italic: true, underline: true },
-          { text: ", Harvard University, 2018. " },
-          {
-            text: "The Opportunity Atlas: Mapping the Childhood Roots of Social Mobility.",
-            italic: true,
-            underline: true,
-          },
-        ],
-      },
-    ],
-    [
-      {
-        type: "paragraph",
-        children: [
-          { text: "U.S. Census Bureau, 2024. " },
-          {
-            text: "Household Pulse Survey, Phase 4.2, Cycle 09.",
-            italic: true,
-            underline: true,
-          },
-          { text: " Difficulty paying for usual household expenses." },
-        ],
-      },
-    ],
-    [
-      {
-        type: "paragraph",
-        children: [
-          { text: "Federal Reserve Board, 2023. " },
-          {
-            text: "2022 Survey of Consumer Finances: Median Net Worth by Family Characteristics.",
-            italic: true,
-            underline: true,
-          },
-        ],
-      },
-    ],
-  ],
-
-  rightColumn: [
-    [
-      {
-        type: "paragraph",
-        children: [
-          { text: "Anderson, D. " },
-          { text: "Redfin, 2024. ", italic: true },
-          {
-            text: "Nearly 40% of Renters Think They'll Never Own a Home.",
-            italic: true,
-            underline: true,
-          },
-        ],
-      },
-    ],
-    [
-      {
-        type: "paragraph",
-        children: [
-          { text: "National Center for Employee Ownership, 2018. " },
-          {
-            text: "Research on Employee Ownership, Corporate Performance, and Employee Compensation.",
-            italic: true,
-            underline: true,
-          },
-        ],
-      },
-    ],
-    [
-      {
-        type: "paragraph",
-        children: [
-          { text: "Up for Growth, 2023. " },
-          {
-            text: "2023 Housing Underproduction in the United States.",
-            italic: true,
-            underline: true,
-          },
-        ],
-      },
-    ],
-  ],
-};
-
-
 export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
-  coverImage: "",
+  coverImage: new URL("../assets/logo.svg", import.meta.url).href,
   
   reportTitle: [
     {

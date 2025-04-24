@@ -28,7 +28,7 @@ import {
   Template1Colors,
   defaultTemplate1CoverPageContent,
   Template1CoverPageContent,
-} from "@/types/pageConfigs";
+} from "@/types/PageConfigs/Template1Config";
 
 import CoverEditor from "./components/ui/CoverEditor";
 const logoUrl = new URL("./assets/logo.svg", import.meta.url).href;

@@ -1,5 +1,5 @@
 import { Text, View } from "@react-pdf/renderer";
-import { tw } from "../../lib/pdf-theme";
+import { tw } from "../../utils/pdf-theme";
 
 interface HighlightProps {
   children: React.ReactNode;

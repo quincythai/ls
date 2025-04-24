@@ -52,7 +52,7 @@ export function serializeToPDFText(
 
   // This is where you can handle citations
   // For example adding them to the footnotes manager
-  console.log("Citations:", citations);
+  // console.log("Citations:", citations);
 
   return inlineChildren
 }

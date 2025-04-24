@@ -1,5 +1,5 @@
 import { RentBurdenChart } from "@/components/ui/RentBurdenChart";
-import { type RentBurdenData } from "@/lib/utils";
+import { type RentBurdenData } from "@/utils/sharedUtils";
 
 interface ChartSectionProps {
   rentData?: RentBurdenData[];

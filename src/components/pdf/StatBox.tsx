@@ -1,7 +1,7 @@
 import { View, Text } from "@react-pdf/renderer";
-import { tw } from "../../lib/pdf-theme";
+import { tw } from "../../utils/pdf-theme";
 import { Descendant } from "slate";
-import { serializeToPDFText } from "@/lib/pdf-serializer";
+import { serializeToPDFText } from "@/utils/pdf-serializer";
 
 interface StatBoxProps {
   number: string;

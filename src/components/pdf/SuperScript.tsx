@@ -1,5 +1,5 @@
 import { Text } from "@react-pdf/renderer";
-import { tw } from "../../lib/pdf-theme";
+import { tw } from "../../utils/pdf-theme";
 
 interface SuperScriptProps {
   children: React.ReactNode;
