@@ -190,13 +190,9 @@ export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
       type: "paragraph",
       children: [
         {
-          text: "We equip policymakers with data-driven insights to mobilize ",
+          text: "We equip policymakers with data-driven insights to mobilize private capital to generate prosperity across the country. Our 535 Insights",
           bold: true,
         },
-        { text: "private capital", bold: true },
-        { text: " to generate prosperity across the country.", bold: true },
-        { text: " Our ", bold: true },
-        { text: "535 Insights", bold: true },
         {
           text: " series provides analytics specific to the constituencies of all 535 Members of Congress.",
         },

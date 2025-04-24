@@ -27,12 +27,16 @@ export function serializeToPDFText(
           citations.push({ number: node.text, text: node.citation });
         }
 
-        const element = node.link ? (
-          <Link key={inlineChildren.length} src={node.link}>
-            <Text style={style}>{node.text}</Text>
-          </Link>
-        ) : (
-          <Text key={inlineChildren.length} style={style}>
+        let finalStyle = { ...style };
+        const textProps: any = {};
+        if (node.link) {
+          finalStyle.color = "#0000EE";
+          finalStyle.textDecoration = "underline";
+          textProps.src = node.link;
+        }
+
+        const element = (
+          <Text key={inlineChildren.length} style={finalStyle} {...textProps}>
             {node.text}
           </Text>
         );

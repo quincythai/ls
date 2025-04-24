@@ -57,20 +57,14 @@ const Template1CoverPage = ({ config, templateColors }: Template1CoverPageProps)
         <View style={tw("h-1 bg-secondary-500 w-full mt-2")} />
       </View>
 
-      <View style={tw("mb-3")}>
-        <Text style={tw("text-[18px] text-foreground leading-normal")}>
-          {serializeToPDFText(config.missionStatement)}
-        </Text>
-      </View>
 
-      <View style={tw("mb-3")}>
-        <Text style={tw("text-[13px] text-foreground leading-snug")}>
-          {serializeToPDFText(
-            config.missionSubtext,
-            tw("text-[13px] text-foreground leading-snug")
-          )}
-        </Text>
-      </View>
+      <Text style={tw("text-[18px] text-foreground leading-normal")}>
+        {serializeToPDFText(config.missionStatement)}
+      </Text>
+
+      <Text style={tw("text-[13px] text-foreground leading-snug")}>
+        {serializeToPDFText(config.missionSubtext)}
+      </Text>
 
       {/* Stats */}
       <Highlight
