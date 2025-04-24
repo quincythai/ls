@@ -17,7 +17,9 @@ export const defaultTemplate1Colors: Template1Colors = {
     "Base *": "#D7F1EF",
     "Section 1 *": "#D3E8C8", 
     "Section 2": "#C1D9EC",
-    "Section 3": "#FFD5A5"
+    "Section 3": "#FFD5A5",
+
+    "Highlight": "#E7FEFC",   // not user defined; automatically generated using Base
   }
 };
 

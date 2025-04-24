@@ -97,3 +97,25 @@ export const tw = createTw({
     },
   },
 }); 
+
+// generates a lighter version of any color
+// currently being used by colorpicker, to generate a lighter version of Base
+export function lightenHexColor(hex: string, amount: number = 0.5): string {
+  const normalizedHex = hex.replace("#", "");
+  const num = parseInt(normalizedHex, 16);
+  const r = (num >> 16) & 255;
+  const g = (num >> 8) & 255;
+  const b = num & 255;
+
+  const blend = (channel: number) =>
+    Math.round((1 - amount) * channel + amount * 255);
+
+  const newR = blend(r);
+  const newG = blend(g);
+  const newB = blend(b);
+
+  return `#${((1 << 24) + (newR << 16) + (newG << 8) + newB)
+    .toString(16)
+    .slice(1)
+    .toUpperCase()}`;
+};

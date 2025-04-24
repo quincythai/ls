@@ -24,30 +24,31 @@ export const Carousel = ({ templates }: { templates: Template[] }) => {
   };
 
   return (
-    <Box className="w-full mx-auto text-center relative px-14 !space-y-6">
-      <Typography variant="h2" className="mb-2">
-        {templates[activeIndex].title}
-      </Typography>
+    <Box className="w-full mx-auto items-center relative px-auto !space-y-6">
+      <Box className="w-full flex flex-row gap-12 content-center">
+        {/* Navigation between templates */}
+        <IconButton
+          onClick={handlePrev}
+          className="left-0"
+        >
+          <Icon icon="mdi:chevron-left" className="size-6" />
+        </IconButton>
+        <Typography variant="h2" className="grow content-center text-center">
+          {templates[activeIndex].title}
+        </Typography>
+        <IconButton
+          onClick={handleNext}
+          className="right-0"
+        >
+          <Icon icon="mdi:chevron-right" className="size-6" />
+        </IconButton>
+      </Box>
       <Card
         elevation={0}
         className="bg-white border-2 border-neutral-200 rounded-none aspect-[8.5/11] mx-auto h-96 flex items-center justify-center"
       >
         {templates[activeIndex].component}
       </Card>
-
-      <IconButton
-        onClick={handlePrev}
-        className="!absolute top-1/2 left-0 -translate-y-1/2"
-      >
-        <Icon icon="mdi:chevron-left" className="size-6" />
-      </IconButton>
-
-      <IconButton
-        onClick={handleNext}
-        className="!absolute top-1/2 right-0 -translate-y-1/2"
-      >
-        <Icon icon="mdi:chevron-right" className="size-6" />
-      </IconButton>
     </Box>
   );
 };

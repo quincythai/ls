@@ -54,7 +54,10 @@ const Template1CoverPage = ({ config, templateColors }: Template1CoverPageProps)
         <Text style={tw("text-heading-3 font-black text-foreground")}>
           {serializeToPDFText(config.reportTitle)}
         </Text>
-        <View style={tw("h-1 bg-secondary-500 w-full mt-2")} />
+        <View style={[
+          tw("h-1 w-full mt-2"),
+          {backgroundColor: selectedColors["Base *"]}
+        ]} />
       </View>
 
 
@@ -81,7 +84,7 @@ const Template1CoverPage = ({ config, templateColors }: Template1CoverPageProps)
           <StatBox {...config.rentBurdenStat} />
           <StatBox {...config.successionRiskStat} />
         </View>
-        <View style={tw("px-6 pt-4")}>
+        <View style={[tw("px-6 pt-4")]}>
           <Text style={tw("text-small-text font-semibold mb-1")}>
             The opportunity to build wealth and economic security is the foundation of the American Dream.
           </Text>
@@ -101,7 +104,7 @@ const Template1CoverPage = ({ config, templateColors }: Template1CoverPageProps)
         {serializeToPDFText(config.ctaText)}
       </Text>
 
-      <Highlight width="48%" color="#e1e8e8" top={6} height="75%">
+      <Highlight width="48%" color={selectedColors["Highlight"]} top={6} height="75%">
         <Text style={tw("text-[15px] text-foreground my-5")}>
           {serializeToPDFText(config.sectionIntroHeader)}
         </Text>
@@ -149,7 +152,7 @@ const Template1CoverPage = ({ config, templateColors }: Template1CoverPageProps)
           viewBox="0 0 10 20"
           style={{ marginTop: 8, marginLeft: 20 }}
         >
-          <Path d="M0 0 L0 20 L10 10 Z" fill="#252525" />
+          <Path d="M0 0 L0 20 L10 10 Z" fill="#13202A" />
         </Svg>
       </View>
     </Page>
