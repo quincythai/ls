@@ -210,7 +210,7 @@ function App() {
               null
             }
           </main>
-          <div className="h-36 bottom-0 fixed w-[calc(100vw-320px)] max-w-7xl z-40">
+          <div className="h-24 bottom-0 fixed w-[calc(100vw-320px)] max-w-7xl z-40">
             <div className="h-4 bg-gradient-to-b from-transparent to-neutral-100" />
             <div className="flex justify-between items-center gap-4 bg-neutral-100 px-5 pb-4 h-full">
               {/* @ts-expect-error MUI types are not updated */}

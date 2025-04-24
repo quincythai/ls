@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { HexColorPicker, HexColorInput } from "react-colorful";
+import { lightenHexColor } from "@/lib/pdf-theme";
 import {
     Typography,
     ButtonBase,
@@ -21,21 +22,27 @@ export const ColorPicker = ({ currentColors, onColorsChange }: ColorPickerProps)
     };
 
     const handleColorChange = (newColor: string) => {
+        newColor = newColor.toUpperCase();
         const newRecord: Record<string, string> = { ...selectedColors };
-        newRecord[currentColorName] = newColor.toUpperCase();
+        newRecord[currentColorName] = newColor
+        if (currentColorName === "Base *") {
+            newRecord["Highlight"] = lightenHexColor(newColor, 0.75);
+        }
         setSelectedColors(newRecord);
         onColorsChange?.(newRecord);
     };
 
   return (
-    <Box className="w-full mx-auto text-left relative !space-y-6">
-        <Typography variant="h2" className="mb-2">
-            Colors
-        </Typography>
+    <Box className="w-full mx-auto text-left relative !space-y-3">
+        <Box className="h-[40px] flex items-center">
+            <Typography variant="h2">
+                Colors
+            </Typography>
+        </Box>
 
         {/* Selected Color Swatches */}
         <Box className="flex space-x-1 space-y-1 flex-wrap">
-            {[...Object.entries(selectedColors)].map(([name, color]) => (
+            {[...Object.entries(selectedColors).slice(0, 4)].map(([name, color]) => (
                 <Box
                     key={name}
                     sx={{
