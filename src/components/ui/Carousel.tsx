@@ -12,15 +12,24 @@ type Template = {
   component: React.ReactNode;
 };
 
-export const Carousel = ({ templates }: { templates: Template[] }) => {
-  const [activeIndex, setActiveIndex] = React.useState(0);
+interface CarouselProps {
+  templates: Template[];
+  activeIndex: number;
+  onIndexChange: (newIndex: number) => void;
+}
+
+export const Carousel = ({ templates, activeIndex, onIndexChange }: CarouselProps) => {
 
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? templates.length - 1 : prev - 1));
+    onIndexChange(
+      activeIndex === 0 ? templates.length - 1 : activeIndex - 1
+    );
   };
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev === templates.length - 1 ? 0 : prev + 1));
+    onIndexChange(
+      activeIndex === templates.length - 1 ? 0 : activeIndex + 1
+    );
   };
 
   return (

@@ -1,4 +1,6 @@
 import { Carousel } from "@/components/ui/Carousel";
+import { useEffect, useState } from "react";
+
 import { ColorPicker } from "@/components/ui/ColorPicker";
 import { Typography } from "@mui/material";
 import { Template1Colors } from "@/types/pageConfigs";
@@ -6,6 +8,7 @@ import { ChartSection } from "@/components/ui/ChartSection";
 import { generateRentBurdenData } from "@/utils/sharedUtils";
 
 type Template = {
+  id: number;
   title: string;
   component: React.ReactNode;
 };
@@ -14,9 +17,10 @@ interface ChooseTemplateProps {
   templates: Template[];
   templateColors: Template1Colors;
   onColorsChange: (updatedColors: Record<string, string>) => void;
+  onSelect: (id: number) => void;
 }
 
-export const ChooseTemplate = ({ templates, templateColors, onColorsChange }: ChooseTemplateProps) => {
+export const ChooseTemplate = ({ templates, templateColors, onColorsChange, onSelect }: ChooseTemplateProps) => {
   // Example: Can put this wherever you want to display the chart and mod values
   const customRentData = generateRentBurdenData(
     { burdened: 72, severelyBurdened: 49 },
@@ -24,6 +28,16 @@ export const ChooseTemplate = ({ templates, templateColors, onColorsChange }: Ch
     { burdened: 9, severelyBurdened: 0 },
     { burdened: 2, severelyBurdened: 1 },
   );
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const selected = templates[activeIndex];
+    if (selected) {
+      onSelect(selected.id);
+    }
+  }, [activeIndex, onSelect, templates]);
+
 
   return (
     <>
@@ -35,7 +49,7 @@ export const ChooseTemplate = ({ templates, templateColors, onColorsChange }: Ch
       {/* yucian: added color picker to right panel */}
       <div className="flex flex-row gap-4"> 
         <div className="w-3/5 grow bg-white rounded-lg border-2 border-neutral-200 px-20 py-9 flex flex-col gap-5 items-center">
-          <Carousel templates={templates} />
+          <Carousel templates={templates} activeIndex={activeIndex} onIndexChange={setActiveIndex} />
 
           {/* <Carousel className="w-xl mx-auto">
             <CarouselContent>

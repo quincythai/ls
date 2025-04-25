@@ -4,12 +4,13 @@ import { serializeToPDFText } from "@/utils/pdf-serializer";
 import StatBox from "../StatBox";
 import { Highlight } from "../Highlight";
 import { HousingSectionContent } from "@/types/PageConfigs/HousingConfig";
-
+import { Template1Colors } from "@/types/PageConfigs/Template1Config";
 interface HousingSectionProps {
   config: HousingSectionContent;
+  templateColors?: Template1Colors; // Optional prop for template colors
 }
 
-const HousingSection = ({ config }: HousingSectionProps) => (
+const HousingSection = ({ config, templateColors }: HousingSectionProps) => (
   <Page size="A4" style={tw("flex flex-col bg-background px-10 pt-10 pb-4")}>
     {/* Header */}
     <View style={tw("flex flex-row justify-between items-start")}>

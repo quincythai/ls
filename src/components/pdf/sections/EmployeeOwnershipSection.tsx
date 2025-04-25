@@ -4,13 +4,15 @@ import { serializeToPDFText } from "@/utils/pdf-serializer";
 import StatBox from "../StatBox";
 import { Highlight } from "../Highlight";
 import { EmployeeOwnershipSectionContent } from "@/types/PageConfigs/EmployeeOwnershipConfig";
+import { Template1Colors } from "@/types/PageConfigs/Template1Config";
 
 interface EmployeeOwnershipSectionProps {
   config: EmployeeOwnershipSectionContent;
+  templateColors?: Template1Colors
 }
 
 const EmployeeOwnershipSection = ({
-  config,
+  config, templateColors
 }: EmployeeOwnershipSectionProps) => (
   <Page size="A4" style={tw("flex flex-col bg-background px-10 pt-10 pb-4")}>
     {/* Header */}
