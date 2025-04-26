@@ -1,14 +1,17 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import {
   useSlate,
   useFocused,
 } from "slate-react";
 import { Transforms, Editor, Range, Text as SlateText } from "slate";
 import ReactDOM from "react-dom";
-
-
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "./dialog";
+import { Input } from "@mui/material";
+import { Button } from "./button";
+import { Label } from "./label";
 // Formatting types
 type Format = "bold" | "italic" | "underline" | "link";
+
 
 // Mark toggle logic
 const toggleMark = (editor: Editor, format: Format) => {
@@ -102,59 +105,12 @@ const FormatButton = ({ format, label }: { format: Format; label: string }) => {
   );
 };
 
-// Link Button
-const LinkButton = () => {
-  const editor = useSlate();
-  const active = isLinkActive(editor);
-
-  return (
-    <button
-      onMouseDown={(e) => {
-        e.preventDefault();
-        const url = window.prompt("Enter URL:");
-        if (url) {
-          toggleLink(editor, url);
-        } else {
-          toggleLink(editor, ""); // Removes link if input is empty
-        }
-      }}
-      className={`px-2 py-1 mr-1 text-sm bg-gray-800 ${
-        active ? "font-bold text-white" : "text-gray-400"
-      }`}
-    >
-      🔗
-    </button>
-  );
-};
-
-const CitationButton = () => {
-  const editor = useSlate();
-
-  return (
-    <button
-      onMouseDown={(e) => {
-        e.preventDefault();
-        const citationText = window.prompt("Enter citation text:");
-        if (!citationText) return;
-
-        const citationNumber = getNextCitationNumber(editor);
-        insertCitation(editor, citationNumber, citationText);
-      }}
-      className="px-2 py-1 mr-1 text-sm bg-gray-800 text-gray-400"
-    >
-      📘
-    </button>
-  );
-};
-
-
-
 // Toolbar
 const HoveringToolbar = () => {
   const ref = useRef<HTMLDivElement>(null);
   const editor = useSlate();
   const focused = useFocused();
-
+  
   useEffect(() => {
     const el = ref.current;
     const { selection } = editor;
@@ -200,4 +156,137 @@ const HoveringToolbar = () => {
   );
 };
 
-export default HoveringToolbar
+// Update the LinkButton
+const LinkButton = () => {
+  const editor = useSlate();
+  const active = isLinkActive(editor);
+  const [open, setOpen] = useState(false);
+  const [url, setUrl] = useState("");
+
+  return (
+    <>
+      <button
+        onMouseDown={(e) => {
+          e.preventDefault();
+          setOpen(true);
+        }}
+        className={`px-2 py-1 mr-1 text-sm bg-gray-800 ${
+          active ? "font-bold text-white" : "text-gray-400"
+        }`}
+      >
+        🔗
+      </button>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent onClick={(e) => e.stopPropagation()} onMouseDown={(e) => e.stopPropagation()}>
+          <DialogHeader>
+            <DialogTitle>Add Link</DialogTitle>
+            <DialogDescription>
+              Enter the URL you want to link to.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="url" className="text-right">
+                URL
+              </Label>
+              <Input
+                id="url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                className="col-span-3"
+                placeholder="https://example.com"
+                onClick={(e) => e.stopPropagation()}
+                onMouseDown={(e) => e.stopPropagation()}
+                onKeyDown={(e) => e.stopPropagation()}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button 
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (url) {
+                  toggleLink(editor, url);
+                }
+                setOpen(false);
+                setUrl("");
+              }}
+            >
+              Save
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
+
+const CitationButton = () => {
+  const editor = useSlate();
+  const [open, setOpen] = useState(false);
+  const [citationText, setCitationText] = useState("");
+  const [citationNumber, setCitationNumber] = useState(0);
+
+  return (
+    <>
+    <button
+      onMouseDown={(e) => {
+        e.preventDefault();
+        setOpen(true);
+        const citationNumber = getNextCitationNumber(editor);
+        setCitationNumber(citationNumber);
+      }}
+      className="px-2 py-1 mr-1 text-sm bg-gray-800 text-gray-400"
+    >
+      📘
+    </button>
+
+    <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent onClick={(e) => e.stopPropagation()} onMouseDown={(e) => e.stopPropagation()}>
+          <DialogHeader>
+            <DialogTitle>Add Citation</DialogTitle>
+            <DialogDescription>
+              Enter the citation text you want to add.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="citationText" className="text-right">
+                Citation Text
+              </Label>
+              <Input
+                id="citationText"
+                value={citationText}
+                onChange={(e) => setCitationText(e.target.value)}
+                className="col-span-3"
+                placeholder="Citation Text"
+                onClick={(e) => e.stopPropagation()}
+                onMouseDown={(e) => e.stopPropagation()}
+                onKeyDown={(e) => e.stopPropagation()}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button 
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (citationText) {
+                  insertCitation(editor, citationNumber, citationText);
+                }
+                setOpen(false);
+                setCitationText("");
+              }}
+            >
+              Save
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
+
+export default HoveringToolbar;
