@@ -347,7 +347,7 @@ function App() {
                 className="w-32"
                 variant="lafayette"
                 onClick={() => {
-                  if (activeStep === 0 && selectedTemplateId) {
+                  if (activeStep === 0 && selectedTemplateId !== null) {
                     handleTemplateSelect(selectedTemplateId, setReportState);
                   }
                   setActiveStep(activeStep + 1);
