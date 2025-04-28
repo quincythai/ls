@@ -1,8 +1,10 @@
 import { defaultTemplate1CoverPageContent } from "./PageConfigs/Template1Config";
+import { defaultTemplate2CoverPageContent } from "./PageConfigs/Template2Config";
 import { defaultHousingSectionContent } from "./PageConfigs/HousingConfig";
 import { defaultEmployeeOwnershipSectionContent } from "./PageConfigs/EmployeeOwnershipConfig";
 import { defaultReferencePageContent } from "./PageConfigs/ReferenceConfig";
 import Template1CoverPage from "@/components/pdf/Template1CoverPage";
+import Template2CoverPage from "@/components/pdf/Template2CoverPage";
 import HousingSection from "@/components/pdf/sections/HousingSection";
 import EmployeeOwnershipSection from "@/components/pdf/sections/EmployeeOwnershipSection";
 import ReferencePage from "@/components/pdf/ReferencePage";
@@ -44,17 +46,9 @@ export const templates: TemplateConfig[] = [
   {
     id: 1,
     name: "Template 2 Report",
-    allowedSections: ["HousingSection"],
-    coverPageType: "Template1CoverPage",
-    coverPageContent: defaultTemplate1CoverPageContent,
-    maxSections: 1,
-  },
-  {
-    id: 2,
-    name: "Template 3 Report",
-    allowedSections: ["EmployeeOwnershipSection"],
-    coverPageType: "Template1CoverPage",
-    coverPageContent: defaultTemplate1CoverPageContent,
+    allowedSections: ["HousingSection", "EmployeeOwnershipSection"],
+    coverPageType: "Template2CoverPage",
+    coverPageContent: defaultTemplate2CoverPageContent,
     maxSections: 1,
   },
 ];
@@ -71,6 +65,11 @@ export const pageRegistry = {
     label: "Template 1 Cover Page",
     defaultContent: defaultTemplate1CoverPageContent,
     renderer: Template1CoverPage,
+  },
+  Template2CoverPage: {
+    label: "Template 2 Cover Page",
+    defaultContent: defaultTemplate2CoverPageContent,
+    renderer: Template2CoverPage,
   },
   HousingSection: {
     label: "Affordable Housing",

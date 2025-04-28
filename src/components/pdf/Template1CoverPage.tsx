@@ -11,9 +11,6 @@ interface Template1CoverPageProps {
 }
 
 const Template1CoverPage = ({ config, templateColors }: Template1CoverPageProps) => {
-  // Debug logs – placed safely outside JSX
-  console.log("Serialized mission statement:", serializeToPDFText(config.missionStatement));
-  console.log("Raw mission statement nodes:", config.missionStatement);
 
   const selectedColors = templateColors.selectedColors;
 

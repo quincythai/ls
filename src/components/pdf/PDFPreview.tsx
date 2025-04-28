@@ -17,10 +17,13 @@ const PDFPreview = ({ pages, templateColors }: PDFPreviewProps) => {
     return <div className="p-4 text-center">No pages to preview.</div>;
   }
 
+  console.log("PDFPreview pages:", pages);
+
   return (
     <div className="w-full h-full">
       <PDFViewer className="w-full h-full">
         <Document>
+
           {pages.map((page, idx) => {
             const Component = pageRegistry[page.type]
               .renderer as React.ComponentType<any>;
