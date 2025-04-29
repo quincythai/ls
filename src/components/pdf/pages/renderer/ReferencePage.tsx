@@ -1,5 +1,5 @@
 import { Page, View, Text, Svg, Path, Image } from "@react-pdf/renderer";
-import { tw } from "../../utils/pdf-theme";
+import { tw } from "../../../../utils/pdf-theme";
 import { serializeToPDFText } from "@/utils/pdf-serializer";
 import { ReferencePageContent } from "@/types/PageConfigs/ReferenceConfig";
 import { Template1Colors } from "@/types/PageConfigs/Template1Config";

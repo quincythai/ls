@@ -1,7 +1,7 @@
 import { Page, Text, View, Path, Svg } from "@react-pdf/renderer";
 import { tw } from "@/utils/pdf-theme";
 import { serializeToPDFText } from "@/utils/pdf-serializer";
-import StatBox from "./StatBox";
+import StatBox from "../../StatBox";
 import { Template2CoverPageContent } from "@/types/PageConfigs/Template2Config";
 import { Template1Colors } from "@/types/PageConfigs/Template1Config";
 

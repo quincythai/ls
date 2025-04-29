@@ -1,9 +1,9 @@
 import { Page, View, Text, Svg, Path, Image } from "@react-pdf/renderer";
-import { tw } from "../../utils/pdf-theme";
+import { tw } from "../../../../utils/pdf-theme";
 import { serializeToPDFText } from "@/utils/pdf-serializer";
 import { Template1CoverPageContent, Template1Colors } from "@/types/PageConfigs/Template1Config";
-import StatBox from "./StatBox";
-import { Highlight } from "./Highlight";
+import StatBox from "../../StatBox";
+import { Highlight } from "../../Highlight";
 
 interface Template1CoverPageProps {
   config: Template1CoverPageContent;

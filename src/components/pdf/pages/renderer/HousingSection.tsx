@@ -1,8 +1,8 @@
 import { Page, View, Text, Image, Svg, Path } from "@react-pdf/renderer";
 import { tw } from "@/utils/pdf-theme";
 import { serializeToPDFText } from "@/utils/pdf-serializer";
-import StatBox from "../StatBox";
-import { Highlight } from "../Highlight";
+import StatBox from "../../StatBox";
+import { Highlight } from "../../Highlight";
 import { HousingSectionContent } from "@/types/PageConfigs/HousingConfig";
 import { Template1Colors } from "@/types/PageConfigs/Template1Config";
 interface HousingSectionProps {

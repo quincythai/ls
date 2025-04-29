@@ -43,7 +43,7 @@ export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
   reportTitle: [
     {
       type: "paragraph",
-      children: [{ text: "California 2nd District"}],
+      children: [{ text: "California 2nd District", bold: true }],
     },
   ],
 

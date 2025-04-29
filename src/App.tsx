@@ -52,16 +52,24 @@ const states = {
 const steps = ["Choose Template", "Add Sections", "Edit", "Confirmation"];
 
 function App() {
-  const [selectedState, setSelectedState] = useState<string | undefined>(undefined);
-  const [selectedDistrict, setSelectedDistrict] = useState<string | undefined>(undefined);
+  const [selectedState, setSelectedState] = useState<string | undefined>(
+    undefined
+  );
+  const [selectedDistrict, setSelectedDistrict] = useState<string | undefined>(
+    undefined
+  );
   const [activeStep, setActiveStep] = useState(0);
   const [data, setData] = useState<ReportData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [coverPageContent, setCoverPageContent] = useState<Template1CoverPageContent>(defaultTemplate1CoverPageContent);
-  const [pdfPreviewConfig, setPdfPreviewConfig] = useState<Template1CoverPageContent>(defaultTemplate1CoverPageContent);
-  const [templateColors, setTemplateColors] = useState<Template1Colors>(defaultTemplate1Colors);
+  const [coverPageContent, setCoverPageContent] =
+    useState<Template1CoverPageContent>(defaultTemplate1CoverPageContent);
+  const [pdfPreviewConfig, setPdfPreviewConfig] =
+    useState<Template1CoverPageContent>(defaultTemplate1CoverPageContent);
+  const [templateColors, setTemplateColors] = useState<Template1Colors>(
+    defaultTemplate1Colors
+  );
 
   const [reportState, setReportState] = useState<ReportBuilderState>({
     templateId: null,
@@ -72,7 +80,9 @@ function App() {
   const handleTemplateSelect = (templateId: number) => {
     const coverPage = defaultCoverContentMap[templateId];
     if (!coverPage) {
-      throw new Error(`No cover page content defined for templateId: ${templateId}`);
+      throw new Error(
+        `No cover page content defined for templateId: ${templateId}`
+      );
     }
 
     const referencePage: PageContent = {
@@ -89,10 +99,7 @@ function App() {
 
   const memoizedPDFPreview = useMemo(
     () => (
-      <PDFPreview
-        pages={reportState.pages}
-        templateColors={templateColors}
-      />
+      <PDFPreview pages={reportState.pages} templateColors={templateColors} />
     ),
     [reportState.pages, templateColors]
   );
@@ -136,7 +143,9 @@ function App() {
       <h3 className="font-semibold">{label}</h3>
       <p>Location Type: {metric.LOCATION_TYPE}</p>
       <p>Value: {metric.VALUE}</p>
-      <p>Rank: {metric.RANK} / {metric.TOTAL_COUNT}</p>
+      <p>
+        Rank: {metric.RANK} / {metric.TOTAL_COUNT}
+      </p>
     </div>
   );
 
@@ -150,8 +159,15 @@ function App() {
         {/* Sidebar */}
         <aside className="max-w-xs w-full shrink-0" />
         <aside className="fixed flex flex-col border-r-2 border-neutral-200 p-10 gap-8 max-w-xs w-full shrink-0 overflow-auto h-screen max-h-screen">
-          <img src={logoUrl} alt="Lafayette Square Institute" className="h-18 self-start" />
-          <FormControl disabled={activeStep > 0} className="flex flex-col gap-2 items-stretch">
+          <img
+            src={logoUrl}
+            alt="Lafayette Square Institute"
+            className="h-18 self-start"
+          />
+          <FormControl
+            disabled={activeStep > 0}
+            className="flex flex-col gap-2 items-stretch"
+          >
             <FormLabel id="state-label">State</FormLabel>
             <Select
               labelId="state-label"
@@ -165,12 +181,17 @@ function App() {
               renderValue={(value) => value ?? "Select one"}
             >
               {Object.entries(states).map(([state]) => (
-                <MenuItem key={state} value={state}>{state}</MenuItem>
+                <MenuItem key={state} value={state}>
+                  {state}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
 
-          <FormControl disabled={!selectedState || activeStep > 0} className="flex flex-col gap-2 items-stretch">
+          <FormControl
+            disabled={!selectedState || activeStep > 0}
+            className="flex flex-col gap-2 items-stretch"
+          >
             <FormLabel id="district-label">District</FormLabel>
             <Select
               labelId="district-label"
@@ -182,19 +203,19 @@ function App() {
               displayEmpty
               renderValue={(value) => value ?? "Select one"}
             >
-              {(states[selectedState as keyof typeof states] ?? []).map((district) => (
-                <MenuItem key={district} value={district}>{district}</MenuItem>
-              ))}
+              {(states[selectedState as keyof typeof states] ?? []).map(
+                (district) => (
+                  <MenuItem key={district} value={district}>
+                    {district}
+                  </MenuItem>
+                )
+              )}
             </Select>
           </FormControl>
 
           {selectedDistrict && (
             <div className="flex flex-col gap-4 mt-6">
-              <Button
-                variant="gray"
-                onClick={handleFetch}
-                className="w-full"
-              >
+              <Button variant="gray" onClick={handleFetch} className="w-full">
                 Fetch LSI Report
               </Button>
               {loading && <p>Loading...</p>}
@@ -203,16 +224,31 @@ function App() {
               {data && (
                 <div className="space-y-4">
                   <h2 className="text-2xl font-bold">LSI Report</h2>
-                  <p><strong>Congressional District:</strong> {data.CD}</p>
-                  <p><strong>State Name:</strong> {data.CD_FIPS}</p>
-                  <p><strong>State FIPS:</strong> {data.STATE_FIPS}</p>
+                  <p>
+                    <strong>Congressional District:</strong> {data.CD}
+                  </p>
+                  <p>
+                    <strong>State Name:</strong> {data.CD_FIPS}
+                  </p>
+                  <p>
+                    <strong>State FIPS:</strong> {data.STATE_FIPS}
+                  </p>
                   {renderMetric("Eviction Risk", data.eviction_risk)}
                   {renderMetric("Financial Problems", data.financial_problems)}
-                  {renderMetric("Home Ownership Rate", data.home_ownership_rate)}
-                  {renderMetric("Housing Underproduction", data.housing_underproduction)}
+                  {renderMetric(
+                    "Home Ownership Rate",
+                    data.home_ownership_rate
+                  )}
+                  {renderMetric(
+                    "Housing Underproduction",
+                    data.housing_underproduction
+                  )}
                   {renderMetric("Median Home Value", data.median_home_value)}
                   {renderMetric("Median Rent", data.median_rent)}
-                  {renderMetric("Poverty Concentration", data.poverty_concentration)}
+                  {renderMetric(
+                    "Poverty Concentration",
+                    data.poverty_concentration
+                  )}
                   {renderMetric("Renting Burdened", data.renting_burdened)}
                   {renderMetric("Social Mobility", data.social_mobility)}
                 </div>
@@ -223,16 +259,25 @@ function App() {
 
         <div className="w-full max-w-7xl mx-auto pt-5">
           <nav className="flex justify-between items-center py-5 px-2.5">
-            <Stepper activeStep={activeStep} connector={<StepConnector />} className="space-x-3">
+            <Stepper
+              activeStep={activeStep}
+              connector={<StepConnector />}
+              className="space-x-3"
+            >
               {steps.map((label) => (
                 <Step key={label}>
                   <StepLabel className="space-x-1">
-                    <Typography variant="body1" className="font-semibold">{label}</Typography>
+                    <Typography variant="body1" className="font-semibold">
+                      {label}
+                    </Typography>
                   </StepLabel>
                 </Step>
               ))}
             </Stepper>
-            <Icon icon="iconoir:profile-circle" className="size-9 text-neutral-500 shrink-0" />
+            <Icon
+              icon="iconoir:profile-circle"
+              className="size-9 text-neutral-500 shrink-0"
+            />
           </nav>
 
           <main className="p-5 space-y-5">
@@ -246,15 +291,28 @@ function App() {
                 }}
               />
             ) : activeStep === 1 ? (
-              <AddSections reportState={reportState} setReportState={setReportState} />
+              <AddSections
+                reportState={reportState}
+                setReportState={setReportState}
+              />
             ) : activeStep === 2 ? (
               <Edit
-                preview={memoizedPDFPreview}
-                refreshPreview={() => setPdfPreviewConfig(coverPageContent)}
-                editor={<CoverEditor coverData={coverPageContent} setCoverData={setCoverPageContent} />}
+                pages={reportState.pages}
+                templateColors={templateColors}
+                onUpdateContent={(pageIndex, newContent) => {
+                  setReportState((prev) => ({
+                    ...prev,
+                    pages: prev.pages.map((p, idx) =>
+                      idx === pageIndex ? { ...p, content: newContent } : p
+                    ),
+                  }));
+                }}
               />
             ) : activeStep === 3 ? (
-              <Confirmation />
+              <Confirmation
+                reportState={reportState}
+                templateColors={templateColors}
+              />
             ) : null}
           </main>
 
@@ -280,7 +338,9 @@ function App() {
                 }}
                 disabled={
                   activeStep === steps.length - 1 ||
-                  (activeStep === 0 && (selectedDistrict == null || reportState.templateId == null))
+                  (activeStep === 0 &&
+                    (selectedDistrict == null ||
+                      reportState.templateId == null))
                 }
               >
                 Next Step

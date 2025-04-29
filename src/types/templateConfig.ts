@@ -3,11 +3,17 @@ import { defaultTemplate2CoverPageContent } from "./PageConfigs/Template2Config"
 import { defaultHousingSectionContent } from "./PageConfigs/HousingConfig";
 import { defaultEmployeeOwnershipSectionContent } from "./PageConfigs/EmployeeOwnershipConfig";
 import { defaultReferencePageContent } from "./PageConfigs/ReferenceConfig";
-import Template1CoverPage from "@/components/pdf/Template1CoverPage";
-import Template2CoverPage from "@/components/pdf/Template2CoverPage";
-import HousingSection from "@/components/pdf/sections/HousingSection";
-import EmployeeOwnershipSection from "@/components/pdf/sections/EmployeeOwnershipSection";
-import ReferencePage from "@/components/pdf/ReferencePage";
+import Template1CoverPage from "@/components/pdf/pages/renderer/Template1CoverPage";
+import Template2CoverPage from "@/components/pdf/pages/renderer/Template2CoverPage";
+import HousingSection from "@/components/pdf/pages/renderer/HousingSection";
+import EmployeeOwnershipSection from "@/components/pdf/pages/renderer/EmployeeOwnershipSection";
+import ReferencePage from "@/components/pdf/pages/renderer/ReferencePage";
+import { Template1CoverPageEditor } from "@/components/pdf/pages/editor/Template1CoverPageEditor";
+import { Template2CoverPageEditor } from "@/components/pdf/pages/editor/Template2CoverPageEditor";
+import { HousingSectionEditor } from "@/components/pdf/pages/editor/HousingSectionEditor";
+import { EmployeeOwnershipSectionEditor } from "@/components/pdf/pages/editor/EmployeeOwnershipSectionEditor";
+import { ReferencePageEditor } from "@/components/pdf/pages/editor/ReferencePageEditor";
+
 
 /**
  * TemplateConfig
@@ -65,26 +71,31 @@ export const pageRegistry = {
     label: "Template 1 Cover Page",
     defaultContent: defaultTemplate1CoverPageContent,
     renderer: Template1CoverPage,
+    editor: Template1CoverPageEditor,
   },
   Template2CoverPage: {
     label: "Template 2 Cover Page",
     defaultContent: defaultTemplate2CoverPageContent,
     renderer: Template2CoverPage,
+    editor: Template2CoverPageEditor,
   },
   HousingSection: {
     label: "Affordable Housing",
     defaultContent: defaultHousingSectionContent,
     renderer: HousingSection,
+    editor: HousingSectionEditor,
   },
   EmployeeOwnershipSection: {
     label: "Employee Ownership",
     defaultContent: defaultEmployeeOwnershipSectionContent,
     renderer: EmployeeOwnershipSection,
+    editor: EmployeeOwnershipSectionEditor,
   },
   ReferencePage: {
     label: "Reference Page",
     defaultContent: defaultReferencePageContent,
     renderer: ReferencePage,
+    editor: ReferencePageEditor,
   },
 } as const;
 
