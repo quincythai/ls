@@ -2,11 +2,11 @@ import { Button, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 import RichTextEditor from "../ui/RichTextEditor";
 import { Template2CoverPageContent } from "@/types/PageConfigs/Template2Config";
-import { Template1Colors } from "@/types/PageConfigs/Template1Config";
+import { TemplateColors } from "@/types/templateConfig";
 
 interface Template2CoverPageEditorProps {
     content: Template2CoverPageContent; 
-    templateColors: Template1Colors;    
+    templateColors: TemplateColors;    
     onChange: (newContent: Template2CoverPageContent) => void; 
 }
 

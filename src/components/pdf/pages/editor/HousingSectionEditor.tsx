@@ -2,11 +2,11 @@ import { Button, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 import RichTextEditor from "../ui/RichTextEditor";
 import { HousingSectionContent } from "@/types/PageConfigs/HousingConfig";
-import { Template1Colors } from "@/types/PageConfigs/Template1Config";
+import { TemplateColors } from "@/types/templateConfig";
 
 interface HousingSectionEditorProps {
     content: HousingSectionContent; 
-    templateColors: Template1Colors;   
+    templateColors: TemplateColors;   
     onChange: (newContent: HousingSectionContent) => void; 
   }
 

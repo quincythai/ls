@@ -3,14 +3,15 @@ import { tw } from "../../../../utils/pdf-theme";
 import { serializeToPDFText } from "@/utils/pdf-serializer";
 import {
   Template1CoverPageContent,
-  Template1Colors,
 } from "@/types/PageConfigs/Template1Config";
 import StatBox from "../../StatBox";
 import { Highlight } from "../../Highlight";
+import { TemplateColors } from "@/types/templateConfig";
+
 
 interface Template1CoverPageProps {
   config: Template1CoverPageContent;
-  templateColors: Template1Colors;
+  templateColors: TemplateColors;
 }
 
 const Template1CoverPage = ({

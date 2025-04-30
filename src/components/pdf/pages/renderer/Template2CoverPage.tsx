@@ -3,11 +3,11 @@ import { tw } from "@/utils/pdf-theme";
 import { serializeToPDFText } from "@/utils/pdf-serializer";
 import StatBox from "../../StatBox";
 import { Template2CoverPageContent } from "@/types/PageConfigs/Template2Config";
-import { Template1Colors } from "@/types/PageConfigs/Template1Config";
+import { TemplateColors } from "@/types/templateConfig";
 
 interface Template2CoverPageProps {
   config: Template2CoverPageContent;
-  templateColors: Template1Colors;
+  templateColors: TemplateColors;
 }
 
 const Template2CoverPage = ({ config, templateColors }: Template2CoverPageProps) => {

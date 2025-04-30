@@ -4,11 +4,11 @@ import { serializeToPDFText } from "@/utils/pdf-serializer";
 import StatBox from "../../StatBox";
 import { Highlight } from "../../Highlight";
 import { EmployeeOwnershipSectionContent } from "@/types/PageConfigs/EmployeeOwnershipConfig";
-import { Template1Colors } from "@/types/PageConfigs/Template1Config";
+import { TemplateColors } from "@/types/templateConfig";
 
 interface EmployeeOwnershipSectionProps {
   config: EmployeeOwnershipSectionContent;
-  templateColors?: Template1Colors
+  templateColors?: TemplateColors
 }
 
 const EmployeeOwnershipSection = ({

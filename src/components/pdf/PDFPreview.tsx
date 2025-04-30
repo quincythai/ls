@@ -1,15 +1,16 @@
 import { PDFViewer } from "@react-pdf/renderer";
 import { pageRegistry } from "@/types/templateConfig";
 import {
-  Template1Colors,
   Template1CoverPageContent,
 } from "@/types/PageConfigs/Template1Config";
 import { PageContent } from "@/types/templateConfig";
 import { Document } from "@react-pdf/renderer";
+import { TemplateColors } from "@/types/templateConfig";
+
 
 interface PDFPreviewProps {
   pages: PageContent[];
-  templateColors: Template1Colors;
+  templateColors: TemplateColors;
 }
 
 const PDFPreview = ({ pages, templateColors }: PDFPreviewProps) => {

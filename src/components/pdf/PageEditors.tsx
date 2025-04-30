@@ -1,11 +1,11 @@
 // src/components/pdf/PageEditors.tsx
 import { pageRegistry } from "@/types/templateConfig";
 import { PageContent } from "@/types/templateConfig";
-import { Template1Colors } from "@/types/PageConfigs/Template1Config";
+import { TemplateColors } from "@/types/templateConfig";
 
 interface PageEditorsProps {
   pages: PageContent[];
-  templateColors: Template1Colors;
+  templateColors: TemplateColors;
   onUpdateContent: (pageIndex: number, newContent: any) => void;
 }
 

@@ -4,10 +4,10 @@ import { serializeToPDFText } from "@/utils/pdf-serializer";
 import StatBox from "../../StatBox";
 import { Highlight } from "../../Highlight";
 import { HousingSectionContent } from "@/types/PageConfigs/HousingConfig";
-import { Template1Colors } from "@/types/PageConfigs/Template1Config";
+import { TemplateColors } from "@/types/templateConfig";
 interface HousingSectionProps {
   config: HousingSectionContent;
-  templateColors?: Template1Colors; // Optional prop for template colors
+  templateColors?: TemplateColors; 
 }
 
 const HousingSection = ({ config, templateColors }: HousingSectionProps) => (

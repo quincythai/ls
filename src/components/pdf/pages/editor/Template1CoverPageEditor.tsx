@@ -2,11 +2,11 @@ import { Button, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 import RichTextEditor from "@/components/ui/RichTextEditor";
 import { Template1CoverPageContent } from "@/types/PageConfigs/Template1Config";
-import { Template1Colors } from "@/types/PageConfigs/Template1Config";
+import { TemplateColors } from "@/types/templateConfig";
 
 interface Template1CoverPageEditorProps {
   content: Template1CoverPageContent;
-  templateColors: Template1Colors;
+  templateColors: TemplateColors;
   onChange: (newContent: Template1CoverPageContent) => void;
   isPreview?: boolean; // <-- new prop
 }
@@ -70,7 +70,7 @@ export const Template1CoverPageEditor = ({
         </div>
 
         {/* Stats Section */}
-        <div className="relative w-full bg-lafayette-100 p-[9em] pt-0 mt-[9em]">
+        <div className="relative w-full p-[9em] pt-0 mt-[9em]" style={{ backgroundColor: templateColors.selectedColors["Base"] }}>
           <div className="flex flex-col gap-y-[16em] -mb-[18em] relative bottom-[18em]">
             <div className="flex gap-[14em] h-[98em]">
               {(
@@ -145,7 +145,7 @@ export const Template1CoverPageEditor = ({
         />
 
         <div className="flex gap-[12em] items-stretch">
-          <div className="flex-1 flex flex-col gap-[10em] px-[12em] py-[10em] bg-olive-200">
+          <div className="flex-1 flex flex-col gap-[10em] px-[12em] py-[10em]" style={{ backgroundColor: templateColors.selectedColors["Section 1"] }}>
             <RichTextEditor
               value={content.affordableHousingTitle}
               onChange={(val: any) =>
@@ -163,7 +163,7 @@ export const Template1CoverPageEditor = ({
               readOnly={isPreview}
             />
           </div>
-          <div className="flex-1 flex flex-col gap-[10em] px-[12em] py-[10em] bg-navyish-200">
+          <div className="flex-1 flex flex-col gap-[10em] px-[12em] py-[10em]" style={{ backgroundColor: templateColors.selectedColors["Section 2"] }}>
             <RichTextEditor
               value={content.employeeOwnershipTitle}
               onChange={(val: any) =>

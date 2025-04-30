@@ -2,11 +2,11 @@ import { Button, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { PageEditors } from "../pdf/PageEditors";
 import { PageContent } from "@/types/templateConfig";
-import { Template1Colors } from "@/types/PageConfigs/Template1Config";
+import { TemplateColors } from "@/types/templateConfig";
 
 interface EditProps {
   pages: PageContent[];
-  templateColors: Template1Colors;
+  templateColors: TemplateColors;
   onUpdateContent: (pageIndex: number, newContent: any) => void;
 }
 

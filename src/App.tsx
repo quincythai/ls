@@ -24,12 +24,13 @@ import { Confirmation } from "@/components/step/Confirmation";
 
 import PDFPreview from "@/components/pdf/PDFPreview";
 import {
-  defaultTemplate1Colors,
-  Template1Colors,
   defaultTemplate1CoverPageContent,
   Template1CoverPageContent,
 } from "@/types/PageConfigs/Template1Config";
 import { defaultReferencePageContent } from "./types/PageConfigs/ReferenceConfig";
+import { TemplateColors, defaultTemplateColors } from "@/types/templateConfig";
+
+
 
 import {
   ReportBuilderState,
@@ -68,8 +69,8 @@ function App() {
     useState<Template1CoverPageContent>(defaultTemplate1CoverPageContent);
   const [pdfPreviewConfig, setPdfPreviewConfig] =
     useState<Template1CoverPageContent>(defaultTemplate1CoverPageContent);
-  const [templateColors, setTemplateColors] = useState<Template1Colors>(
-    defaultTemplate1Colors
+  const [templateColors, setTemplateColors] = useState<TemplateColors>(
+    defaultTemplateColors
   );
 
   const [reportState, setReportState] = useState<ReportBuilderState>({
@@ -111,7 +112,7 @@ function App() {
 
     const EditorComponent = pageRegistry[type].editor as React.ComponentType<{
       content: typeof content;
-      templateColors: Template1Colors;
+      templateColors: TemplateColors;
       onChange: (newContent: typeof content) => void;
       isPreview: boolean;
     }>;

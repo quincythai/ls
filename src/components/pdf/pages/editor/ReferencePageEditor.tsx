@@ -2,11 +2,11 @@ import { Button, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 import RichTextEditor from "../ui/RichTextEditor";
 import { ReferencePageContent } from "@/types/PageConfigs/ReferenceConfig";
-import { Template1Colors } from "@/types/PageConfigs/Template1Config";
+import { TemplateColors } from "@/types/templateConfig";
 
 interface ReferencePageEditorProps {
     content: ReferencePageContent; 
-    templateColors: Template1Colors;   
+    templateColors: TemplateColors;   
     onChange: (newContent: ReferencePageContent) => void; 
   }
 

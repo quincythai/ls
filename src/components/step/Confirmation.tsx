@@ -2,11 +2,11 @@ import { Icon } from "@iconify/react";
 import { Button, Typography } from "@mui/material";
 import PDFPreview from "@/components/pdf/PDFPreview";  // make sure you import it
 import { ReportBuilderState } from "@/types/templateConfig";
-import { Template1Colors } from "@/types/PageConfigs/Template1Config";
+import { TemplateColors } from "@/types/templateConfig";
 
 interface ConfirmationProps {
   reportState: ReportBuilderState;
-  templateColors: Template1Colors;
+  templateColors: TemplateColors;
 }
 
 export const Confirmation = ({ reportState, templateColors }: ConfirmationProps) => {

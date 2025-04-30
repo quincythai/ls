@@ -14,7 +14,6 @@ import { HousingSectionEditor } from "@/components/pdf/pages/editor/HousingSecti
 import { EmployeeOwnershipSectionEditor } from "@/components/pdf/pages/editor/EmployeeOwnershipSectionEditor";
 import { ReferencePageEditor } from "@/components/pdf/pages/editor/ReferencePageEditor";
 
-
 /**
  * TemplateConfig
  * ----------------
@@ -168,7 +167,6 @@ export const defaultCoverContentMap: Record<number, PageContent> =
     ])
   ) as Record<number, PageContent>;
 
-
 /**
  * pageTypeToLabel
  * ----------------
@@ -187,3 +185,18 @@ export const sectionLabelToPageType: Record<string, PageType> =
   Object.fromEntries(
     Object.entries(pageTypeToLabel).map(([key, val]) => [val, key])
   ) as Record<string, PageType>;
+
+export interface TemplateColors {
+  selectedColors: Record<string, string>;
+}
+
+export const defaultTemplateColors: TemplateColors = {
+  selectedColors: {
+    "Base": "#D7F1EF",
+    "Section 1": "#D3E8C8",
+    "Section 2": "#C1D9EC",
+    "Section 3": "#FFD5A5",
+
+    Highlight: "#E7FEFC",
+  },
+};

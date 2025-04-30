@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { ColorPicker } from "@/components/ui/ColorPicker";
 import { Typography } from "@mui/material";
-import { Template1Colors } from "@/types/PageConfigs/Template1Config";
+import { TemplateColors } from "@/types/templateConfig";
 import { ChartSection } from "@/components/ui/ChartSection";
 import { generateRentBurdenData } from "@/utils/sharedUtils";
 
@@ -15,7 +15,7 @@ type Template = {
 
 interface ChooseTemplateProps {
   templates: Template[];
-  templateColors: Template1Colors;
+  templateColors: TemplateColors;
   onColorsChange: (updatedColors: Record<string, string>) => void;
   onSelect: (id: number) => void;
 }

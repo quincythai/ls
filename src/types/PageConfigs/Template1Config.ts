@@ -1,20 +1,5 @@
 import { RichTextValue, StatBoxContent } from "./BasePageConfig";
 
-export interface Template1Colors {
-  selectedColors: Record<string, string>;
-}
-
-export const defaultTemplate1Colors: Template1Colors = {
-  selectedColors: {
-    "Base *": "#D7F1EF",
-    "Section 1 *": "#D3E8C8",
-    "Section 2": "#C1D9EC",
-    "Section 3": "#FFD5A5",
-
-    Highlight: "#E7FEFC",
-  },
-};
-
 export interface Template1CoverPageContent {
   coverImage?: string;
 
