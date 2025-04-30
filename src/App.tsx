@@ -30,8 +30,6 @@ import {
 import { defaultReferencePageContent } from "./types/PageConfigs/ReferenceConfig";
 import { TemplateColors, defaultTemplateColors } from "@/types/templateConfig";
 
-
-
 import {
   ReportBuilderState,
   defaultCoverContentMap,
@@ -65,16 +63,12 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [coverPageContent, setCoverPageContent] =
-    useState<Template1CoverPageContent>(defaultTemplate1CoverPageContent);
-  const [pdfPreviewConfig, setPdfPreviewConfig] =
-    useState<Template1CoverPageContent>(defaultTemplate1CoverPageContent);
   const [templateColors, setTemplateColors] = useState<TemplateColors>(
     defaultTemplateColors
   );
 
   const [reportState, setReportState] = useState<ReportBuilderState>({
-    templateId: null,
+    templateId: 0,
     selectedSections: [],
     pages: [],
   });
@@ -232,7 +226,6 @@ function App() {
               </Button>
               {loading && <p>Loading...</p>}
               {error && <p className="text-red-500">{error}</p>}
-
               {data && (
                 <div className="space-y-4">
                   <h2 className="text-2xl font-bold">LSI Report</h2>
@@ -334,7 +327,17 @@ function App() {
               <Button
                 className="w-32"
                 variant="gray"
-                onClick={() => setActiveStep(activeStep - 1)}
+                onClick={() => {
+                  const prevStep = activeStep - 1;
+                  if (prevStep === 0) {
+                    setReportState({
+                      templateId: 0,
+                      selectedSections: [],
+                      pages: [],
+                    });
+                  }
+                  setActiveStep(prevStep);
+                }}
                 disabled={activeStep === 0}
               >
                 Previous
