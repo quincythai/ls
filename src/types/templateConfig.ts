@@ -197,6 +197,6 @@ export const defaultTemplateColors: TemplateColors = {
     "Section 2": "#C1D9EC",
     "Section 3": "#FFD5A5",
 
-    Highlight: "#E7FEFC",
+    "Highlight": "#E7FEFC",
   },
 };

@@ -18,8 +18,8 @@ export const Template1CoverPageEditor = ({
   isPreview = false,
 }: Template1CoverPageEditorProps) => {
   return (
-    <div className="bg-white aspect-[8.5/11] w-[986px] text-[2px] px-[27em] py-[24em] leading-tight flex flex-col justify-between">
-      <div className="flex flex-col gap-y-[12em]">
+    <div className="bg-white aspect-[8.5/11] w-[986px] text-[2px] px-[27em] py-[24em] leading-tight flex flex-col justify-between" >
+      <div className="flex flex-col gap-y-[12em] " style={{ '--highlight': templateColors.selectedColors['Highlight'] } as any} >
         {/* Header */}
         <div className="w-full flex justify-between items-end">
           <div className="space-y-[9em]">
@@ -47,7 +47,7 @@ export const Template1CoverPageEditor = ({
           />
         </div>
 
-        <hr className="bg-lafayette-200 border-none w-full h-[2em]" />
+        <hr className="border-none w-full h-[2em]" style={{ backgroundColor: templateColors.selectedColors["Base"] }} />
 
         {/* Mission Section */}
         <div className="w-full flex flex-col py-[7em] gap-y-[12em]">
@@ -135,14 +135,17 @@ export const Template1CoverPageEditor = ({
         </div>
 
         {/* Features Section */}
-        <RichTextEditor
-          value={content.sectionIntroHeader}
-          onChange={(val: any) =>
-            onChange({ ...content, sectionIntroHeader: val })
-          }
-          className="text-[12em] font-bold text-lafayette-950 uppercase tracking-wide highlight-lafayette-100 self-start"
-          readOnly={isPreview}
-        />
+        <div className="flex flex-row gap-[2em] w-full items-center">
+          <RichTextEditor
+            value={content.sectionIntroHeader}
+            onChange={(val: any) =>
+              onChange({ ...content, sectionIntroHeader: val })
+            }
+            className="w-full text-[12em] font-bold text-lafayette-950 uppercase tracking-wide self-start"
+            readOnly={isPreview}
+          />
+          <hr className="border-none w-full h-[2em]" style={{ backgroundColor: templateColors.selectedColors["Base"] }} />
+        </div>
 
         <div className="flex gap-[12em] items-stretch">
           <div className="flex-1 flex flex-col gap-[10em] px-[12em] py-[10em]" style={{ backgroundColor: templateColors.selectedColors["Section 1"] }}>

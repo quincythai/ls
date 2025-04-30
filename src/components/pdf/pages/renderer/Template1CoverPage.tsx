@@ -60,7 +60,7 @@ const Template1CoverPage = ({
         <View
           style={[
             tw("h-1 w-full mt-2"),
-            { backgroundColor: selectedColors["Base *"] },
+            { backgroundColor: selectedColors["Base"] },
           ]}
         />
       </View>
@@ -76,7 +76,7 @@ const Template1CoverPage = ({
       {/* Stats */}
       <Highlight
         isFullWidth
-        color={selectedColors["Base *"]}
+        color={selectedColors["Base"]}
         top={25}
         height={125}
         className="mb-4"
