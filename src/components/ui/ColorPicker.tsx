@@ -46,7 +46,7 @@ export const ColorPicker = ({
           variant="caption"
           className="text-neutral-400 text-sm font-medium"
         >
-          Base *
+          Base
         </Typography>
         <ButtonBase
           onClick={() => handleSwatchClick("Base")}
