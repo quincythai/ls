@@ -27,7 +27,7 @@ export const ColorPicker = ({
     newColor = newColor.toUpperCase();
     const newRecord: Record<string, string> = { ...selectedColors };
     newRecord[currentColorName] = newColor;
-    if (currentColorName === "Base *") {
+    if (currentColorName === "Base") {
       newRecord["Highlight"] = lightenHexColor(newColor, 0.75);
     }
     setSelectedColors(newRecord);
@@ -46,10 +46,10 @@ export const ColorPicker = ({
           variant="caption"
           className="text-neutral-400 text-sm font-medium"
         >
-          Base *
+          Base
         </Typography>
         <ButtonBase
-          onClick={() => handleSwatchClick("Base *")}
+          onClick={() => handleSwatchClick("Base")}
           className="w-full h-12"
           sx={{
             bgcolor: selectedColors["Base"],
