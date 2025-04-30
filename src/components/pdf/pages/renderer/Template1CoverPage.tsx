@@ -1,7 +1,10 @@
 import { Page, View, Text, Svg, Path, Image } from "@react-pdf/renderer";
 import { tw } from "../../../../utils/pdf-theme";
 import { serializeToPDFText } from "@/utils/pdf-serializer";
-import { Template1CoverPageContent, Template1Colors } from "@/types/PageConfigs/Template1Config";
+import {
+  Template1CoverPageContent,
+  Template1Colors,
+} from "@/types/PageConfigs/Template1Config";
 import StatBox from "../../StatBox";
 import { Highlight } from "../../Highlight";
 
@@ -10,8 +13,10 @@ interface Template1CoverPageProps {
   templateColors: Template1Colors;
 }
 
-const Template1CoverPage = ({ config, templateColors }: Template1CoverPageProps) => {
-
+const Template1CoverPage = ({
+  config,
+  templateColors,
+}: Template1CoverPageProps) => {
   const selectedColors = templateColors.selectedColors;
 
   return (
@@ -51,12 +56,13 @@ const Template1CoverPage = ({ config, templateColors }: Template1CoverPageProps)
         <Text style={tw("text-heading-3 font-black text-foreground")}>
           {serializeToPDFText(config.reportTitle)}
         </Text>
-        <View style={[
-          tw("h-1 w-full mt-2"),
-          {backgroundColor: selectedColors["Base *"]}
-        ]} />
+        <View
+          style={[
+            tw("h-1 w-full mt-2"),
+            { backgroundColor: selectedColors["Base *"] },
+          ]}
+        />
       </View>
-
 
       <Text style={tw("text-[18px] text-foreground leading-normal")}>
         {serializeToPDFText(config.missionStatement)}
@@ -82,16 +88,8 @@ const Template1CoverPage = ({ config, templateColors }: Template1CoverPageProps)
           <StatBox {...config.successionRiskStat} />
         </View>
         <View style={[tw("px-6 pt-4")]}>
-          <Text style={tw("text-small-text font-semibold mb-1")}>
-            The opportunity to build wealth and economic security is the foundation of the American Dream.
-          </Text>
-          <Text style={tw("text-small-text font-semibold mb-1")}>
-            This is how{" "}
-            <Text style={tw("font-extrabold px-1 bg-white")}>
-              the California 2nd District
-            </Text>{" "}
-            is performing{" "}
-            <Text style={tw("font-normal")}>(ranked by desirability)</Text>.
+          <Text style={tw("text-small-text mb-1")}>
+            {serializeToPDFText(config.statDescription)}
           </Text>
         </View>
       </Highlight>
@@ -101,17 +99,24 @@ const Template1CoverPage = ({ config, templateColors }: Template1CoverPageProps)
         {serializeToPDFText(config.ctaText)}
       </Text>
 
-      <Highlight width="48%" color={selectedColors["Highlight"]} top={6} height="75%">
+      <Highlight
+        width="48%"
+        color={selectedColors["Highlight"]}
+        top={6}
+        height="75%"
+      >
         <Text style={tw("text-[15px] text-foreground my-5")}>
           {serializeToPDFText(config.sectionIntroHeader)}
         </Text>
       </Highlight>
 
       <View style={tw("flex flex-row gap-5")}>
-        <View style={[
-          tw("flex-1 py-6 px-8"), 
-          { backgroundColor: selectedColors["Section 1 *"] }
-          ]}>
+        <View
+          style={[
+            tw("flex-1 py-6 px-8"),
+            { backgroundColor: selectedColors["Section 1 *"] },
+          ]}
+        >
           <Text style={tw("text-heading-4 font-black text-foreground mb-4")}>
             {serializeToPDFText(config.affordableHousingTitle)}
           </Text>
@@ -122,10 +127,12 @@ const Template1CoverPage = ({ config, templateColors }: Template1CoverPageProps)
             )}
           </Text>
         </View>
-        <View style={[
-          tw("flex-1 py-6 px-8"),
-          { backgroundColor: selectedColors["Section 2"] }
-          ]}>
+        <View
+          style={[
+            tw("flex-1 py-6 px-8"),
+            { backgroundColor: selectedColors["Section 2"] },
+          ]}
+        >
           <Text style={tw("text-heading-4 text-foreground mb-4")}>
             {serializeToPDFText(config.employeeOwnershipTitle)}
           </Text>

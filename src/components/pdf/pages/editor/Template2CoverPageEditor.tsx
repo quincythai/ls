@@ -32,7 +32,7 @@ interface Template2CoverPageEditorProps {
                 <img src="/triangle.svg" alt="Triangle" className="h-full" />
               </div>
               <h1 className="text-[16em] font-black tracking-wide text-lafayette-950">
-                Alabama 2nd District
+                This is Template 2 Cover Page Editor
               </h1>
             </div>
             <img src="/logo.svg" alt="Lafayette Square Institute Logo" className="h-[38em] my-[4em] mx-[3em]" />

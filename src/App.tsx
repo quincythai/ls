@@ -35,6 +35,7 @@ import {
   ReportBuilderState,
   defaultCoverContentMap,
   PageContent,
+  pageRegistry,
 } from "./types/templateConfig";
 
 import CoverEditor from "./components/ui/CoverEditor";
@@ -105,15 +106,25 @@ function App() {
   );
 
   const renderedTemplates = templates.map((tpl) => {
-    const coverPage = defaultCoverContentMap[tpl.id];
+    const page = defaultCoverContentMap[tpl.id];
+    const { type, content } = page;
+
+    const EditorComponent = pageRegistry[type].editor as React.ComponentType<{
+      content: typeof content;
+      templateColors: Template1Colors;
+      onChange: (newContent: typeof content) => void;
+      isPreview: boolean;
+    }>;
+
     return {
       id: tpl.id,
       title: tpl.name,
       component: (
-        <PDFPreview
-          key={tpl.id}
-          pages={[coverPage]}
+        <EditorComponent
+          content={content}
           templateColors={templateColors}
+          onChange={() => {}}
+          isPreview={true}
         />
       ),
     };

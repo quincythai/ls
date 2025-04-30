@@ -8,12 +8,14 @@ interface Template1CoverPageEditorProps {
   content: Template1CoverPageContent;
   templateColors: Template1Colors;
   onChange: (newContent: Template1CoverPageContent) => void;
+  isPreview?: boolean; // <-- new prop
 }
 
 export const Template1CoverPageEditor = ({
   content,
   templateColors,
   onChange,
+  isPreview = false,
 }: Template1CoverPageEditorProps) => {
   return (
     <div className="bg-white aspect-[8.5/11] w-[986px] text-[2px] px-[27em] py-[24em] leading-tight flex flex-col justify-between">
@@ -35,6 +37,7 @@ export const Template1CoverPageEditor = ({
                 onChange({ ...content, reportTitle: val })
               }
               className="text-[16em] font-black text-lafayette-950 tracking-wide"
+              readOnly={isPreview}
             />
           </div>
           <img
@@ -54,6 +57,7 @@ export const Template1CoverPageEditor = ({
               onChange({ ...content, missionStatement: val })
             }
             className="text-[14em] font-bold text-lafayette-950"
+            readOnly={isPreview}
           />
           <RichTextEditor
             value={content.missionSubtext}
@@ -61,6 +65,7 @@ export const Template1CoverPageEditor = ({
               onChange({ ...content, missionSubtext: val })
             }
             className="text-[10em] font-medium text-lafayette-950 leading-snug"
+            readOnly={isPreview}
           />
         </div>
 
@@ -98,6 +103,7 @@ export const Template1CoverPageEditor = ({
                           })
                         }
                         className="text-[9em] font-medium text-lafayette-950 leading-snug"
+                        readOnly={isPreview}
                       />
                     </div>
                     <h3 className="text-[8em] font-black text-lafayette-950 uppercase tracking-wide">
@@ -109,11 +115,12 @@ export const Template1CoverPageEditor = ({
             </div>
 
             <RichTextEditor
-              value={content.sectionIntroHeader}
+              value={content.statDescription}
               onChange={(val: any) =>
-                onChange({ ...content, sectionIntroHeader: val })
+                onChange({ ...content, statDescription: val })
               }
               className="text-[9em] font-medium text-lafayette-950 leading-snug"
+              readOnly={isPreview}
             />
           </div>
         </div>
@@ -123,35 +130,55 @@ export const Template1CoverPageEditor = ({
             value={content.ctaText}
             onChange={(val: any) => onChange({ ...content, ctaText: val })}
             className="text-[14em] font-bold text-lafayette-950"
+            readOnly={isPreview}
           />
         </div>
 
         {/* Features Section */}
         <RichTextEditor
-          value={content.affordableHousingTitle}
+          value={content.sectionIntroHeader}
           onChange={(val: any) =>
-            onChange({ ...content, affordableHousingTitle: val })
+            onChange({ ...content, sectionIntroHeader: val })
           }
           className="text-[12em] font-bold text-lafayette-950 uppercase tracking-wide highlight-lafayette-100 self-start"
+          readOnly={isPreview}
         />
 
         <div className="flex gap-[12em] items-stretch">
           <div className="flex-1 flex flex-col gap-[10em] px-[12em] py-[10em] bg-olive-200">
+            <RichTextEditor
+              value={content.affordableHousingTitle}
+              onChange={(val: any) =>
+                onChange({ ...content, affordableHousingTitle: val })
+              }
+              className="text-[13em] font-black text-lafayette-950"
+              readOnly={isPreview}
+            />
             <RichTextEditor
               value={content.affordableHousingText}
               onChange={(val: any) =>
                 onChange({ ...content, affordableHousingText: val })
               }
               className="text-[9em] font-medium text-lafayette-950 leading-snug"
+              readOnly={isPreview}
             />
           </div>
           <div className="flex-1 flex flex-col gap-[10em] px-[12em] py-[10em] bg-navyish-200">
+            <RichTextEditor
+              value={content.employeeOwnershipTitle}
+              onChange={(val: any) =>
+                onChange({ ...content, employeeOwnershipTitle: val })
+              }
+              className="text-[13em] font-black text-lafayette-950"
+              readOnly={isPreview}
+            />
             <RichTextEditor
               value={content.employeeOwnershipText}
               onChange={(val: any) =>
                 onChange({ ...content, employeeOwnershipText: val })
               }
               className="text-[9em] font-medium text-lafayette-950 leading-snug"
+              readOnly={isPreview}
             />
           </div>
         </div>
@@ -163,6 +190,7 @@ export const Template1CoverPageEditor = ({
           value={content.bottomNote}
           onChange={(val: any) => onChange({ ...content, bottomNote: val })}
           className="text-[8em] font-bold text-lafayette-950"
+          readOnly={isPreview}
         />
         <img src="/triangle.svg" alt="Triangle" className="h-[14em]" />
       </div>

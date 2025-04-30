@@ -1,19 +1,14 @@
 import React, { useMemo } from "react";
-import {
-  Slate,
-  Editable,
-  withReact,
-  RenderLeafProps,
-} from "slate-react";
+import { Slate, Editable, withReact, RenderLeafProps } from "slate-react";
 import { createEditor, Descendant } from "slate";
 import { withHistory } from "slate-history";
 import HoveringToolbar from "./HoveringToolbar";
 
-// Props
 export interface RichTextEditorProps {
   value: Descendant[];
   onChange: (value: Descendant[]) => void;
-  className?: string; // <-- add className here!
+  className?: string;
+  readOnly?: boolean;
 }
 
 // Text formatting
@@ -48,17 +43,22 @@ const renderLeaf = (props: RenderLeafProps) => {
   return <span {...props.attributes}>{children}</span>;
 };
 
-// Main editor
-const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, className }) => {
+const RichTextEditor: React.FC<RichTextEditorProps> = ({
+  value,
+  onChange,
+  className,
+  readOnly = false,
+}) => {
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
   return (
     <Slate editor={editor} initialValue={value} onChange={onChange}>
-      <HoveringToolbar />
+      {!readOnly && <HoveringToolbar />} {/* Hide toolbar in preview mode */}
       <Editable
         renderLeaf={renderLeaf}
         placeholder="Type something..."
         className={className}
+        readOnly={readOnly} // <-- Pass to Slate
       />
     </Slate>
   );

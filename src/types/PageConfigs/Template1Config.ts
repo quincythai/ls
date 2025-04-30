@@ -1,18 +1,18 @@
 import { RichTextValue, StatBoxContent } from "./BasePageConfig";
 
 export interface Template1Colors {
-  selectedColors: Record<string, string>
+  selectedColors: Record<string, string>;
 }
 
 export const defaultTemplate1Colors: Template1Colors = {
   selectedColors: {
     "Base *": "#D7F1EF",
-    "Section 1 *": "#D3E8C8", 
+    "Section 1 *": "#D3E8C8",
     "Section 2": "#C1D9EC",
     "Section 3": "#FFD5A5",
 
-    "Highlight": "#E7FEFC",   
-  }
+    Highlight: "#E7FEFC",
+  },
 };
 
 export interface Template1CoverPageContent {
@@ -35,11 +35,13 @@ export interface Template1CoverPageContent {
   expenseBurdenStat: StatBoxContent;
   rentBurdenStat: StatBoxContent;
   successionRiskStat: StatBoxContent;
+
+  statDescription: RichTextValue;
 }
 
 export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
   coverImage: new URL("../../assets/logo.svg", import.meta.url).href,
-  
+
   reportTitle: [
     {
       type: "paragraph",
@@ -53,7 +55,6 @@ export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
       children: [
         {
           text: "Our mission is to bridge the gap between policymakers and investors to create economic security for workers and families.",
-          bold: true,
         },
       ],
     },
@@ -64,11 +65,15 @@ export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
       type: "paragraph",
       children: [
         {
-          text: "We equip policymakers with data-driven insights to mobilize private capital to generate prosperity across the country. Our 535 Insights",
+          text: "We equip policymakers with data-driven insights to mobilize private capital to generate prosperity across the country.",
           bold: true,
         },
         {
-          text: " series provides analytics specific to the constituencies of all 535 Members of Congress.",
+          text: " Our ",
+        },
+        { text: "535 Insights", bold: true },
+        {
+          text: " series provides analytics specific to the constituencies of all 535 members of Congress.",
         },
       ],
     },
@@ -79,8 +84,11 @@ export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
       type: "paragraph",
       children: [
         {
-          text: "To revive the American Dream, the 2nd District needs a strategy to promote economic opportunity.",
-          bold: true
+          text: "To revive the American Dream, ",
+        },
+        { text: "the 2nd District", bold: true },
+        {
+          text: " needs a strategy to promote economic opportunity.",
         },
       ],
     },
@@ -89,7 +97,7 @@ export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
   sectionIntroHeader: [
     {
       type: "paragraph",
-      children: [{ text: "HERE'S WHERE WE'RE STARTING:"}],
+      children: [{ text: "HERE'S WHERE WE'RE STARTING:" }],
     },
   ],
 
@@ -142,9 +150,12 @@ export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
       type: "paragraph",
       children: [
         {
-          text: "Turn the page to see how the 1st District is doing on affordable housing and employee ownership.",
-          bold: true
-        }
+          text: "Turn the page to see how the ",
+        },
+        { text: "2nd District", bold: true },
+        {
+          text: " is doing on affordable housing and employee ownership.",
+        },
       ],
     },
   ],
@@ -206,4 +217,17 @@ export const defaultTemplate1CoverPageContent: Template1CoverPageContent = {
     ],
     rank: "RANK 115 OUT OF 435",
   },
+
+  statDescription: [
+    {
+      type: "paragraph",
+      children: [
+        {
+          text: "The opportunity to build wealth and economic security is the foundation of the American Dream. This is how the Alabama 2nd District is performing",
+          bold: true,
+        },
+        { text: " (ranked by desirability)." },
+      ],
+    },
+  ],
 };

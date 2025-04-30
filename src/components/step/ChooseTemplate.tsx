@@ -47,11 +47,11 @@ export const ChooseTemplate = ({ templates, templateColors, onColorsChange, onSe
       </header>
 
       <div className="flex flex-row gap-4"> 
-        <div className="w-3/5 grow bg-white rounded-lg border-2 border-neutral-200 px-20 py-9 flex flex-col gap-5 items-center">
+        <div className="w-3/5 grow bg-gray-50 rounded-lg border-2 border-neutral-200 px-20 py-9 flex flex-col gap-5 items-center">
           <Carousel templates={templates} activeIndex={activeIndex} onIndexChange={handleIndexChange} />
         </div>
 
-        <div className="max-w-xs grow bg-white rounded-lg border-2 border-neutral-200 px-8 py-9 flex flex-col items-stretch w-2/5 gap-4 overflow-y-auto">
+        <div className="max-w-xs grow bg-gray-50 rounded-lg border-2 border-neutral-200 px-8 py-9 flex flex-col items-stretch w-2/5 gap-4 overflow-y-auto">
           <ColorPicker currentColors={templateColors.selectedColors} onColorsChange={onColorsChange}/>
         </div>
       </div>
