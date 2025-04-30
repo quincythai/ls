@@ -28,7 +28,7 @@ export const ColorPicker = ({
     const newRecord: Record<string, string> = { ...selectedColors };
     newRecord[currentColorName] = newColor;
     if (currentColorName === "Base") {
-      newRecord["Highlight"] = lightenHexColor(newColor, 0.75);
+      newRecord["Highlight"] = lightenHexColor(newColor, 0.6);
     }
     setSelectedColors(newRecord);
     onColorsChange?.(newRecord);

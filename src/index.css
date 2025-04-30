@@ -17,11 +17,12 @@
   --color-navyish-200: #bfd8e9;
 }
 
-.highlight-lafayette-100 {
+/* class for report highlight color (derived from Base) */
+.highlight-base-light { 
   background-image: linear-gradient(
     to bottom,
     transparent 50%,
-    var(--color-lafayette-100) 50%
+    var(--highlight) 50%
   );
 }
 
