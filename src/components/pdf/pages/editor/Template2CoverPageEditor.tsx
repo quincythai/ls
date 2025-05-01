@@ -25,7 +25,7 @@ interface Template2CoverPageEditorProps {
             <h1 className="text-[16em] font-black tracking-wide text-lafayette-950">
               Affordable Housing & Homeownership
             </h1>
-            <img src="/logo.svg" alt="Lafayette Square Institute Logo" className="h-[24em] my-[4em] mx-[3em]" />
+            <img src="/logo.svg" alt="Lafayette Square Institute Logo" className="h-[24em] my-[4em] mx-[6em]" />
           </div>
           {/* Description */}
           <p className="text-[10em] font-medium text-lafayette-950 leading-snug">

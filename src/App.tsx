@@ -53,10 +53,10 @@ const steps = ["Choose Template", "Add Sections", "Edit", "Confirmation"];
 
 function App() {
   const [selectedState, setSelectedState] = useState<string | undefined>(
-    undefined
+    undefined,
   );
   const [selectedDistrict, setSelectedDistrict] = useState<string | undefined>(
-    undefined
+    undefined,
   );
   const [activeStep, setActiveStep] = useState(0);
   const [data, setData] = useState<ReportData | null>(null);
@@ -64,7 +64,7 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   const [templateColors, setTemplateColors] = useState<TemplateColors>(
-    defaultTemplateColors
+    defaultTemplateColors,
   );
 
   const [reportState, setReportState] = useState<ReportBuilderState>({
@@ -77,7 +77,7 @@ function App() {
     const coverPage = defaultCoverContentMap[templateId];
     if (!coverPage) {
       throw new Error(
-        `No cover page content defined for templateId: ${templateId}`
+        `No cover page content defined for templateId: ${templateId}`,
       );
     }
 
@@ -97,7 +97,7 @@ function App() {
     () => (
       <PDFPreview pages={reportState.pages} templateColors={templateColors} />
     ),
-    [reportState.pages, templateColors]
+    [reportState.pages, templateColors],
   );
 
   const renderedTemplates = templates.map((tpl) => {
@@ -214,7 +214,7 @@ function App() {
                   <MenuItem key={district} value={district}>
                     {district}
                   </MenuItem>
-                )
+                ),
               )}
             </Select>
           </FormControl>
@@ -242,17 +242,17 @@ function App() {
                   {renderMetric("Financial Problems", data.financial_problems)}
                   {renderMetric(
                     "Home Ownership Rate",
-                    data.home_ownership_rate
+                    data.home_ownership_rate,
                   )}
                   {renderMetric(
                     "Housing Underproduction",
-                    data.housing_underproduction
+                    data.housing_underproduction,
                   )}
                   {renderMetric("Median Home Value", data.median_home_value)}
                   {renderMetric("Median Rent", data.median_rent)}
                   {renderMetric(
                     "Poverty Concentration",
-                    data.poverty_concentration
+                    data.poverty_concentration,
                   )}
                   {renderMetric("Renting Burdened", data.renting_burdened)}
                   {renderMetric("Social Mobility", data.social_mobility)}
@@ -308,7 +308,7 @@ function App() {
                   setReportState((prev) => ({
                     ...prev,
                     pages: prev.pages.map((p, idx) =>
-                      idx === pageIndex ? { ...p, content: newContent } : p
+                      idx === pageIndex ? { ...p, content: newContent } : p,
                     ),
                   }));
                 }}
