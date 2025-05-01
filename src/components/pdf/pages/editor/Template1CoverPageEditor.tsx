@@ -70,7 +70,7 @@ export const Template1CoverPageEditor = ({
         </div>
 
         {/* Stats Section */}
-        <div className="relative w-full p-[9em] pt-0 mt-[9em]" style={{ backgroundColor: templateColors.selectedColors["Base"] }}>
+        <div className="w-full p-[9em] pt-0 mt-[9em]" style={{ backgroundColor: templateColors.selectedColors["Base"] }}>
           <div className="flex flex-col gap-y-[16em] -mb-[18em] relative bottom-[18em]">
             <div className="flex gap-[14em]">
               {(
