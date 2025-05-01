@@ -72,7 +72,7 @@ export const Template1CoverPageEditor = ({
         {/* Stats Section */}
         <div className="relative w-full p-[9em] pt-0 mt-[9em]" style={{ backgroundColor: templateColors.selectedColors["Base"] }}>
           <div className="flex flex-col gap-y-[16em] -mb-[18em] relative bottom-[18em]">
-            <div className="flex gap-[14em] h-[98em]">
+            <div className="flex gap-[14em]">
               {(
                 [
                   "mobilityStat",
@@ -85,7 +85,7 @@ export const Template1CoverPageEditor = ({
                 return (
                   <div
                     key={key}
-                    className="flex-1 flex flex-col justify-between"
+                    className="flex-1 flex flex-col justify-between gap-y-[8em]"
                   >
                     <div className="flex flex-col gap-y-[4em]">
                       <h1 className="text-[26em] font-black text-lafayette-950">
