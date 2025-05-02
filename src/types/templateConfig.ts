@@ -56,30 +56,6 @@ export const templates: TemplateConfig[] = [
     coverPageContent: defaultTemplate2CoverPageContent,
     maxSections: 1,
   },
-  {
-    id: 2,
-    name: "Affordable Housing Report",
-    allowedSections: ["HousingSection", "EmployeeOwnershipSection"],
-    coverPageType: "HousingSection",
-    coverPageContent: defaultHousingSectionContent,
-    maxSections: 1,
-  },
-  {
-    id: 3,
-    name: "Employee Ownership Report",
-    allowedSections: ["HousingSection", "EmployeeOwnershipSection"],
-    coverPageType: "EmployeeOwnershipSection",
-    coverPageContent: defaultEmployeeOwnershipSectionContent,
-    maxSections: 1,
-  },
-  {
-    id: 4,
-    name: "Reference Page",
-    allowedSections: ["HousingSection", "EmployeeOwnershipSection"],
-    coverPageType: "ReferencePage",
-    coverPageContent: defaultReferencePageContent,
-    maxSections: 1,
-  },
 ];
 
 /**

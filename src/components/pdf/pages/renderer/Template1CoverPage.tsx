@@ -115,7 +115,7 @@ const Template1CoverPage = ({
         <View
           style={[
             tw("flex-1 py-6 px-8"),
-            { backgroundColor: selectedColors["Section 1 *"] },
+            { backgroundColor: selectedColors["Section 1"] },
           ]}
         >
           <Text style={tw("text-heading-4 font-black text-foreground mb-4")}>
