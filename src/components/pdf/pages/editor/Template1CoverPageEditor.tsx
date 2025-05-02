@@ -23,14 +23,7 @@ export const Template1CoverPageEditor = ({
         {/* Header */}
         <div className="w-full flex justify-between items-end">
           <div className="space-y-[9em]">
-            <div className="h-[40em] flex">
-              <div className="bg-lafayette-950 h-full px-[8em]">
-                <h1 className="text-[30em] font-black text-white tracking-wide">
-                  535 Insights
-                </h1>
-              </div>
-              <img src="/triangle.svg" alt="Triangle" className="h-full" />
-            </div>
+            <img src="/535-insights-logo.svg" alt="535 Insights Logo" className="h-[32em]" />
             <RichTextEditor
               value={content.reportTitle}
               onChange={(val: any) =>
