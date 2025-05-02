@@ -21,90 +21,91 @@ interface Template2CoverPageEditorProps {
         {/* Main Content */}
         <div className="flex flex-col gap-y-[12em]">
           {/* Header */}
-          <div className="w-full flex justify-between items-end">
-            <div className="space-y-[9em]">
-              <div className="h-[40em] flex">
-                <div className="bg-lafayette-950 h-full px-[8em]">
-                  <h1 className="text-[30em] font-black text-white tracking-wide">
-                    535 Insights
-                  </h1>
-                </div>
-                <img src="/triangle.svg" alt="Triangle" className="h-full" />
-              </div>
-              <h1 className="text-[16em] font-black tracking-wide text-lafayette-950">
-                This is Template 2 Cover Page Editor
-              </h1>
-            </div>
-            <img src="/logo.svg" alt="Lafayette Square Institute Logo" className="h-[38em] my-[4em] mx-[3em]" />
+          <div className="w-full flex justify-between items-center">
+            <h1 className="text-[16em] font-black tracking-wide text-lafayette-950">
+              Affordable Housing & Homeownership
+            </h1>
+            <img src="/logo.svg" alt="Lafayette Square Institute Logo" className="h-[24em] my-[4em] mx-[6em]" />
           </div>
-          <hr className="bg-lafayette-200 border-none w-full h-[2em]" />
-          {/* Mission Section */}
-          <div className="w-full flex flex-col py-[7em] gap-y-[12em]">
-            <h2 className="text-[14em] font-bold text-lafayette-950">
-              Our mission is to bridge the gap between policymakers and investors to create economic security for workers and families.
-            </h2>
-            <p className="text-[10em] font-medium text-lafayette-950 leading-snug">
-              <strong className="highlight-lafayette-100">We equip policymakers with data-driven insights to mobilize <span className="font-black">private capital</span> to generate prosperity across the country.</strong> Our <strong className="highlight-lafayette-100">535 Insights</strong> series provides analytics specific to the constituencies of all 535 members of Congress.
-            </p>
-          </div>
+          {/* Description */}
+          <p className="text-[10em] font-medium text-lafayette-950 leading-snug">
+            The <strong>Alabama 2nd District</strong> is facing housing supply and affordability challenges. This is contributing to unsustainable financial burdens for families and creates barriers to economic opportunity.
+          </p>
           {/* Stats Section */}
-          <div className="relative w-full bg-lafayette-100 p-[9em] pt-0 mt-[9em]">
+          <div className="w-full bg-olive-200 p-[9em] pt-0 mt-[9em]">
             <div className="flex flex-col gap-y-[16em] -mb-[18em] relative bottom-[18em]">
               {/* Stats */}
-              <div className="flex gap-[14em] h-[98em]">
+              <div className="flex gap-[14em]">
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="flex-1 flex flex-col justify-between">
+                  <div key={i} className="flex-1 flex flex-col justify-between gap-y-[8em]">
                     <div className="flex flex-col gap-y-[4em]">
-                      <h1 className="text-[26em] font-black text-lafayette-950">7%</h1>
+                      <h1 className="text-[26em] font-black text-lafayette-950">38x</h1>
                       <p className="text-[9em] font-medium text-lafayette-950 leading-snug">
-                        chance to become high-income with low-income parents&sup1;
+                        is what a typical family owning a home has in net worth compared to a family renting &sup1;
                       </p>
                     </div>
                     <h3 className="text-[8em] font-black text-lafayette-950 uppercase tracking-wide">
-                      Rank 398 out of 435
+                      Rank 292 out of 435
                     </h3>
                   </div>
                 ))}
               </div>
-              <p className="text-[9em] font-medium text-lafayette-950 leading-snug">
-                <strong>The opportunity to build wealth and economic security is the foundation of the American Dream. This is how <span className="font-black highlight-white">the Alabama 2nd District</span> is performing</strong> (ranked by desirability).
-              </p>
             </div>
           </div>
-          <div className="py-[7em]">
-            <h2 className="text-[14em] font-bold text-lafayette-950">
-              To revive the American Dream, <span className="font-black">the 2nd District</span> needs a strategy to promote economic opportunity.
-            </h2>
+          {/* Paragraph Content Section */}
+          <div className="py-[7em] columns-2 gap-[12em] space-y-[0.75em]">
+            <p className="text-[8em] font-medium">
+              <strong>The United States is 4 million homes short of meeting national demand, a shortfall that has almost doubled over the past decade.<sup>10</sup></strong> <strong>Alabama</strong> has a short fall of 16,744 units.<sup>11</sup> This undersupply contributes to rising housing costs which force working-class families to spend an unsustainable portion of their income on rent and pushes many households into neighborhoods with high poverty rates.<sup>12</sup> Research demonstrates that living in areas of concentrated poverty makes it harder for kids to rise up the income ladder.<sup>13</sup> Housing cost-burdens are also rising for middle- and higher-income families, while rising housing costs have led to the American Dream of homeownership becoming increasingly unattainable—narrowing pathways for families to build wealth.<sup>14</sup>
+            </p>
+            <p className="text-[8em] font-medium">
+              <strong>Of the over $200 billion that has been invested annually in housing in recent years, only a fraction supports projects affordable for working-class families.<sup>15</sup></strong> Innovative models capable of significantly boosting the supply of affordable housing exists but struggle to attract capital to scale. New policies, programs and financing tools are needed that redirect private capital into projects that promote financial stability and homeownership, and help build strong, resilient communities.
+            </p>
           </div>
-          {/* Features Section */}
-          <h2 className="text-[12em] font-bold text-lafayette-950 uppercase tracking-wide highlight-lafayette-100 self-start">
-            Here's Where We're Starting:
-          </h2>
-          <div className="flex gap-[12em] items-stretch">
-            <div className="flex-1 flex flex-col gap-[10em] px-[12em] py-[10em] bg-olive-200">
-              <h1 className="text-[13em] font-black text-lafayette-950">
-                Affordable Housing
+          {/* Charts Section (replace h-[120em] with charts later) */}
+          <div className="bg-neutral-100 p-[7em] space-y-[4em] h-[120em]">
+            <div>
+              <h1 className="text-[12em] font-bold">
+                Rent Burden by Income<sup>9</sup>
               </h1>
-              <p className="text-[9em] font-medium text-lafayette-950 leading-snug">
-                By making it easier to finance <strong>affordable housing</strong> and the expansion of <strong>home ownership</strong> we can help build strong communities where families will thrive.
-              </p>
             </div>
-            <div className="flex-1 flex flex-col gap-[10em] px-[12em] py-[10em] bg-navyish-200">
-              <h1 className="text-[13em] font-black text-lafayette-950">
-                Employee Ownership
-              </h1>
-              <p className="text-[9em] font-medium text-lafayette-950 leading-snug">
-              By expanding <strong>employee ownership</strong> through <strong>Employee Stock Ownership Plans (ESOPs)</strong>, we can create generational wealth for American workers while enhancing U.S. competitiveness.
-              </p>
+            <div className="flex items-start space-x-[12em]">
+                {[1, 2].map((i) => (
+                  <div key={i} className="flex items-start space-x-[4em]">
+                    <div className="size-[8em] bg-olive-200" />
+                    <div>
+                      <h3 className="text-[7em] font-bold">Burdened Households</h3>
+                      <h4 className="italic text-[5em]">(Rent 30% or more of income)</h4>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
-        {/* Footer */}
-        <div className="flex justify-between items-center">
-          <p className="text-[8em] font-bold text-lafayette-950">
-            Turn the page to see how <span className="font-black highlight-lafayette-100">the 2nd District</span> is doing on affordable housing and employee ownership.
-          </p>
-          <img src="/triangle.svg" alt="Triangle" className="h-[14em]" />
+        {/* Footer Stats */}
+        <div className="flex">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="flex-1 bg-olive-200 p-[9em] pt-0 mt-[9em]">
+              <div className="-mb-[18em] relative bottom-[18em] flex flex-col justify-between gap-y-[8em]">
+                <div className="flex flex-col gap-y-[4em]">
+                  <h1 className="text-[26em] font-black text-lafayette-950">$916</h1>
+                  <p className="text-[9em] font-medium text-lafayette-950 leading-snug">
+                    median rent<sup>16</sup>
+                  </p>
+                </div>
+                <h3 className="text-[8em] font-black text-lafayette-950 uppercase tracking-wide">
+                  Rank 72 out of 435
+                </h3>
+              </div>
+            </div>
+          ))}
+          <div className="flex-1 bg-olive-300 p-[9em] pt-0 mt-[9em]">
+            <div className="-mb-[18em] relative bottom-[18em] flex flex-col justify-between gap-y-[6em]">
+              <div className="bg-neutral-200 border-[2em] border-neutral-400 size-[40em]" />
+              <h3 className="text-[8em] font-semibold text-lafayette-950">
+                Learn more about affordable housing
+              </h3>
+            </div>
+          </div>
         </div>
       </div>
     </>

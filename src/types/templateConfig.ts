@@ -56,6 +56,30 @@ export const templates: TemplateConfig[] = [
     coverPageContent: defaultTemplate2CoverPageContent,
     maxSections: 1,
   },
+  {
+    id: 2,
+    name: "Affordable Housing Report",
+    allowedSections: ["HousingSection", "EmployeeOwnershipSection"],
+    coverPageType: "HousingSection",
+    coverPageContent: defaultHousingSectionContent,
+    maxSections: 1,
+  },
+  {
+    id: 3,
+    name: "Employee Ownership Report",
+    allowedSections: ["HousingSection", "EmployeeOwnershipSection"],
+    coverPageType: "EmployeeOwnershipSection",
+    coverPageContent: defaultEmployeeOwnershipSectionContent,
+    maxSections: 1,
+  },
+  {
+    id: 4,
+    name: "Reference Page",
+    allowedSections: ["HousingSection", "EmployeeOwnershipSection"],
+    coverPageType: "ReferencePage",
+    coverPageContent: defaultReferencePageContent,
+    maxSections: 1,
+  },
 ];
 
 /**
@@ -164,7 +188,7 @@ export const defaultCoverContentMap: Record<number, PageContent> =
     templates.map((tpl) => [
       tpl.id,
       { type: tpl.coverPageType, content: tpl.coverPageContent },
-    ])
+    ]),
   ) as Record<number, PageContent>;
 
 /**
@@ -173,7 +197,7 @@ export const defaultCoverContentMap: Record<number, PageContent> =
  * Maps each PageType to its label for UI toggles.
  */
 export const pageTypeToLabel: Record<PageType, string> = Object.fromEntries(
-  Object.entries(pageRegistry).map(([key, val]) => [key, val.label])
+  Object.entries(pageRegistry).map(([key, val]) => [key, val.label]),
 ) as Record<PageType, string>;
 
 /**
@@ -183,7 +207,7 @@ export const pageTypeToLabel: Record<PageType, string> = Object.fromEntries(
  */
 export const sectionLabelToPageType: Record<string, PageType> =
   Object.fromEntries(
-    Object.entries(pageTypeToLabel).map(([key, val]) => [val, key])
+    Object.entries(pageTypeToLabel).map(([key, val]) => [val, key]),
   ) as Record<string, PageType>;
 
 export interface TemplateColors {

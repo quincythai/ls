@@ -21,90 +21,83 @@ interface EmployeeOwnershipSectionEditorProps {
         {/* Main Content */}
         <div className="flex flex-col gap-y-[12em]">
           {/* Header */}
-          <div className="w-full flex justify-between items-end">
-            <div className="space-y-[9em]">
-              <div className="h-[40em] flex">
-                <div className="bg-lafayette-950 h-full px-[8em]">
-                  <h1 className="text-[30em] font-black text-white tracking-wide">
-                    535 Insights
-                  </h1>
-                </div>
-                <img src="/triangle.svg" alt="Triangle" className="h-full" />
-              </div>
-              <h1 className="text-[16em] font-black tracking-wide text-lafayette-950">
-                Alabama 2nd District
-              </h1>
-            </div>
-            <img src="/logo.svg" alt="Lafayette Square Institute Logo" className="h-[38em] my-[4em] mx-[3em]" />
+          <div className="w-full flex justify-between items-center">
+            <h1 className="text-[16em] font-black tracking-wide text-lafayette-950">
+              Employee Ownership
+            </h1>
+            <img src="/logo.svg" alt="Lafayette Square Institute Logo" className="h-[24em] my-[4em] mx-[6em]" />
           </div>
-          <hr className="bg-lafayette-200 border-none w-full h-[2em]" />
-          {/* Mission Section */}
-          <div className="w-full flex flex-col py-[7em] gap-y-[12em]">
-            <h2 className="text-[14em] font-bold text-lafayette-950">
-              Our mission is to bridge the gap between policymakers and investors to create economic security for workers and families.
-            </h2>
-            <p className="text-[10em] font-medium text-lafayette-950 leading-snug">
-              <strong className="highlight-lafayette-100">We equip policymakers with data-driven insights to mobilize <span className="font-black">private capital</span> to generate prosperity across the country.</strong> Our <strong className="highlight-lafayette-100">535 Insights</strong> series provides analytics specific to the constituencies of all 535 members of Congress.
-            </p>
-          </div>
+          {/* Description */}
+          <p className="text-[10em] font-medium text-lafayette-950 leading-snug">
+            <strong>The United States is confronting a “silver tsunami” of retiring business owners that are likely to sell their businesses over the next decade.</strong> Meanwhile, too many American workers and families are financially unprepared for retirement.
+          </p>
           {/* Stats Section */}
-          <div className="relative w-full bg-lafayette-100 p-[9em] pt-0 mt-[9em]">
+          <div className="w-full bg-navyish-200 p-[9em] pt-0 mt-[9em]">
             <div className="flex flex-col gap-y-[16em] -mb-[18em] relative bottom-[18em]">
               {/* Stats */}
-              <div className="flex gap-[14em] h-[98em]">
+              <div className="flex gap-[14em]">
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="flex-1 flex flex-col justify-between">
+                  <div key={i} className="flex-1 flex flex-col justify-between gap-y-[8em]">
                     <div className="flex flex-col gap-y-[4em]">
-                      <h1 className="text-[26em] font-black text-lafayette-950">7%</h1>
+                      <h1 className="text-[26em] font-black text-lafayette-950">13%</h1>
                       <p className="text-[9em] font-medium text-lafayette-950 leading-snug">
-                        chance to become high-income with low-income parents&sup1;
+                        of businesses operate in critical industries and have an owner aged 55 or older<sup>20</sup>
                       </p>
                     </div>
-                    <h3 className="text-[8em] font-black text-lafayette-950 uppercase tracking-wide">
-                      Rank 398 out of 435
+                    <h3 className="text-[8em] font-medium text-lafayette-950 uppercase tracking-wide">
+                      Ranked by Number of Critical Firms <span className="font-black">388 out of 435</span>
                     </h3>
                   </div>
                 ))}
               </div>
-              <p className="text-[9em] font-medium text-lafayette-950 leading-snug">
-                <strong>The opportunity to build wealth and economic security is the foundation of the American Dream. This is how <span className="font-black highlight-white">the Alabama 2nd District</span> is performing</strong> (ranked by desirability).
-              </p>
             </div>
           </div>
-          <div className="py-[7em]">
-            <h2 className="text-[14em] font-bold text-lafayette-950">
-              To revive the American Dream, <span className="font-black">the 2nd District</span> needs a strategy to promote economic opportunity.
-            </h2>
-          </div>
-          {/* Features Section */}
-          <h2 className="text-[12em] font-bold text-lafayette-950 uppercase tracking-wide highlight-lafayette-100 self-start">
-            Here's Where We're Starting:
-          </h2>
-          <div className="flex gap-[12em] items-stretch">
-            <div className="flex-1 flex flex-col gap-[10em] px-[12em] py-[10em] bg-olive-200">
-              <h1 className="text-[13em] font-black text-lafayette-950">
-                Affordable Housing
-              </h1>
-              <p className="text-[9em] font-medium text-lafayette-950 leading-snug">
-                By making it easier to finance <strong>affordable housing</strong> and the expansion of <strong>home ownership</strong> we can help build strong communities where families will thrive.
+          {/* Paragraph Content Section */}
+          <div className="py-[7em] space-y-[12em]">
+            <div>
+              <p className="text-[8em] font-medium">
+                <strong>Without a policy strategy to address business succession, we risk the loss of American businesses and their local jobs.</strong> Too often, the sale of a business to an out-of-state or foreign buyer results in the loss of local jobs and investment. With many businesses in critical industries—e.g., those with implications for national and economic security—facing the challenges of business succession, promoting employee ownership can be part of a broader competition framework to maintain our leadership in strategic sectors while investing in American workers.
               </p>
             </div>
-            <div className="flex-1 flex flex-col gap-[10em] px-[12em] py-[10em] bg-navyish-200">
-              <h1 className="text-[13em] font-black text-lafayette-950">
-                Employee Ownership
-              </h1>
-              <p className="text-[9em] font-medium text-lafayette-950 leading-snug">
-              By expanding <strong>employee ownership</strong> through <strong>Employee Stock Ownership Plans (ESOPs)</strong>, we can create generational wealth for American workers while enhancing U.S. competitiveness.
+            <div className="columns-2 gap-[12em] space-y-[0.75em]">
+              <p className="text-[8em] font-medium">
+                <strong>What is an ESOP?</strong> The Employee Stock Ownership Plan (ESOP) is both a retirement plan and corporate finance vehicle that allows retiring business owners to sell their business to employees. Employees do not pay for their shares—employee ownership is instead an incremental benefit on top of wages and benefits. ESOPs have been demonstrated to create over 2.5 times more retirement wealth for workers—in addition to superior pay and benefits—compared to traditional companies.<sup>23</sup> Employee-owned businesses have also been shown to innovate more frequently and exhibit greater resilience during an economic downturn.<sup>24</sup>
               </p>
+              <p className="text-[8em] font-medium">
+                As baby boomers prepare to retire and sell their businesses, ESOPs can play an important role in maintaining domestic ownership and productive capacity across manufacturing and other strategic sectors—a win-win for U.S. economic security and for American workers across the country.
+              </p>
+              <h2 className="text-[12em] font-bold">
+                Privately Held ESOP Companies in 2nd District
+              </h2>
+              <div className="bg-neutral-200 border-[2em] border-neutral-400 w-full h-[150em]" />
             </div>
           </div>
         </div>
-        {/* Footer */}
-        <div className="flex justify-between items-center">
-          <p className="text-[8em] font-bold text-lafayette-950">
-            Turn the page to see how <span className="font-black highlight-lafayette-100">the 2nd District</span> is doing on affordable housing and employee ownership.
-          </p>
-          <img src="/triangle.svg" alt="Triangle" className="h-[14em]" />
+        {/* Footer Stats */}
+        <div className="flex">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="flex-1 bg-navyish-200 p-[9em] pt-0 mt-[9em]">
+              <div className="-mb-[18em] relative bottom-[18em] flex flex-col justify-between gap-y-[8em]">
+                <div className="flex flex-col gap-y-[4em]">
+                  <h1 className="text-[26em] font-black text-lafayette-950">$916</h1>
+                  <p className="text-[9em] font-medium text-lafayette-950 leading-snug">
+                    median rent<sup>16</sup>
+                  </p>
+                </div>
+                <h3 className="text-[8em] font-black text-lafayette-950 uppercase tracking-wide">
+                  Rank 72 out of 435
+                </h3>
+              </div>
+            </div>
+          ))}
+          <div className="flex-1 bg-navyish-300 p-[9em] pt-0 mt-[9em]">
+            <div className="-mb-[18em] relative bottom-[18em] flex flex-col justify-between gap-y-[6em]">
+              <div className="bg-neutral-200 border-[2em] border-neutral-400 size-[40em]" />
+              <h3 className="text-[8em] font-semibold text-lafayette-950">
+                Learn more about affordable housing
+              </h3>
+            </div>
+          </div>
         </div>
       </div>
     </>
