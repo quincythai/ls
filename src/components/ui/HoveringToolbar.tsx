@@ -8,7 +8,7 @@ import ReactDOM from "react-dom";
 
 
 // Formatting types
-type Format = "bold" | "italic" | "underline" | "link";
+type Format = "bold" | "italic" | "underline" | "link" | "highlight" | "fontSize";
 
 // Mark toggle logic
 const toggleMark = (editor: Editor, format: Format) => {
@@ -16,14 +16,81 @@ const toggleMark = (editor: Editor, format: Format) => {
   if (isActive) {
     Editor.removeMark(editor, format);
   } else {
-    Editor.addMark(editor, format, true);
+    if (format === "highlight") {
+      Editor.addMark(editor, format, { color: "bg-yellow-200" });
+    } else {
+      Editor.addMark(editor, format, true);
+    }
   }
 };
 
 const isMarkActive = (editor: Editor, format: Format) => {
   const marks = Editor.marks(editor);
-  return marks ? marks[format] === true : false;
+  if (!marks) return false;
+
+  if (format === "fontSize") {
+    return !!marks.fontSize;
+  }
+
+  if (format === "highlight") {
+    return !!marks.highlight;
+  }
+
+  return marks[format] === true;
 };
+
+const setFontSize = (editor: Editor, size: string) => {
+  for (const [node, path] of Editor.nodes(editor, {
+    match: (n) => SlateText.isText(n),
+    universal: true,
+  })) {
+    Transforms.setNodes(
+      editor,
+      { fontSize: size },
+      { at: path },
+    );
+  }
+};
+
+const FontSizeButton = () => {
+  const editor = useSlate();
+  const marks = Editor.marks(editor);
+  const currentSize = parseInt(marks?.fontSize?.replace("px", "") || "16", 10);
+
+  const changeFontSize = (delta: number) => {
+    const newSize = Math.max(8, Math.min(72, currentSize + delta));
+    setFontSize(editor, `${newSize}px`);
+  };
+
+  return (
+    <div className="flex items-center">
+      <button
+        onMouseDown={(e) => {
+          e.preventDefault();
+          changeFontSize(-1);
+        }}
+        className="px-1.5 py-1 text-xs bg-gray-800 text-white rounded-l"
+      >
+        -
+      </button>
+      <span className="px-1.5 py-1 text-xs bg-gray-800 text-white border-x border-gray-700">
+        {currentSize}
+      </span>
+      <button
+        onMouseDown={(e) => {
+          e.preventDefault();
+          changeFontSize(1);
+        }}
+        className="px-1.5 py-1 text-xs bg-gray-800 text-white rounded-r"
+      >
+        +
+      </button>
+    </div>
+  );
+};
+
+
+
 
 export const toggleLink = (editor: Editor, url: string) => {
   const { selection } = editor;
@@ -192,12 +259,14 @@ const HoveringToolbar = () => {
       <FormatButton format="bold" label="B" />
       <FormatButton format="italic" label="I" />
       <FormatButton format="underline" label="U" />
+      <FormatButton format="highlight" label="🖍️" />
+      <FontSizeButton />
       <LinkButton /> 
       <CitationButton />
       
     </div>,
-    document.body
+    document.body,
   );
 };
 
-export default HoveringToolbar
+export default HoveringToolbar;

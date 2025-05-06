@@ -18,36 +18,46 @@ export interface RichTextEditorProps {
 
 // Text formatting
 const renderLeaf = (props: RenderLeafProps) => {
-  let { children, leaf } = props;
+  const { children, leaf } = props;
+  let styledChildren = children;
 
   if (leaf.bold) {
-    children = <strong>{children}</strong>;
+    styledChildren = <strong>{styledChildren}</strong>;
   }
   if (leaf.italic) {
-    children = <em>{children}</em>;
+    styledChildren = <em>{styledChildren}</em>;
   }
   if (leaf.underline) {
-    children = <u>{children}</u>;
+    styledChildren = <u>{styledChildren}</u>;
   }
-
   if (leaf.superscript) {
-    children = <sup>{children}</sup>;
+    styledChildren = <sup>{styledChildren}</sup>;
+  }
+  if (leaf.highlight) {
+    styledChildren = (
+      <span style={{ backgroundColor: "#FFF59D" }}>{styledChildren}</span>    
+    );
   }
 
   if (leaf.link) {
-    children = (
+    styledChildren = (
       <a
         href={leaf.link}
         target="_blank"
         rel="noopener noreferrer"
         className="text-blue-500 underline"
       >
-        {children}
+        {styledChildren}
       </a>
     );
   }
 
-  return <span {...props.attributes}>{children}</span>;
+  const style: React.CSSProperties = {};
+  if (leaf.fontSize) {
+    style.fontSize = leaf.fontSize;
+  }
+
+  return <span {...props.attributes} style={style}>{styledChildren}</span>;
 };
 
 // Main editor
@@ -61,6 +71,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange }) => {
         renderLeaf={renderLeaf}
         placeholder="Type something..."
         className="border-2 border-gray-300 rounded-lg p-3 min-h-[100px] focus:outline-none"
+        style={{ fontSize: "16px" }} // Default font size
       />
     </Slate>
   );

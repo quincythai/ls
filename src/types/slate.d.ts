@@ -10,5 +10,7 @@ declare module "slate" {
     subscript?: boolean;
     link?: string;
     citation?: string;
+    highlight?: boolean;
+    fontSize?: string;
   }
 }
