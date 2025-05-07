@@ -1,19 +1,14 @@
 import React, { useMemo } from "react";
-import {
-  Slate,
-  Editable,
-  withReact,
-  RenderLeafProps,
-} from "slate-react";
-import { createEditor,  Descendant } from "slate";
+import { Slate, Editable, withReact, RenderLeafProps } from "slate-react";
+import { createEditor, Descendant } from "slate";
 import { withHistory } from "slate-history";
 import HoveringToolbar from "./HoveringToolbar";
 
-
-// Props
 export interface RichTextEditorProps {
   value: Descendant[];
   onChange: (value: Descendant[]) => void;
+  className?: string;
+  readOnly?: boolean;
 }
 
 // Text formatting
@@ -38,7 +33,6 @@ const renderLeaf = (props: RenderLeafProps) => {
       <span style={{ backgroundColor: "#FFF59D" }}>{styledChildren}</span>    
     );
   }
-
   if (leaf.link) {
     styledChildren = (
       <a
@@ -60,18 +54,23 @@ const renderLeaf = (props: RenderLeafProps) => {
   return <span {...props.attributes} style={style}>{styledChildren}</span>;
 };
 
-// Main editor
-const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange }) => {
+const RichTextEditor: React.FC<RichTextEditorProps> = ({
+  value,
+  onChange,
+  className,
+  readOnly = false,
+}) => {
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
   return (
     <Slate editor={editor} initialValue={value} onChange={onChange}>
-      <HoveringToolbar />
+      {!readOnly && <HoveringToolbar />} {/* Hide toolbar in preview mode */}
       <Editable
         renderLeaf={renderLeaf}
         placeholder="Type something..."
-        className="border-2 border-gray-300 rounded-lg p-3 min-h-[100px] focus:outline-none"
-        style={{ fontSize: "16px" }} // Default font size
+        className={className}
+        style={{ fontSize: "16px" }} // default font size
+        readOnly={readOnly}
       />
     </Slate>
   );

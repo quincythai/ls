@@ -1,19 +1,19 @@
-import { RentBurdenChart } from "@/components/ui/RentBurdenChart";
-import { type RentBurdenData } from "@/utils/sharedUtils";
+import { RentBurdenData } from "@/utils/sharedUtils";
+import { RentBurdenChart } from "./RentBurdenChart";
 
 interface ChartSectionProps {
-  rentData?: RentBurdenData[];
+  rentData: RentBurdenData[];
+  onChartImageGenerated?: (image: string) => void;
 }
 
-export const ChartSection = ({ rentData }: ChartSectionProps) => {
+export const ChartSection = ({ rentData, onChartImageGenerated }: ChartSectionProps) => {
   return (
-    <div className="mt-8 pt-8 border-t-2 border-neutral-200">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-xl font-semibold mb-4">Rent Burden by Income Level</h2>
-        <div className="border border-red-600 p-0">
-          <RentBurdenChart data={rentData} />
-        </div>
-      </div>
+    <div>
+      <RentBurdenChart 
+        data={rentData} 
+        showImageOnly={false} 
+        onChartImageGenerated={onChartImageGenerated}
+      />
     </div>
   );
 };

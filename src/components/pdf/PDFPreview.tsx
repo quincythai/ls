@@ -1,19 +1,43 @@
 import { PDFViewer } from "@react-pdf/renderer";
-import Template from "./Template";
-import { Template1Colors, Template1CoverPageContent } from "@/types/PageConfigs/Template1Config";
+import { pageRegistry } from "@/types/templateConfig";
+import {
+  Template1CoverPageContent,
+} from "@/types/PageConfigs/Template1Config";
+import { PageContent } from "@/types/templateConfig";
+import { Document } from "@react-pdf/renderer";
+import { TemplateColors } from "@/types/templateConfig";
+
 
 interface PDFPreviewProps {
-  config: Template1CoverPageContent;
-  templateColors : Template1Colors;
+  pages: PageContent[];
+  templateColors: TemplateColors;
 }
 
-const PDFPreview = ({ config, templateColors }: PDFPreviewProps) => {
-  console.log("PDFPreview rendering...");
+const PDFPreview = ({ pages, templateColors }: PDFPreviewProps) => {
+  if (!pages || pages.length === 0) {
+    return <div className="p-4 text-center">No pages to preview.</div>;
+  }
+
+  console.log("PDFPreview pages:", pages);
 
   return (
     <div className="w-full h-full">
       <PDFViewer className="w-full h-full">
-        <Template config={config} templateColors={templateColors}/>
+        <Document>
+
+          {pages.map((page, idx) => {
+            const Component = pageRegistry[page.type]
+              .renderer as React.ComponentType<any>;
+
+            return (
+              <Component
+                key={idx}
+                config={page.content}
+                templateColors={templateColors}
+              />
+            );
+          })}
+        </Document>
       </PDFViewer>
     </div>
   );

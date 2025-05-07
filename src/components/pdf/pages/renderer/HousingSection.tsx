@@ -1,15 +1,16 @@
 import { Page, View, Text, Image, Svg, Path } from "@react-pdf/renderer";
 import { tw } from "@/utils/pdf-theme";
 import { serializeToPDFText } from "@/utils/pdf-serializer";
-import StatBox from "../StatBox";
-import { Highlight } from "../Highlight";
+import StatBox from "../../StatBox";
+import { Highlight } from "../../Highlight";
 import { HousingSectionContent } from "@/types/PageConfigs/HousingConfig";
-
+import { TemplateColors } from "@/types/templateConfig";
 interface HousingSectionProps {
   config: HousingSectionContent;
+  templateColors?: TemplateColors; 
 }
 
-const HousingSection = ({ config }: HousingSectionProps) => (
+const HousingSection = ({ config, templateColors }: HousingSectionProps) => (
   <Page size="A4" style={tw("flex flex-col bg-background px-10 pt-10 pb-4")}>
     {/* Header */}
     <View style={tw("flex flex-row justify-between items-start")}>

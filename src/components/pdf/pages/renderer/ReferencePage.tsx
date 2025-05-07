@@ -1,13 +1,14 @@
 import { Page, View, Text, Svg, Path, Image } from "@react-pdf/renderer";
-import { tw } from "../../utils/pdf-theme";
+import { tw } from "../../../../utils/pdf-theme";
 import { serializeToPDFText } from "@/utils/pdf-serializer";
 import { ReferencePageContent } from "@/types/PageConfigs/ReferenceConfig";
-
+import { TemplateColors } from "@/types/templateConfig";
 interface Props {
   config: ReferencePageContent;
+  templateColors?: TemplateColors; // Optional prop for template colors
 }
 
-const ReferencePage = ({ config }: Props) => (
+const ReferencePage = ({ config, templateColors }: Props) => (
   <Page size="A4" style={tw("flex flex-col bg-background px-10 pt-10 pb-4")}>
     <View style={tw("relative flex-1")}>
       {/* Colored top bars */}

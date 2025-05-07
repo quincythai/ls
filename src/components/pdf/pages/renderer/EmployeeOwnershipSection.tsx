@@ -1,16 +1,18 @@
 import { Page, View, Text, Image, Svg, Path } from "@react-pdf/renderer";
 import { tw } from "@/utils/pdf-theme";
 import { serializeToPDFText } from "@/utils/pdf-serializer";
-import StatBox from "../StatBox";
-import { Highlight } from "../Highlight";
+import StatBox from "../../StatBox";
+import { Highlight } from "../../Highlight";
 import { EmployeeOwnershipSectionContent } from "@/types/PageConfigs/EmployeeOwnershipConfig";
+import { TemplateColors } from "@/types/templateConfig";
 
 interface EmployeeOwnershipSectionProps {
   config: EmployeeOwnershipSectionContent;
+  templateColors?: TemplateColors
 }
 
 const EmployeeOwnershipSection = ({
-  config,
+  config, templateColors
 }: EmployeeOwnershipSectionProps) => (
   <Page size="A4" style={tw("flex flex-col bg-background px-10 pt-10 pb-4")}>
     {/* Header */}

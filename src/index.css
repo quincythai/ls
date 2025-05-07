@@ -14,14 +14,19 @@
   --color-lafayette-900: #0f202b;
   --color-lafayette-950: #13202a;
   --color-olive-200: #cee4c4;
+  --color-olive-300: #b0d4a0;
   --color-navyish-200: #bfd8e9;
+  --color-navyish-300: #93b7ce;
+  --color-cyanish-200: #c2eae6;
+  --color-cyanish-300: #65d4cc;
 }
 
-.highlight-lafayette-100 {
+/* class for report highlight color (derived from Base) */
+.highlight-base-light { 
   background-image: linear-gradient(
     to bottom,
     transparent 50%,
-    var(--color-lafayette-100) 50%
+    var(--highlight) 50%
   );
 }
 

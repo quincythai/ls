@@ -1,23 +1,46 @@
 import { Icon } from "@iconify/react";
 import { Typography, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { useState } from "react";
+import { ReportBuilderState, PageContent, PageType, templates, pageRegistry, pageTypeToLabel, sectionLabelToPageType } from "@/types/templateConfig";
 
-const sectionsToAdd = [
-  "Affordable Housing",
-  "Employee Ownership",
-  "Education",
-  "Environment",
-];
+interface AddSectionsProps {
+  reportState: ReportBuilderState;
+  setReportState: React.Dispatch<React.SetStateAction<ReportBuilderState>>;
+}
 
-export const AddSections = () => {
-  const [sections, setSections] = useState<string[]>([]);
+// Helper to create a PageContent object
+function createPage<K extends PageType>(type: K): Extract<PageContent, { type: K }> {
+  return {
+    type,
+    content: pageRegistry[type].defaultContent,
+  } as Extract<PageContent, { type: K }>;
+}
 
-  function handleChange(_event: React.MouseEvent<HTMLElement>, value: string[]) {
-    if (value.length > 3) {
-      value.shift();
-    }
-    setSections(value);
-  }
+export const AddSections = ({ reportState, setReportState }: AddSectionsProps) => {
+  const template = templates.find(t => t.id === reportState.templateId);
+  if (!template) return null;
+
+  const allowedSections = template.allowedSections;
+  const maxSections = template.maxSections;
+
+  const selectedLabels = reportState.selectedSections.map(pt => pageTypeToLabel[pt]);
+
+  const handleChange = (_event: React.MouseEvent<HTMLElement>, newLabels: string[]) => {
+    const newPageTypes = newLabels.map(label => sectionLabelToPageType[label]);
+
+    if (newPageTypes.length > maxSections) return;
+
+    const newPages: PageContent[] = [
+      reportState.pages[0], // cover
+      ...newPageTypes.map(type => createPage(type)),
+      reportState.pages.at(-1)!, // reference
+    ];
+
+    setReportState({
+      ...reportState,
+      selectedSections: newPageTypes,
+      pages: newPages,
+    });
+  };
 
   return (
     <>
@@ -28,42 +51,28 @@ export const AddSections = () => {
         <div className="flex items-center gap-2 text-neutral-500">
           <Icon icon="mdi:information-outline" className="size-6" />
           <Typography variant="body2">
-            Select up to 3
+            Select up to {maxSections}
           </Typography>
         </div>
       </header>
+
       <div className="bg-white rounded-lg border-2 border-neutral-200 px-20 py-9 flex flex-col gap-5">
-        {/* <button className="flex items-center gap-2 border-2 border-neutral-200 px-4 py-5 justify-center font-bold hover:bg-muted cursor-pointer">
-          <Icon icon="iconoir:plus" className="size-6" />
-          Affordable Housing
-        </button>
-        <button className="flex items-center gap-2 border-2 border-neutral-200 px-4 py-5 justify-center font-bold hover:bg-muted cursor-pointer">
-          <Icon icon="iconoir:plus" className="size-6" />
-          Employee Ownership
-        </button>
-        <button className="flex items-center gap-2 border-2 border-neutral-200 px-4 py-5 justify-center font-bold hover:bg-muted cursor-pointer">
-          <Icon icon="iconoir:plus" className="size-6" />
-          Employee Ownership
-        </button>
-        <button className="flex items-center gap-2 border-2 border-neutral-200 px-4 py-5 justify-center font-bold hover:bg-muted cursor-pointer">
-          <Icon icon="iconoir:plus" className="size-6" />
-          Employee Ownership
-        </button> */}
         <ToggleButtonGroup
-          value={sections}
+          value={selectedLabels}
           onChange={handleChange}
           aria-label="sections"
           className="w-full"
         >
-          {sectionsToAdd.map((section) => (
-            <ToggleButton value={section} className="space-x-2 group">
-              <Icon icon="iconoir:minus" className="size-6 group-[.Mui-selected]:block hidden" />
-              <Icon icon="iconoir:plus" className="size-6 group-[.Mui-selected]:hidden" />
-              <span>
-                {section}
-              </span>
-            </ToggleButton>
-          ))}
+          {allowedSections.map((pageType) => {
+            const label = pageTypeToLabel[pageType];
+            return (
+              <ToggleButton key={pageType} value={label} className="space-x-2 group">
+                <Icon icon="iconoir:minus" className="size-6 group-[.Mui-selected]:block hidden" />
+                <Icon icon="iconoir:plus" className="size-6 group-[.Mui-selected]:hidden" />
+                <span>{label}</span>
+              </ToggleButton>
+            );
+          })}
         </ToggleButtonGroup>
       </div>
     </>
