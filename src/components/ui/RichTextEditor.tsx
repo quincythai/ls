@@ -13,34 +13,45 @@ export interface RichTextEditorProps {
 
 // Text formatting
 const renderLeaf = (props: RenderLeafProps) => {
-  let { children, leaf } = props;
+  const { children, leaf } = props;
+  let styledChildren = children;
 
   if (leaf.bold) {
-    children = <strong>{children}</strong>;
+    styledChildren = <strong>{styledChildren}</strong>;
   }
   if (leaf.italic) {
-    children = <em>{children}</em>;
+    styledChildren = <em>{styledChildren}</em>;
   }
   if (leaf.underline) {
-    children = <u>{children}</u>;
+    styledChildren = <u>{styledChildren}</u>;
   }
   if (leaf.superscript) {
-    children = <sup>{children}</sup>;
+    styledChildren = <sup>{styledChildren}</sup>;
+  }
+  if (leaf.highlight) {
+    styledChildren = (
+      <span style={{ backgroundColor: "#FFF59D" }}>{styledChildren}</span>    
+    );
   }
   if (leaf.link) {
-    children = (
+    styledChildren = (
       <a
         href={leaf.link}
         target="_blank"
         rel="noopener noreferrer"
         className="text-blue-500 underline"
       >
-        {children}
+        {styledChildren}
       </a>
     );
   }
 
-  return <span {...props.attributes}>{children}</span>;
+  const style: React.CSSProperties = {};
+  if (leaf.fontSize) {
+    style.fontSize = leaf.fontSize;
+  }
+
+  return <span {...props.attributes} style={style}>{styledChildren}</span>;
 };
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({
@@ -58,7 +69,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         renderLeaf={renderLeaf}
         placeholder="Type something..."
         className={className}
-        readOnly={readOnly} // <-- Pass to Slate
+        style={{ fontSize: "16px" }} // default font size
+        readOnly={readOnly}
       />
     </Slate>
   );
